@@ -1,0 +1,31 @@
+{
+  "name": "hexo-theme-colos",
+  "version": "0.1.0-alpha.1",
+  "description": "A material design theme for Hexo",
+  "main": "",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ahaasler/hexo-theme-colos"
+  },
+  "keywords": [
+    "hexo",
+    "theme",
+    "colos",
+    "material"
+  ],
+  "author": "Adrian Haasler García",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ahaasler/hexo-theme-colos/issues"
+  },
+  "homepage": "https://github.com/ahaasler/hexo-theme-colos",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-build-control": "^0.4.0",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-copy": "^0.8.0"
+  }
+}
