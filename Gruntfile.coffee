@@ -1,6 +1,12 @@
 module.exports = (grunt) ->
 
   grunt.initConfig
+    gitinfo:
+      local:
+        branch:
+          current:
+            SHA               : ''
+            lastCommitMessage : ''
     copy:
       docs:
         files: [
@@ -13,7 +19,7 @@ module.exports = (grunt) ->
         dir: '.theme'
         commit: true
         push: true
-        message: grunt.option('commit') || 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
+        message: grunt.option('commit') || '<%= gitinfo.local.branch.current.lastCommitMessage.replace(/^\"/g, \'\').replace(/\"$/g, \'\') %>\n\nBuilt from <%= gitinfo.local.branch.current.SHA %>.'
       release:
         options:
           remote: 'git@github.com:ahaasler/hexo-theme-colos.git',
@@ -21,6 +27,8 @@ module.exports = (grunt) ->
 
   grunt.loadNpmTasks 'grunt-build-control'
   grunt.loadNpmTasks 'grunt-contrib-copy'
+  grunt.loadNpmTasks 'grunt-gitinfo'
 
-  grunt.registerTask 'default', ['copy']
-  grunt.registerTask 'release', ['copy', 'buildcontrol']
+  grunt.registerTask 'build', ['copy']
+  grunt.registerTask 'release', ['gitinfo', 'buildcontrol']
+  grunt.registerTask 'default', ['build']
