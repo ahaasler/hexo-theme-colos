@@ -3,7 +3,7 @@ node_js:
 - 0.10
 install: npm install
 script: grunt build
-after_success: '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "develop" ] && grunt build release || false'
+after_success: '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "develop" ] && grunt release || false'
 branches:
   except:
   - master
