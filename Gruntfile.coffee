@@ -20,10 +20,15 @@ module.exports = (grunt) ->
         commit: true
         push: true
         message: grunt.option('commit') || '<%= gitinfo.local.branch.current.lastCommitMessage.replace(/^\"/g, \'\').replace(/\"$/g, \'\') %>\n\nBuilt from <%= gitinfo.local.branch.current.SHA %>.'
+        config:
+          'user.name': process.env.GIT_NAME
+          'user.email': process.env.GIT_EMAIL
       release:
         options:
-          remote: 'git@github.com:ahaasler/hexo-theme-colos.git',
+          remote: 'https://github.com/ahaasler/hexo-theme-colos.git',
           branch: 'master'
+          login: process.env.GH_LOGIN
+          token: process.env.GH_TOKEN
 
   grunt.loadNpmTasks 'grunt-build-control'
   grunt.loadNpmTasks 'grunt-contrib-copy'
