@@ -4,6 +4,18 @@ Colos: A material design theme for Hexo
 [![Build status](https://travis-ci.org/ahaasler/hexo-theme-colos.svg?branch=develop)](https://travis-ci.org/ahaasler/hexo-theme-colos)
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
 
+*Colos* is a minimal, multilingual theme for *[Hexo](http://hexo.io/ "A fast, simple & powerful blog framework")*.
+
+Features
+--------
+
+### To do
+
+- Multilingual support.
+- Material design.
+- Color everywhere!
+- Different layouts.
+
 Contribute
 ----------
 
