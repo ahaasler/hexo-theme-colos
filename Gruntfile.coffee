@@ -14,6 +14,12 @@ module.exports = (grunt) ->
           src: ['LICENSE', 'README.md']
           dest: '.theme'
         ]
+      theme:
+        files: [
+          expand: true
+          src: ['layout/**']
+          dest: '.theme'
+        ]
     buildcontrol:
       options:
         dir: '.theme'
