@@ -4,5 +4,6 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<title>{% if page.title %}{{ page.title }} | {% endif %}{{ config.title }}</title>
 	<meta name="description" content="{{ config.description }}">
+	<meta name="generator" content="Hexo v{{ env.version }}">
 	<link rel="canonical" href="{{ url | replace('index.html', '') }}">
 </head>
