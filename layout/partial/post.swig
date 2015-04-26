@@ -13,7 +13,7 @@
 		{% if is_post() %}
 			{{ post.content }}
 		{% else %}
-			{{ post.excerpt || post.content | truncate(140) }}
+			{{ post.excerpt || post.content | striptags | truncate(140) }}
 		{% endif %}
 	</div>
 </article>
