@@ -1,3 +1,5 @@
+themeFiles = ['layout/**']
+
 module.exports = (grunt) ->
 
   grunt.initConfig
@@ -17,9 +19,13 @@ module.exports = (grunt) ->
       theme:
         files: [
           expand: true
-          src: ['layout/**']
+          src: themeFiles
           dest: '.theme'
         ]
+    watch:
+      theme:
+        files: themeFiles
+        tasks: ['copy:theme']
     buildcontrol:
       options:
         dir: '.theme'
@@ -38,8 +44,9 @@ module.exports = (grunt) ->
 
   grunt.loadNpmTasks 'grunt-build-control'
   grunt.loadNpmTasks 'grunt-contrib-copy'
+  grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-gitinfo'
 
   grunt.registerTask 'build', ['copy']
   grunt.registerTask 'release', ['gitinfo', 'buildcontrol']
-  grunt.registerTask 'default', ['build']
+  grunt.registerTask 'default', ['build', 'watch']
