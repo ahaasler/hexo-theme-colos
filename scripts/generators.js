@@ -2,7 +2,11 @@ var pagination = require('hexo-pagination');
 
 hexo.extend.generator.register('category', function(locals){
   var config = this.config;
-  var perPage = config.category_generator.per_page;
+  if (config.category_generator) {
+    var perPage = config.category_generator.per_page;
+  } else {
+    var perPage = 10;
+  }
   var paginationDir = config.pagination_dir || 'page';
 
   return locals.categories.reduce(function(result, category){
