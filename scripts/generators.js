@@ -19,7 +19,7 @@ hexo.extend.generator.register('category', function(locals){
         data: {
           posts: getCategoryByName(locals.categories, data.category).posts
         },
-        layout: ['archive', 'index']
+        layout: ['category', 'archive', 'index']
       });
     });
   });
