@@ -17,6 +17,8 @@ hexo.extend.generator.register('category', function(locals){
       result = result.concat({
         path: lang + '/' + data.slug + '/index.html',
         data: {
+          lang: lang,
+          title: data.name,
           posts: getCategoryByName(locals.categories, data.category).posts
         },
         layout: ['category', 'archive', 'index']
