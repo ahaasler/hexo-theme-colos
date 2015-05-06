@@ -14,15 +14,17 @@ hexo.extend.generator.register('category', function(locals){
 
   _.each(categories, function(data, title) {
     _.each(data, function(data, lang) {
-      result = result.concat({
-        path: lang + '/' + data.slug + '/index.html',
-        data: {
-          lang: lang,
-          title: data.name,
-          posts: getCategoryByName(locals.categories, data.category).posts
-        },
-        layout: ['category', 'archive', 'index']
-      });
+      result = result.concat(
+        pagination(lang + '/' + data.slug, getCategoryByName(locals.categories, data.category).posts, {
+          perPage: perPage,
+          layout: ['category', 'archive', 'index'],
+          format: paginationDir + '/%d/',
+          data: {
+            lang: lang,
+            title: data.name
+          }
+        })
+      );
     });
   });
 
