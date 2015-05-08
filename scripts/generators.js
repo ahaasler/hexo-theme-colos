@@ -21,7 +21,8 @@ hexo.extend.generator.register('category', function(locals){
           format: paginationDir + '/%d/',
           data: {
             lang: lang,
-            title: data.name
+            title: data.name,
+            category: data.category
           }
         })
       );
