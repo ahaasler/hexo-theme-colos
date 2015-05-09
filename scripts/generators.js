@@ -12,8 +12,8 @@ hexo.extend.generator.register('category', function(locals){
   var paginationDir = config.pagination_dir || 'page';
   var result = [];
 
-  _.each(categories, function(data, title) {
-    _.each(data, function(data, lang) {
+  _.each(categories, function(category, title) {
+    _.each(category, function(data, lang) {
       result = result.concat(
         pagination(lang + '/' + data.slug, getCategoryByName(locals.categories, data.category).posts, {
           perPage: perPage,
@@ -22,7 +22,8 @@ hexo.extend.generator.register('category', function(locals){
           data: {
             lang: lang,
             title: data.name,
-            category: data.category
+            category: data.category,
+            alternates: getAlternateLangs(category, lang)
           }
         })
       );
@@ -36,4 +37,17 @@ function getCategoryByName(categories, name) {
   return categories.toArray().filter(function(category){
     return category.name == name;
   })[0];
+}
+
+function getAlternateLangs(category, currentLang) {
+  var result = [];
+  _.each(category, function(data, lang) {
+    if (currentLang != lang) {
+      result.push({
+        lang: lang,
+        path: lang + '/' + data.slug
+      });
+    }
+  });
+  return result;
 }
