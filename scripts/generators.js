@@ -33,6 +33,35 @@ hexo.extend.generator.register('category', function(locals){
   return result;
 });
 
+hexo.extend.generator.register('posts', function(locals) {
+  var posts = locals.posts.sort('-date').toArray();
+  var length = posts.length;
+
+  return posts.map(function(post, i){
+    var layout = post.layout;
+    var path = post.path;
+
+    if (!layout || layout === 'false'){
+      return {
+        path: path,
+        data: post.content
+      };
+    } else {
+      if (i) post.prev = posts[i - 1];
+      if (i < length - 1) post.next = posts[i + 1];
+
+      var layouts = ['post', 'page', 'index'];
+      if (layout !== 'post') layouts.unshift(layout);
+
+      return {
+        path: path,
+        layout: layouts,
+        data: post
+      };
+    }
+  });
+});
+
 function getCategoryByName(categories, name) {
   return categories.toArray().filter(function(category){
     return category.name == name;
