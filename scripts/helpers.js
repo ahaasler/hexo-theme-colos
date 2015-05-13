@@ -27,7 +27,8 @@ hexo.extend.helper.register('get_categories_for_lang', function(lang) {
 		_.each(category, function(data, categoryLang) {
 			if (lang == categoryLang) {
 				result = result.concat({
-					title: data.name
+					title: data.name,
+					path: lang + '/' + data.slug
 				});
 			}
 		});
