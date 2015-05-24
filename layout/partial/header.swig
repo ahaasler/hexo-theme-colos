@@ -8,5 +8,12 @@
 				<li class="category-list-item"><a class="category-list-link" href="{{ url_for(category.path) }}">{{ category.title }}</a></li>
 			{% endfor %}
 		</ul>
+		<nav id="language">
+			{% for alternate in _.sortBy(page.alternates, 'lang') %}
+				<a href="{{ url_for(alternate.path) }}" hreflang="{{ alternate.lang }}" title="{{ alternate.title }}">
+					{{ alternate.lang }}
+				</a>
+			{% endfor %}
+		</nav>
 	</div>
 </header>
