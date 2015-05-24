@@ -15,7 +15,8 @@ hexo.extend.generator.register('category', function(locals) {
 	_.each(categories, function(category, title) {
 		_.each(category, function(data, lang) {
 			result = result.concat(
-				pagination(lang + '/' + data.slug, getCategoryByName(locals.categories,
+				pagination(lang + '/' + data.slug, getCategoryByName(
+					locals.categories,
 					data.category).posts, {
 					perPage: perPage,
 					layout: ['category', 'archive', 'index'],
@@ -78,6 +79,7 @@ function getAlternateLangs(category, currentLang) {
 	_.each(category, function(data, lang) {
 		if (currentLang != lang) {
 			result.push({
+				title: data.name,
 				lang: lang,
 				path: lang + '/' + data.slug
 			});
@@ -94,6 +96,7 @@ function getAlternatePosts(posts, label, currentLang) {
 	_.each(alternates, function(post) {
 		if (currentLang != post.lang) {
 			result.push({
+				title: post.title,
 				lang: post.lang,
 				path: post.path
 			});
