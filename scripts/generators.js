@@ -68,6 +68,30 @@ hexo.extend.generator.register('posts', function(locals) {
 	});
 });
 
+hexo.extend.generator.register('index', function(locals) {
+	var result = [];
+	var config = this.config;
+	_.each(config.language, function(lang) {
+		if (lang != 'default') {
+			result = result.concat(
+				pagination(lang, locals.posts.sort('-date').toArray().filter(
+					function(post) {
+						return post.lang == lang;
+					}), {
+					perPage: config.per_page,
+					layout: ['index'],
+					format: '/%d/',
+					data: {
+						lang: lang,
+						title: config.title
+					}
+				})
+			);
+		}
+	});
+	return result;
+});
+
 function getCategoryByName(categories, name) {
 	return categories.toArray().filter(function(category) {
 		return category.name == name;
