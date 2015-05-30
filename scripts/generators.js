@@ -71,7 +71,18 @@ hexo.extend.generator.register('posts', function(locals) {
 hexo.extend.generator.register('index', function(locals) {
 	var result = [];
 	var config = this.config;
-	_.each(config.language, function(lang) {
+	_.forEach(config.language, function(lang, n) {
+		if (n == 0) {
+			result = result.concat(
+				{
+					path: '',
+					data: {
+						redirect: lang
+					},
+					layout: ['redirect']
+				}
+			);
+		}
 		if (lang != 'default') {
 			result = result.concat(
 				pagination(lang, locals.posts.sort('-date').toArray().filter(
