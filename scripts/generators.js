@@ -94,7 +94,8 @@ hexo.extend.generator.register('index', function(locals) {
 					format: '/%d/',
 					data: {
 						lang: lang,
-						title: config.title
+						title: config.title,
+						alternates: getAlternateIndices(config, lang)
 					}
 				})
 			);
@@ -134,6 +135,20 @@ function getAlternatePosts(posts, label, currentLang) {
 				title: post.title,
 				lang: post.lang,
 				path: post.path
+			});
+		}
+	});
+	return result;
+}
+
+function getAlternateIndices(config, currentLang) {
+	var result = [];
+	_.each(config.language, function(lang) {
+		if (currentLang != lang && lang != 'default') {
+			result.push({
+				title: config.title,
+				lang: lang,
+				path: lang
 			});
 		}
 	});
