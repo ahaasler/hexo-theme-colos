@@ -1,2 +1,6 @@
 .theme
 node_modules
+*~
+*.swp
+*.swo
+
