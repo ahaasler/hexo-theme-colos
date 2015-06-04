@@ -144,7 +144,7 @@ function getAlternatePosts(posts, label, currentLang) {
 function getAlternateIndices(config, currentLang) {
 	var result = [];
 	_.each(config.language, function(lang) {
-		if (currentLang != lang && lang != 'default') {
+		if (lang != 'default') {
 			result.push({
 				title: config.title,
 				lang: lang,
