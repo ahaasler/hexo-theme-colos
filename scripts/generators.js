@@ -126,17 +126,15 @@ function getAlternateLangs(category, currentLang) {
 
 function getAlternatePosts(posts, label, currentLang) {
 	var alternates = posts.filter(function(post) {
-		return post.label == label && post.lang != currentLang;
+		return post.label == label;
 	});
 	var result = [];
 	_.each(alternates, function(post) {
-		if (currentLang != post.lang) {
-			result.push({
-				title: post.title,
-				lang: post.lang,
-				path: post.path
-			});
-		}
+		result.push({
+			title: post.title,
+			lang: post.lang,
+			path: post.path
+		});
 	});
 	return result;
 }
