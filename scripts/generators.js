@@ -25,7 +25,7 @@ hexo.extend.generator.register('category', function(locals) {
 						lang: lang,
 						title: data.name,
 						category: data.category,
-						alternates: getAlternateLangs(category, lang)
+						alternates: getAlternateCategories(category)
 					}
 				})
 			);
@@ -110,16 +110,14 @@ function getCategoryByName(categories, name) {
 	})[0];
 }
 
-function getAlternateLangs(category, currentLang) {
+function getAlternateCategories(category) {
 	var result = [];
 	_.each(category, function(data, lang) {
-		if (currentLang != lang) {
-			result.push({
-				title: data.name,
-				lang: lang,
-				path: lang + '/' + data.slug
-			});
-		}
+		result.push({
+			title: data.name,
+			lang: lang,
+			path: lang + '/' + data.slug
+		});
 	});
 	return result;
 }
