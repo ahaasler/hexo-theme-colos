@@ -56,7 +56,7 @@ hexo.extend.generator.register('posts', function(locals) {
 			if (layout !== 'post') layouts.unshift(layout);
 
 			if (post.label && post.lang) {
-				post.alternates = getAlternatePosts(posts, post.label, post.lang)
+				post.alternates = getAlternatePosts(posts, post.label)
 			}
 
 			return {
@@ -95,7 +95,7 @@ hexo.extend.generator.register('index', function(locals) {
 					data: {
 						lang: lang,
 						title: config.title,
-						alternates: getAlternateIndices(config, lang)
+						alternates: getAlternateIndices(config)
 					}
 				})
 			);
@@ -122,7 +122,7 @@ function getAlternateCategories(category) {
 	return result;
 }
 
-function getAlternatePosts(posts, label, currentLang) {
+function getAlternatePosts(posts, label) {
 	var alternates = posts.filter(function(post) {
 		return post.label == label;
 	});
@@ -137,7 +137,7 @@ function getAlternatePosts(posts, label, currentLang) {
 	return result;
 }
 
-function getAlternateIndices(config, currentLang) {
+function getAlternateIndices(config) {
 	var result = [];
 	_.each(config.language, function(lang) {
 		if (lang != 'default') {
