@@ -7,6 +7,8 @@
 	<meta name="generator" content="Hexo v{{ env.version }}">
 	<link rel="canonical" href="{{ url | replace('index.html', '') }}">
 	{% for alternate in page.alternates %}
-		<link rel="alternate" href="{{ url_for(alternate.path) }}" hreflang="{{ alternate.lang }}" />
+		{% if alternate.lang != page.lang %}
+			<link rel="alternate" href="{{ url_for(alternate.path) }}" hreflang="{{ alternate.lang }}" />
+		{% endif %}
 	{% endfor %}
 </head>
