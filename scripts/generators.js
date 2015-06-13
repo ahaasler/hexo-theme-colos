@@ -107,16 +107,22 @@ hexo.extend.generator.register('index', function(locals) {
 hexo.extend.generator.register('feed', function(locals) {
 	var result = [];
 	var config = this.config;
-	result.push(
-		{
-			path: 'feed.xml',
-			data: {
-				title: config.title,
-				posts: locals.posts
-			},
-			layout: ['rss2']
+	_.forEach(config.language, function(lang) {
+		if (lang != 'default') {
+			result.push(
+				{
+					path: lang + '/feed.xml',
+					data: {
+						title: config.title,
+						posts: locals.posts.sort('-date').filter(function(post) {
+							return post.lang == lang;
+						})
+					},
+					layout: ['rss2']
+				}
+			)
 		}
-	)
+	});
 	return result;
 });
 
