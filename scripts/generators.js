@@ -104,6 +104,22 @@ hexo.extend.generator.register('index', function(locals) {
 	return result;
 });
 
+hexo.extend.generator.register('feed', function(locals) {
+	var result = [];
+	var config = this.config;
+	result.push(
+		{
+			path: 'feed.xml',
+			data: {
+				title: config.title,
+				posts: locals.posts
+			},
+			layout: ['rss2']
+		}
+	)
+	return result;
+});
+
 function getCategoryByName(categories, name) {
 	return categories.toArray().filter(function(category) {
 		return category.name == name;
