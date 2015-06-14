@@ -9,7 +9,8 @@ layout: false
 		<atom:link href="{{ encodeURI(url + page.path) }}" rel="self" type="application/rss+xml"/>
 		<description>{{ config.description | escape('xml') }}</description>
 		<language>{{ page.lang }}</language>
-		<pubDate>{{ page.posts.first().updated.toDate().toUTCString() }}</pubDate>
+		<pubDate>{{ page.posts.first().date.toDate().toUTCString() }}</pubDate>
+		<lastBuildDate>{{ page.posts.first().updated.toDate().toUTCString() }}</lastBuildDate>
 		<generator>Hexo v{{ env.version }}</generator>
 		{% for post in page.posts %}
 		<item>
