@@ -31,6 +31,9 @@ layout: false
 			{% for category in post.categories %}
 				<category>{{ category.name | escape('xml') }}</category>
 			{% endfor %}
+			{% for tag in post.tags %}
+				<category>{{ tag.name | escape('xml') }}</category>
+			{% endfor %}
 			{% if post.comments %}<comments>{{ encodeURI(url + post.path) }}#disqus_comments</comments>{% endif %}
 		</item>
 		{% endfor %}
