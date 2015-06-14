@@ -28,6 +28,9 @@ layout: false
 			{% endif %}
 			</description>
 			<content:encoded>{{ post.content | escape('xml') }}</content:encoded>
+			{% for category in post.categories %}
+				<category>{{ category.name | escape('xml') }}</category>
+			{% endfor %}
 			{% if post.comments %}<comments>{{ encodeURI(url + post.path) }}#disqus_comments</comments>{% endif %}
 		</item>
 		{% endfor %}
