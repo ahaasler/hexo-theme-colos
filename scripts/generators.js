@@ -114,6 +114,7 @@ hexo.extend.generator.register('feed', function(locals) {
 					path: lang + '/feed.xml',
 					data: {
 						title: config.title,
+						lang: lang,
 						posts: locals.posts.sort('-date').filter(function(post) {
 							return post.lang == lang;
 						})
