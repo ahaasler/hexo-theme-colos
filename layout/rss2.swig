@@ -6,7 +6,7 @@ layout: false
 		{% set url = config.url + config.root %}
 		<title>{{ config.title | escape('xml') }}</title>
 		<link>{{ encodeURI(url + page.lang) }}/</link>
-		<atom:link href="{{ encodeURI(feed_url) }}" rel="self" type="application/rss+xml"/>
+		<atom:link href="{{ encodeURI(url + page.path) }}" rel="self" type="application/rss+xml"/>
 		<description>{{ config.description | escape('xml') }}</description>
 		<language>{{ page.lang }}</language>
 		<pubDate>{{ page.posts.first().updated.toDate().toUTCString() }}</pubDate>
