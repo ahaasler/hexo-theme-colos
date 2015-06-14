@@ -115,7 +115,7 @@ hexo.extend.generator.register('feed', function(locals) {
 					data: {
 						title: config.title,
 						lang: lang,
-						posts: locals.posts.sort('-date').filter(function(post) {
+						posts: locals.posts.sort('-updated').filter(function(post) {
 							return post.lang == lang;
 						})
 					},
