@@ -35,3 +35,7 @@ hexo.extend.helper.register('get_categories_for_lang', function(lang) {
 	});
 	return result;
 });
+
+hexo.extend.helper.register('_c', function(string) {
+	return this.site.data['config_' + this.page.lang][string] || this.config[string];
+});
