@@ -176,5 +176,8 @@ function getAlternateIndices(context) {
 }
 
 function _c(string, lang, context) {
-	return context.locals.data['config_' + lang][string] || context.config[string];
+	if (context.locals.data['config_' + lang] != null) {
+		return context.locals.data['config_' + lang][string] || context.config[string];
+	}
+	return context.config[string];
 }
