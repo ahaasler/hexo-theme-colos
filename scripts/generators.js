@@ -70,8 +70,9 @@ hexo.extend.generator.register('posts', function(locals) {
 
 hexo.extend.generator.register('index', function(locals) {
 	var result = [];
-	var config = this.config;
-	_.forEach(config.language, function(lang, n) {
+	var context = this;
+	context.locals = locals;
+	_.forEach(context.config.language, function(lang, n) {
 		if (n == 0) {
 			result = result.concat(
 				{
@@ -89,13 +90,13 @@ hexo.extend.generator.register('index', function(locals) {
 					function(post) {
 						return post.lang == lang;
 					}), {
-					perPage: config.per_page,
+					perPage: context.config.per_page,
 					layout: ['index'],
 					format: '/%d/',
 					data: {
 						lang: lang,
-						title: config.title,
-						alternates: getAlternateIndices(config)
+						title: _c('title', lang, context),
+						alternates: getAlternateIndices(context)
 					}
 				})
 			);
@@ -160,16 +161,20 @@ function getAlternatePosts(posts, label) {
 	return result;
 }
 
-function getAlternateIndices(config) {
+function getAlternateIndices(context) {
 	var result = [];
-	_.each(config.language, function(lang) {
+	_.each(context.config.language, function(lang) {
 		if (lang != 'default') {
 			result.push({
-				title: config.title,
+				title: _c('title', lang, context),
 				lang: lang,
 				path: lang
 			});
 		}
 	});
 	return result;
+}
+
+function _c(string, lang, context) {
+	return context.locals.data['config_' + lang][string] || context.config[string];
 }
