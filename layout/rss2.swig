@@ -4,10 +4,10 @@ layout: false
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
 <channel>
 		{% set url = config.url + config.root %}
-		<title>{{ config.title | escape('xml') }}</title>
+		<title>{{ _c('title') | escape('xml') }}</title>
 		<link>{{ encodeURI(url + page.lang) }}/</link>
 		<atom:link href="{{ encodeURI(url + page.path) }}" rel="self" type="application/rss+xml"/>
-		<description>{{ config.description | escape('xml') }}</description>
+		<description>{{ _c('description') | escape('xml') }}</description>
 		<language>{{ page.lang }}</language>
 		<pubDate>{{ page.posts.first().date.toDate().toUTCString() }}</pubDate>
 		<lastBuildDate>{{ page.posts.first().updated.toDate().toUTCString() }}</lastBuildDate>
