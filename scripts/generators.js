@@ -107,14 +107,15 @@ hexo.extend.generator.register('index', function(locals) {
 
 hexo.extend.generator.register('feed', function(locals) {
 	var result = [];
-	var config = this.config;
-	_.forEach(config.language, function(lang) {
+	var context = this;
+	context.locals = locals;
+	_.forEach(context.config.language, function(lang) {
 		if (lang != 'default') {
 			result.push(
 				{
 					path: lang + '/feed.xml',
 					data: {
-						title: config.title,
+						title: _c('title', lang, context),
 						lang: lang,
 						posts: locals.posts.sort('-updated').filter(function(post) {
 							return post.lang == lang;
