@@ -70,9 +70,8 @@ hexo.extend.generator.register('posts', function(locals) {
 
 hexo.extend.generator.register('index', function(locals) {
 	var result = [];
-	var context = this;
-	context.locals = locals;
-	_.forEach(context.config.language, function(lang, n) {
+	var config = this.config;
+	_.forEach(config.language, function(lang, n) {
 		if (n == 0) {
 			result = result.concat(
 				{
@@ -90,13 +89,13 @@ hexo.extend.generator.register('index', function(locals) {
 					function(post) {
 						return post.lang == lang;
 					}), {
-					perPage: context.config.per_page,
+					perPage: config.per_page,
 					layout: ['index'],
 					format: '/%d/',
 					data: {
 						lang: lang,
-						title: _c('title', lang, context),
-						alternates: getAlternateIndices(context)
+						title: _c('title', lang, config, locals),
+						alternates: getAlternateIndices(config, locals)
 					}
 				})
 			);
@@ -107,15 +106,14 @@ hexo.extend.generator.register('index', function(locals) {
 
 hexo.extend.generator.register('feed', function(locals) {
 	var result = [];
-	var context = this;
-	context.locals = locals;
-	_.forEach(context.config.language, function(lang) {
+	var config = this.config;
+	_.forEach(config.language, function(lang) {
 		if (lang != 'default') {
 			result.push(
 				{
 					path: lang + '/feed.xml',
 					data: {
-						title: _c('title', lang, context),
+						title: _c('title', lang, config, locals),
 						lang: lang,
 						posts: locals.posts.sort('-updated').filter(function(post) {
 							return post.lang == lang;
@@ -162,12 +160,12 @@ function getAlternatePosts(posts, label) {
 	return result;
 }
 
-function getAlternateIndices(context) {
+function getAlternateIndices(config, locals) {
 	var result = [];
-	_.each(context.config.language, function(lang) {
+	_.each(config.language, function(lang) {
 		if (lang != 'default') {
 			result.push({
-				title: _c('title', lang, context),
+				title: _c('title', lang, config, locals),
 				lang: lang,
 				path: lang
 			});
@@ -176,11 +174,11 @@ function getAlternateIndices(context) {
 	return result;
 }
 
-function _c(string, lang, context) {
-	if (context.locals.data['config_' + lang] != null) {
-		return path(context.locals.data['config_' + lang], string) || path(context.config, string);
+function _c(string, lang, config, locals) {
+	if (locals.data['config_' + lang] != null) {
+		return path(locals.data['config_' + lang], string) || path(config, string);
 	}
-	return path(context.config, string);
+	return path(config, string);
 }
 
 /**
