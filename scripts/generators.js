@@ -9,7 +9,6 @@ hexo.extend.generator.register('category', function(locals) {
 	} else {
 		var perPage = 10;
 	}
-	var paginationDir = config.pagination_dir || 'page';
 	var result = [];
 
 	_.each(categories, function(category, title) {
@@ -20,7 +19,7 @@ hexo.extend.generator.register('category', function(locals) {
 					data.category).posts, {
 					perPage: perPage,
 					layout: ['category', 'archive', 'index'],
-					format: paginationDir + '/%d/',
+					format: _c('pagination_dir', lang, config, locals) + '/%d/',
 					data: {
 						lang: lang,
 						title: data.name,
