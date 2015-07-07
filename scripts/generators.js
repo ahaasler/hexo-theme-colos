@@ -90,7 +90,7 @@ hexo.extend.generator.register('index', function(locals) {
 					}), {
 					perPage: config.per_page,
 					layout: ['index'],
-					format: '/%d/',
+					format: _c('pagination_dir', lang, config, locals) + '/%d/',
 					data: {
 						lang: lang,
 						title: _c('title', lang, config, locals),
