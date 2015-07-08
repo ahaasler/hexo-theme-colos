@@ -4,11 +4,6 @@ var _ = require('lodash');
 hexo.extend.generator.register('category', function(locals) {
 	var config = this.config;
 	var categories = locals.data.categories;
-	if (config.category_generator) {
-		var perPage = config.category_generator.per_page;
-	} else {
-		var perPage = 10;
-	}
 	var result = [];
 
 	_.each(categories, function(category, title) {
@@ -17,7 +12,7 @@ hexo.extend.generator.register('category', function(locals) {
 				pagination(lang + '/' + data.slug, getCategoryByName(
 					locals.categories,
 					data.category).posts, {
-					perPage: perPage,
+					perPage: _c('category_generator.per_page', lang, config, locals) || _c('per_page', lang, config, locals),
 					layout: ['category', 'archive', 'index'],
 					format: _c('pagination_dir', lang, config, locals) + '/%d/',
 					data: {
