@@ -83,7 +83,7 @@ hexo.extend.generator.register('index', function(locals) {
 					function(post) {
 						return post.lang == lang;
 					}), {
-					perPage: config.per_page,
+					perPage: _c('per_page', lang, config, locals),
 					layout: ['index'],
 					format: _c('pagination_dir', lang, config, locals) + '/%d/',
 					data: {
