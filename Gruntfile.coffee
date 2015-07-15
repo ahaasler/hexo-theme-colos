@@ -1,4 +1,4 @@
-themeFiles = ['layout/**', 'scripts/**']
+themeFiles = ['layout/**', 'scripts/**', 'languages/**']
 
 module.exports = (grunt) ->
 
