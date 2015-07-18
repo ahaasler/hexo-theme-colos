@@ -8,6 +8,7 @@
 			{{ body }}
 		</div>
 	</div>
+	{{ partial('partial/pagination') }}
 	{{ partial('partial/footer') }}
 </body>
 </html>
