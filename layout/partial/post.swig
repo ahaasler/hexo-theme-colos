@@ -1,6 +1,6 @@
 <article class="post">
 	<header class="post-header">
-		{% if is_post() %}
+		{% if page.is_post %}
 			<h1 class="post-title">{{ post.title }}</h1>
 		{% else %}
 			<h1>
@@ -10,7 +10,7 @@
 		<span class="post-date">{{ time_tag(post.date) }}</span>
 	</header>
 	<div class="post-content">
-		{% if is_post() %}
+		{% if page.is_post %}
 			{{ post.content }}
 		{% else %}
 			{{ post.excerpt || post.content | striptags | truncate(140) }}
