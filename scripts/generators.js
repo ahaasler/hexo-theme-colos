@@ -53,6 +53,8 @@ hexo.extend.generator.register('posts', function(locals) {
 				post.alternates = getAlternatePosts(posts, post.label)
 			}
 
+			post.is_post = true;
+
 			return {
 				path: path,
 				layout: layouts,
