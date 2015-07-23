@@ -19,7 +19,8 @@ hexo.extend.generator.register('category', function(locals) {
 						lang: lang,
 						title: data.name,
 						category: data.category,
-						alternates: getAlternateCategories(category)
+						alternates: getAlternateCategories(category),
+						is_category: true
 					}
 				})
 			);
