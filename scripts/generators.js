@@ -92,7 +92,8 @@ hexo.extend.generator.register('index', function(locals) {
 					data: {
 						lang: lang,
 						title: _c('title', lang, config, locals),
-						alternates: getAlternateIndices(config, locals)
+						alternates: getAlternateIndices(config, locals),
+						is_index: true
 					}
 				})
 			);
