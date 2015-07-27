@@ -115,7 +115,8 @@ hexo.extend.generator.register('feed', function(locals) {
 						lang: lang,
 						posts: locals.posts.sort('-updated').filter(function(post) {
 							return post.lang == lang;
-						})
+						}),
+						is_feed: true
 					},
 					layout: ['rss2']
 				}
