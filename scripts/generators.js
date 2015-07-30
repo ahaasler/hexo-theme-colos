@@ -8,10 +8,10 @@ hexo.extend.generator.register('category', function(locals) {
 
 	_.each(categories, function(category, title) {
 		_.each(category, function(data, lang) {
-			result = result.concat(
-				pagination(lang + '/' + data.slug, getCategoryByName(
-					locals.categories,
-					data.category).posts, {
+			var catData = getCategoryByName(locals.categories, data.category);
+			result = result.concat(pagination(
+				lang + '/' + data.slug,
+				catData != null ? catData.posts : [], {
 					perPage: _c('category_generator.per_page', lang, config, locals) || _c('per_page', lang, config, locals),
 					layout: ['category', 'archive', 'index'],
 					format: _c('pagination_dir', lang, config, locals) + '/%d/',
@@ -22,8 +22,8 @@ hexo.extend.generator.register('category', function(locals) {
 						alternates: getAlternateCategories(category),
 						is_category: true
 					}
-				})
-			);
+				}
+			));
 		});
 	});
 
@@ -70,15 +70,13 @@ hexo.extend.generator.register('index', function(locals) {
 	var config = this.config;
 	_.forEach(config.language, function(lang, n) {
 		if (n == 0) {
-			result = result.concat(
-				{
-					path: '',
-					data: {
-						redirect: lang
-					},
-					layout: ['redirect']
-				}
-			);
+			result = result.concat({
+				path: '',
+				data: {
+					redirect: lang
+				},
+				layout: ['redirect']
+			});
 		}
 		if (lang != 'default') {
 			result = result.concat(
@@ -107,20 +105,18 @@ hexo.extend.generator.register('feed', function(locals) {
 	var config = this.config;
 	_.forEach(config.language, function(lang) {
 		if (lang != 'default') {
-			result.push(
-				{
-					path: lang + '/feed.xml',
-					data: {
-						title: _c('title', lang, config, locals),
-						lang: lang,
-						posts: locals.posts.sort('-updated').filter(function(post) {
-							return post.lang == lang;
-						}),
-						is_feed: true
-					},
-					layout: ['rss2']
-				}
-			)
+			result.push({
+				path: lang + '/feed.xml',
+				data: {
+					title: _c('title', lang, config, locals),
+					lang: lang,
+					posts: locals.posts.sort('-updated').filter(function(post) {
+						return post.lang == lang;
+					}),
+					is_feed: true
+				},
+				layout: ['rss2']
+			})
 		}
 	});
 	return result;
