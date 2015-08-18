@@ -127,7 +127,7 @@ hexo.extend.generator.register('archive', function(locals) {
 	var archiveDir = config.archive_dir;
 	var paginationDir = config.pagination_dir || 'page';
 	var allPosts = locals.posts.sort('-date');
-	var perPage = config.archive_generator.per_page;
+	var perPage = config.archive != undefined ? config.archive_generator.per_page : 0;
 	var result = [];
 
 	if (!allPosts.length) return;
@@ -148,7 +148,7 @@ hexo.extend.generator.register('archive', function(locals) {
 
 	generate(archiveDir, allPosts);
 
-	if (!config.archive_generator.yearly) return result;
+	if (config.archive_generator == undefined || !config.archive_generator.yearly) return result;
 
 	var posts = {};
 
@@ -183,7 +183,7 @@ hexo.extend.generator.register('archive', function(locals) {
 
 		generate(url, new Query(data[0]), {year: year});
 
-		if (!config.archive_generator.monthly) continue;
+		if (config.archive_generator == undefined || !config.archive_generator.monthly) continue;
 
 		// Monthly
 		for (month = 1; month <= 12; month++){
