@@ -100,28 +100,6 @@ hexo.extend.generator.register('index', function(locals) {
 	return result;
 });
 
-hexo.extend.generator.register('feed', function(locals) {
-	var result = [];
-	var config = this.config;
-	_.forEach(config.language, function(lang) {
-		if (lang != 'default') {
-			result.push({
-				path: lang + '/feed.xml',
-				data: {
-					title: _c('title', lang, config, locals),
-					lang: lang,
-					posts: locals.posts.sort('-updated').filter(function(post) {
-						return post.lang == lang;
-					}),
-					is_feed: true
-				},
-				layout: ['rss2']
-			})
-		}
-	});
-	return result;
-});
-
 function getCategoryByName(categories, name) {
 	return categories.toArray().filter(function(category) {
 		return category.name == name;
