@@ -19,10 +19,8 @@ hexo.extend.helper.register('get_categories_for_lang', function(lang) {
 	return result;
 });
 
+// This will only be called if hexo multilingual doesn't override it
 hexo.extend.helper.register('_c', function(string) {
-	if (this.site.data['config_' + this.page.lang]) {
-		return path(this.site.data['config_' + this.page.lang], string) || path(this.config, string);
-	}
 	return path(this.config, string);
 });
 
