@@ -30,41 +30,6 @@ hexo.extend.generator.register('category', function(locals) {
 	return result;
 });
 
-hexo.extend.generator.register('posts', function(locals) {
-	var posts = locals.posts.sort('-date').toArray();
-	var length = posts.length;
-
-	return posts.map(function(post, i) {
-		var layout = post.layout;
-		var path = post.path;
-
-		if (!layout || layout === 'false') {
-			return {
-				path: path,
-				data: post.content
-			};
-		} else {
-			if (i) post.prev = posts[i - 1];
-			if (i < length - 1) post.next = posts[i + 1];
-
-			var layouts = ['post', 'page', 'index'];
-			if (layout !== 'post') layouts.unshift(layout);
-
-			if (post.label && post.lang) {
-				post.alternates = getAlternatePosts(posts, post.label)
-			}
-
-			post.is_post = true;
-
-			return {
-				path: path,
-				layout: layouts,
-				data: post
-			};
-		}
-	});
-});
-
 hexo.extend.generator.register('index', function(locals) {
 	var result = [];
 	var config = this.config;
@@ -113,21 +78,6 @@ function getAlternateCategories(category) {
 			title: data.name,
 			lang: lang,
 			path: lang + '/' + data.slug
-		});
-	});
-	return result;
-}
-
-function getAlternatePosts(posts, label) {
-	var alternates = posts.filter(function(post) {
-		return post.label == label;
-	});
-	var result = [];
-	_.each(alternates, function(post) {
-		result.push({
-			title: post.title,
-			lang: post.lang,
-			path: post.path
 		});
 	});
 	return result;
