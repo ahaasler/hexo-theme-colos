@@ -1,3 +1,7 @@
 feed:
   rss:
     title: Feed RSS
+pagination:
+  page:
+    previous: Anterior
+    next: Siguiente
