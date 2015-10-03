@@ -16,6 +16,13 @@ Features
 - Color everywhere!
 - Different layouts.
 
+Live demo
+---------
+
+There's a demo project in [hexo-theme-colos-demo](https://github.com/ahaasler/hexo-theme-colos-demo "Demo site for the colos theme") and a [live demo](http://colos.adrianhaasler.com/ "Colos").
+
+The theme is currently in alpha stages, that means that it has no style yet (looks plain and default). I'm working in migrating the multilingual features to plugins, see [\#4](https://github.com/ahaasler/hexo-theme-colos/issues/4 "Generators should be separated from theme").
+
 Contribute
 ----------
 
