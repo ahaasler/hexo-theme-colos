@@ -1,35 +1,6 @@
 var pagination = require('hexo-pagination');
 var _ = require('lodash');
 
-hexo.extend.generator.register('category', function(locals) {
-	var config = this.config;
-	var categories = locals.data.categories;
-	var result = [];
-
-	_.each(categories, function(category, title) {
-		_.each(category, function(data, lang) {
-			var catData = getCategoryByName(locals.categories, data.category);
-			result = result.concat(pagination(
-				lang + '/' + data.slug,
-				catData != null ? catData.posts : [], {
-					perPage: _c('category_generator.per_page', lang, config, locals) || _c('per_page', lang, config, locals),
-					layout: ['category', 'archive', 'index'],
-					format: _c('pagination_dir', lang, config, locals) + '/%d/',
-					data: {
-						lang: lang,
-						title: data.name,
-						category: data.category,
-						alternates: getAlternateCategories(category),
-						is_category: true
-					}
-				}
-			));
-		});
-	});
-
-	return result;
-});
-
 hexo.extend.generator.register('index', function(locals) {
 	var result = [];
 	var config = this.config;
@@ -64,24 +35,6 @@ hexo.extend.generator.register('index', function(locals) {
 	});
 	return result;
 });
-
-function getCategoryByName(categories, name) {
-	return categories.toArray().filter(function(category) {
-		return category.name == name;
-	})[0];
-}
-
-function getAlternateCategories(category) {
-	var result = [];
-	_.each(category, function(data, lang) {
-		result.push({
-			title: data.name,
-			lang: lang,
-			path: lang + '/' + data.slug
-		});
-	});
-	return result;
-}
 
 function getAlternateIndices(config, locals) {
 	var result = [];
