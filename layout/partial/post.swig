@@ -7,7 +7,7 @@
 				<a href="{{ url_for(post.path) }}" class="post-title">{{ post.title }}</a>
 			</h1>
 		{% endif %}
-		<span class="post-date">{{ time_tag(post.date, _c('post_date_format')) }}</span>
+		<span class="post-date">{{ time_tag(post.date, config.post_date_format) }}</span>
 	</header>
 	<div class="post-content">
 		{% if is_post() %}
