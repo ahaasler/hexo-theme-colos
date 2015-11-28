@@ -3,11 +3,7 @@
 		<h1>
 			<a href="{{ url_for('') }}" id="logo">{{ config.title }}</a>
 		</h1>
-		<ul class="category-list">
-			{% for category in get_categories_for_lang(page.lang) %}
-				<li class="category-list-item"><a class="category-list-link" href="{{ url_for(category.path) }}">{{ category.title }}</a></li>
-			{% endfor %}
-		</ul>
+		{{ list_categories({show_count: false}) }}
 		<nav id="language">
 			{% for alternate in _.sortBy(page.alternates, 'lang') %}
 				<a href="{{ url_for(alternate.path) }}" hreflang="{{ alternate.lang }}" title="{{ alternate.title }}">
