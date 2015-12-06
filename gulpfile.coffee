@@ -48,7 +48,7 @@ gulp.task 'deploy', (callback) ->
   exec "git log --format='#{git.commit}' -1", (err, stdout, stderr) ->
     gulp.src("#{dir.dist}/**/*").pipe deploy(
       repository: "https://#{git.login}:#{git.token}@#{git.repo}"
-      branches: [ 'develop' ]
+      branches: [ 'HEAD' ]
       remoteBranch: 'master'
       prefix: dir.dist
       message: stdout).on "error", (error) ->
