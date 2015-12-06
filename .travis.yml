@@ -2,7 +2,7 @@ language: node_js
 node_js:
 - 0.10
 before_install:
-  - git config --global user.name $GIT_USER
+  - git config --global user.name "$GIT_USER"
   - git config --global user.email $GIT_EMAIL
 install: npm install
 script: gulp build
