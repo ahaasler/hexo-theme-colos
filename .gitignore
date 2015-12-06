@@ -1,6 +1,7 @@
-.theme
+deploy-*
+dist
 node_modules
 *~
 *.swp
 *.swo
-
+*.log

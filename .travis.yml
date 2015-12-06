@@ -1,9 +1,12 @@
 language: node_js
 node_js:
 - 0.10
+before_install:
+  - git config --global user.name $GIT_USER
+  - git config --global user.email $GIT_EMAIL
 install: npm install
-script: grunt build
-after_success: '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "develop" ] && grunt release || false'
+script: gulp build
+after_success: '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "develop" ] && gulp deploy || false'
 branches:
   except:
   - master
@@ -12,3 +15,4 @@ env:
     - secure: TuMw+dzHvrql1JcC8Cp0PkNtTXbZxb77vSLJ9CpZY2D5QYnJgR2eFPvOz5fjLhwtJtW497Qc9ntmHztef1vxFxpu1hpl4M6LcwPNWbT3XbVZnVKwmVsTGGEdHiMT8Dy/0Ro9vaeLgEHHa2udBueVwIlNiNTkhtJGgxkk2+Aa8sg=
     - GIT_USER=Adrian Haasler García
     - GIT_EMAIL=dev@adrianhaasler.com
+    - GIT_REPO=github.com/ahaasler/hexo-theme-colos.git
