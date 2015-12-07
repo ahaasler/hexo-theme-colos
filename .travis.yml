@@ -4,7 +4,7 @@ node_js:
 before_install:
   - git config --global user.name "$GIT_USER"
   - git config --global user.email $GIT_EMAIL
-before_install: export PATH=$PATH:`pwd`/node_modules/.bin
+  - export PATH=$PATH:`pwd`/node_modules/.bin
 install: npm install
 script: npm test
 after_success: '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "develop" ] && gulp deploy || false'
