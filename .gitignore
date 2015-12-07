@@ -1,6 +1,6 @@
 deploy-*
 dist
-node_modules
+/node_modules
 *~
 *.swp
 *.swo

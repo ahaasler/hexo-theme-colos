@@ -7,6 +7,7 @@ exec = require('child_process').exec
 dir =
   theme: 'theme'
   dist: 'dist'
+  demo: 'test/demo'
 # Documentation files
 docs = [
   'LICENSE'
@@ -42,6 +43,12 @@ gulp.task 'copy', [
 
 # Build project
 gulp.task 'build', [ 'copy' ]
+
+gulp.task 'demo:generate', [ 'build' ], (callback) ->
+  exec 'hexo generate', { cwd: dir.demo }, (err, stdout, stderr) ->
+    callback err
+
+gulp.task 'test', [ 'demo:generate' ]
 
 # Deploy distribution folder to git
 gulp.task 'deploy', (callback) ->
