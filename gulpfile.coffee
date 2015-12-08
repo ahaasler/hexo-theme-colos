@@ -11,6 +11,7 @@ dir =
   dist:
     base: 'dist'
     theme: 'dist/theme'
+    demo: 'dist/demo'
   demo: 'test/demo'
   casper: 'test/casper'
 # Documentation files
@@ -56,7 +57,7 @@ gulp.task 'demo:generate', [ 'build' ], (callback) ->
     callback err
 
 gulp.task 'demo:serve', [ 'demo:generate' ], (callback) ->
-  server = gulp.src("#{dir.demo}/public/").pipe webserver()
+  server = gulp.src(dir.dist.demo).pipe webserver()
 
 gulp.task 'test:casper', [ 'demo:serve' ], ->
   gulp.src("#{dir.casper}/**/*").pipe(casper()).on 'end', ->
