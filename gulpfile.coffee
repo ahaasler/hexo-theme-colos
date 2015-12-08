@@ -8,7 +8,9 @@ exec = require('child_process').exec
 # Common directories
 dir =
   theme: 'theme'
-  dist: 'dist'
+  dist:
+    base: 'dist'
+    theme: 'dist/theme'
   demo: 'test/demo'
   casper: 'test/casper'
 # Documentation files
@@ -27,18 +29,18 @@ server = undefined
 
 # Clean distribution folder
 gulp.task 'clean:dist', (callback) ->
-  rimraf dir.dist, callback
+  rimraf dir.dist.base, callback
 
 # Clean project
 gulp.task 'clean', [ 'clean:dist' ]
 
 # Copy theme
 gulp.task 'copy:theme', [ 'clean' ], (callback) ->
-  gulp.src("#{dir.theme}/**/*", base: dir.theme).pipe gulp.dest(dir.dist)
+  gulp.src("#{dir.theme}/**/*", base: dir.theme).pipe gulp.dest(dir.dist.theme)
 
 # Copy documentation files
 gulp.task 'copy:docs', [ 'clean' ], (callback) ->
-  gulp.src(docs).pipe gulp.dest(dir.dist)
+  gulp.src(docs).pipe gulp.dest(dir.dist.theme)
 
 # Copy files to distribution folder
 gulp.task 'copy', [
@@ -63,13 +65,13 @@ gulp.task 'test:casper', [ 'demo:serve' ], ->
 
 gulp.task 'test', [ 'demo:generate', 'test:casper' ]
 
-# Deploy distribution folder to git
+# Deploy distribution theme folder to git
 gulp.task 'deploy', (callback) ->
   exec "git log --format='#{git.commit}' -1", (err, stdout, stderr) ->
-    gulp.src("#{dir.dist}/**/*").pipe deploy(
+    gulp.src("#{dir.dist.theme}/**/*").pipe deploy(
       repository: "https://#{git.login}:#{git.token}@#{git.repo}"
       branches: [ 'HEAD' ]
       remoteBranch: 'master'
-      prefix: dir.dist
+      prefix: dir.dist.theme
       message: stdout).on "error", (error) ->
         callback error
