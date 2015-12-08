@@ -35,6 +35,7 @@
     "hexo-generator-index": "^0.1.2",
     "hexo-generator-tag": "^0.1.1",
     "hexo-renderer-marked": "^0.2.4",
-    "rimraf": "^2.4.4"
+    "rimraf": "^2.4.4",
+    "run-sequence": "^1.1.5"
   }
 }

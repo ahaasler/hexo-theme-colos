@@ -3,6 +3,7 @@ rimraf = require('rimraf')
 casper = require('gulp-casperjs')
 deploy = require('gulp-deploy-git')
 webserver = require('gulp-webserver')
+sequence = require('run-sequence')
 exec = require('child_process').exec
 
 # Common directories
@@ -21,7 +22,8 @@ docs = [
 ]
 # Git deploy configuration
 git =
-  commit: '%B\nBuilt from %H.'
+  template: '%B\nBuilt from %H.'
+  commit: undefined
   login: process.env.GH_LOGIN
   token: process.env.GH_TOKEN
   repo: process.env.GIT_REPO
@@ -66,13 +68,32 @@ gulp.task 'test:casper', [ 'demo:serve' ], ->
 
 gulp.task 'test', [ 'demo:generate', 'test:casper' ]
 
+# Prepare git information
+gulp.task 'git:info', (callback) ->
+  exec "git log --format='#{git.template}' -1", (err, stdout, stderr) ->
+    git.commit = stdout
+    callback err
+
 # Deploy distribution theme folder to git
+gulp.task 'deploy:theme', [ 'git:info' ], (callback) ->
+  gulp.src("#{dir.dist.theme}/**/*").pipe deploy(
+    repository: "https://#{git.login}:#{git.token}@#{git.repo}"
+    branches: [ 'HEAD' ]
+    remoteBranch: 'master'
+    prefix: dir.dist.theme
+    message: git.commit).on 'error', (err) ->
+      callback err
+
+# Deploy distribution demo folder to git
+gulp.task 'deploy:demo', [ 'git:info' ], (callback) ->
+  gulp.src("#{dir.dist.demo}/**/*").pipe deploy(
+    repository: "https://#{git.login}:#{git.token}@#{git.repo}"
+    branches: [ 'HEAD' ]
+    remoteBranch: 'gh-pages'
+    prefix: dir.dist.demo
+    message: git.commit).on 'error', (err) ->
+      callback err
+
+# Deploy in order, or the temporary deploy dir may be the same
 gulp.task 'deploy', (callback) ->
-  exec "git log --format='#{git.commit}' -1", (err, stdout, stderr) ->
-    gulp.src("#{dir.dist.theme}/**/*").pipe deploy(
-      repository: "https://#{git.login}:#{git.token}@#{git.repo}"
-      branches: [ 'HEAD' ]
-      remoteBranch: 'master'
-      prefix: dir.dist.theme
-      message: stdout).on "error", (error) ->
-        callback error
+  sequence 'deploy:theme', 'deploy:demo', callback
