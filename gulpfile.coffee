@@ -57,7 +57,7 @@ gulp.task 'demo:generate', [ 'build' ], (callback) ->
     callback err
 
 gulp.task 'demo:serve', [ 'demo:generate' ], (callback) ->
-  server = gulp.src(dir.dist.demo).pipe webserver()
+  server = gulp.src(dir.dist.demo).pipe webserver(path: '/hexo-theme-colos')
 
 gulp.task 'test:casper', [ 'demo:serve' ], ->
   gulp.src("#{dir.casper}/**/*").pipe(casper()).on 'end', ->
