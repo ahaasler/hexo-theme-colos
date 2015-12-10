@@ -61,12 +61,12 @@ gulp.task 'demo:generate', [ 'build' ], (callback) ->
 gulp.task 'demo:serve', [ 'demo:generate' ], (callback) ->
   server = gulp.src(dir.dist.demo).pipe webserver(path: '/hexo-theme-colos')
 
-gulp.task 'test:casper', [ 'demo:serve' ], ->
+gulp.task 'casper', [ 'demo:serve' ], ->
   gulp.src("#{dir.casper}/**/*").pipe(casper()).on 'end', ->
     if server
       server.emit 'kill'
 
-gulp.task 'test', [ 'demo:generate', 'test:casper' ]
+gulp.task 'test', [ 'demo:generate', 'casper' ]
 
 # Prepare git information
 gulp.task 'git:info', (callback) ->

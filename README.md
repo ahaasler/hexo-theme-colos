@@ -7,6 +7,8 @@ Colos: A material design theme for Hexo
 
 *Colos* is a minimal, multilingual theme for *[Hexo](http://hexo.io/ "A fast, simple & powerful blog framework")*.
 
+![Screenshot](screenshot.png?raw=true "Screenshot")
+
 Features
 --------
 
