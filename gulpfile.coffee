@@ -1,10 +1,20 @@
 gulp = require('gulp')
 rimraf = require('rimraf')
+inquirer = require('inquirer')
 casper = require('gulp-casperjs')
 deploy = require('gulp-deploy-git')
 webserver = require('gulp-webserver')
 sequence = require('run-sequence')
 exec = require('child_process').exec
+
+execCommand = (command, callback) ->
+  exec command, (err, stdout, stderr) ->
+    console.log stdout
+    console.log stderr
+    callback err
+
+gitPush = (callback) ->
+  execCommand 'git push & git push --tags', callback
 
 # Common directories
 dir =
@@ -98,3 +108,23 @@ gulp.task 'deploy:demo', [ 'git:info' ], (callback) ->
 # Deploy in order, or the temporary deploy dir may be the same
 gulp.task 'deploy', (callback) ->
   sequence 'deploy:theme', 'deploy:demo', callback
+
+gulp.task 'git-show', (callback) ->
+  execCommand 'git show -1', callback
+
+gulp.task 'git-push', (callback) ->
+  gitPush callback
+
+gulp.task 'git-push:confirm', [ 'git-show' ], (callback) ->
+  inquirer.prompt [ {
+    type: 'confirm'
+    message: 'Push version?'
+    default: false
+    name: 'push'
+  } ], (answers) ->
+    if answers.push
+      gitPush callback
+    else
+      callback()
+
+gulp.task 'release', [ 'git-push:confirm' ]
