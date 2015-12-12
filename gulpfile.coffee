@@ -65,6 +65,10 @@ gulp.task 'copy', [
 # Build project
 gulp.task 'build', [ 'copy' ]
 
+# Dev task
+gulp.task 'dev', [ 'demo:serve' ], ->
+  gulp.watch "#{dir.theme}/**/*", [ 'demo:generate' ]
+
 gulp.task 'demo:generate', [ 'build' ], (callback) ->
   exec 'hexo generate', { cwd: dir.demo }, (err, stdout, stderr) ->
     callback err
