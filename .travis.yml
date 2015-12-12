@@ -8,11 +8,8 @@ before_install:
 - export COLOS_VERSION=$(node -e "console.log(require('./package.json').version);")
 install: npm install
 script: npm test
-after_success:
-- '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "develop" ] &&
-  gulp deploy || false'
-- tar -zcvf dist/hexo-theme-colos-$COLOS_VERSION.tar.gz -C dist theme --transform
-  "s/theme/hexo-theme-colos-$COLOS_VERSION/"
+after_success: '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "develop" ] && gulp deploy || false'
+before_deploy: tar -zcvf dist/hexo-theme-colos-$COLOS_VERSION.tar.gz -C dist theme --transform "s/theme/hexo-theme-colos-$COLOS_VERSION/"
 branches:
   except:
   - master
