@@ -26,6 +26,7 @@ deploy:
   provider: releases
   api_key:
     secure: gFv8SRi2TpqUSExhOJ163iV7uZ90XGMtn+wZqkHgC8HtrfJLmmyCOsqq44MoKmthOnsP1HxUNCq/GvXDu/cev6NTQW2HVQPqoPq8vos0yZ0Em0G0HbNsXstzhhylufIW2Vn2bHoM5LRXTSSfgsXmP8nDj+UuKhzlSXjme0p4CPg=
+  skip_cleanup: true
   file_glob: true
   file: dist/hexo-theme-colos-*.tar.gz
   on:
