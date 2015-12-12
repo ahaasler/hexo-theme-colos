@@ -17,6 +17,7 @@ dir =
   casper: 'test/casper'
 # Documentation files
 docs = [
+  'CHANGELOG.md'
   'LICENSE'
   'README.md'
 ]
