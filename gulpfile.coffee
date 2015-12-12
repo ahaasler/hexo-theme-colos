@@ -3,9 +3,9 @@ rimraf = require('rimraf')
 inquirer = require('inquirer')
 casper = require('gulp-casperjs')
 deploy = require('gulp-deploy-git')
-webserver = require('gulp-webserver')
 sequence = require('run-sequence')
 exec = require('child_process').exec
+spawn = require('child_process').spawn
 
 execCommand = (command, callback) ->
   exec command, (err, stdout, stderr) ->
@@ -38,7 +38,7 @@ git =
   login: process.env.GH_LOGIN
   token: process.env.GH_TOKEN
   repo: process.env.GIT_REPO
-# Streams
+# Processes
 server = undefined
 
 # Clean distribution folder
@@ -73,13 +73,23 @@ gulp.task 'demo:generate', [ 'build' ], (callback) ->
   exec 'hexo generate', { cwd: dir.demo }, (err, stdout, stderr) ->
     callback err
 
-gulp.task 'demo:serve', [ 'demo:generate' ], (callback) ->
-  server = gulp.src(dir.dist.demo).pipe webserver(path: '/hexo-theme-colos')
+gulp.task 'demo:serve', [ 'build' ], (callback) ->
+  server = spawn('hexo', [
+    'serve'
+    '-p 8000'
+  ], cwd: dir.demo)
+  server.stdout.on 'data', (data) ->
+    if data.toString('utf8').indexOf('Hexo is running') > -1
+      callback()
+  server.stderr.on 'data', (data) ->
+    console.log data.toString('utf8')
+  server.on 'error', (err) ->
+    callback err
 
 gulp.task 'casper', [ 'demo:serve' ], ->
   gulp.src("#{dir.casper}/**/*").pipe(casper()).on 'end', ->
     if server
-      server.emit 'kill'
+      server.kill 'SIGINT'
 
 gulp.task 'test', [ 'demo:generate', 'casper' ]
 
