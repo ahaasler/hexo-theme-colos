@@ -1,9 +1,11 @@
-gulp = require('gulp')
-rimraf = require('rimraf')
-inquirer = require('inquirer')
-casper = require('gulp-casperjs')
-deploy = require('gulp-deploy-git')
-sequence = require('run-sequence')
+gulp = require 'gulp'
+path = require 'path'
+rimraf = require 'rimraf'
+inquirer = require 'inquirer'
+casper = require 'gulp-casperjs'
+deploy = require 'gulp-deploy-git'
+newer = require 'gulp-newer'
+sequence = require 'run-sequence'
 exec = require('child_process').exec
 spawn = require('child_process').spawn
 
@@ -49,12 +51,12 @@ gulp.task 'clean:dist', (callback) ->
 gulp.task 'clean', [ 'clean:dist' ]
 
 # Copy theme
-gulp.task 'copy:theme', [ 'clean' ], (callback) ->
-  gulp.src("#{dir.theme}/**/*", base: dir.theme).pipe gulp.dest(dir.dist.theme)
+gulp.task 'copy:theme', (callback) ->
+  gulp.src("#{dir.theme}/**/*", base: dir.theme).pipe(newer(dir.dist.theme)).pipe gulp.dest(dir.dist.theme)
 
 # Copy documentation files
-gulp.task 'copy:docs', [ 'clean' ], (callback) ->
-  gulp.src(docs).pipe gulp.dest(dir.dist.theme)
+gulp.task 'copy:docs', (callback) ->
+  gulp.src(docs).pipe(newer(dir.dist.theme)).pipe gulp.dest(dir.dist.theme)
 
 # Copy files to distribution folder
 gulp.task 'copy', [
@@ -63,11 +65,14 @@ gulp.task 'copy', [
 ]
 
 # Build project
-gulp.task 'build', [ 'copy' ]
+gulp.task 'build', (callback) ->
+  sequence 'clean', 'copy', callback
 
 # Dev task
 gulp.task 'dev', [ 'demo:serve' ], ->
-  gulp.watch "#{dir.theme}/**/*", [ 'demo:generate' ]
+  gulp.watch("#{dir.theme}/**/*", [ 'copy' ]).on 'change', (ev) ->
+    if ev.type == 'deleted'
+      rimraf.sync path.relative('./', ev.path).replace(dir.theme, dir.dist.theme)
 
 gulp.task 'demo:generate', [ 'build' ], (callback) ->
   exec 'hexo generate', { cwd: dir.demo }, (err, stdout, stderr) ->
