@@ -13,6 +13,7 @@ before_deploy: tar -zcvf dist/hexo-theme-colos-$COLOS_VERSION.tar.gz -C dist the
 branches:
   except:
   - master
+  - gh-pages
 env:
   global:
   - secure: TuMw+dzHvrql1JcC8Cp0PkNtTXbZxb77vSLJ9CpZY2D5QYnJgR2eFPvOz5fjLhwtJtW497Qc9ntmHztef1vxFxpu1hpl4M6LcwPNWbT3XbVZnVKwmVsTGGEdHiMT8Dy/0Ro9vaeLgEHHa2udBueVwIlNiNTkhtJGgxkk2+Aa8sg=
