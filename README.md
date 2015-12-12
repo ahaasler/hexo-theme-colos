@@ -2,6 +2,7 @@ Colos: A material design theme for Hexo
 =======================================
 
 [![Build status](https://travis-ci.org/ahaasler/hexo-theme-colos.svg?branch=develop)](https://travis-ci.org/ahaasler/hexo-theme-colos)
+[![Release](https://img.shields.io/github/release/ahaasler/hexo-theme-colos.svg?style=flat)](https://github.com/ahaasler/hexo-theme-colos/releases/latest)
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
 [![Gitter Chat](https://img.shields.io/gitter/room/ahaasler/hexo-theme-colos.svg)](https://gitter.im/ahaasler/hexo-theme-colos)
 
