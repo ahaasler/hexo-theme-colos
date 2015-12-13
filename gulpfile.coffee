@@ -5,9 +5,11 @@ inquirer = require 'inquirer'
 casper = require 'gulp-casperjs'
 deploy = require 'gulp-deploy-git'
 newer = require 'gulp-newer'
+webserver = require 'gulp-webserver'
 sequence = require 'run-sequence'
 exec = require('child_process').exec
 spawn = require('child_process').spawn
+browserSync = require('browser-sync').create()
 
 execCommand = (command, callback) ->
   exec command, (err, stdout, stderr) ->
@@ -40,7 +42,7 @@ git =
   login: process.env.GH_LOGIN
   token: process.env.GH_TOKEN
   repo: process.env.GIT_REPO
-# Processes
+# Streams
 server = undefined
 
 # Clean distribution folder
@@ -68,34 +70,22 @@ gulp.task 'copy', [
 gulp.task 'build', (callback) ->
   sequence 'clean', 'copy', callback
 
-# Dev task
-gulp.task 'dev', [ 'demo:serve' ], ->
-  gulp.watch("#{dir.theme}/**/*", [ 'copy' ]).on 'change', (ev) ->
-    if ev.type == 'deleted'
-      rimraf.sync path.relative('./', ev.path).replace(dir.theme, dir.dist.theme)
-
+# Generate demo site
 gulp.task 'demo:generate', [ 'build' ], (callback) ->
   exec 'hexo generate', { cwd: dir.demo }, (err, stdout, stderr) ->
     callback err
 
-gulp.task 'demo:serve', [ 'build' ], (callback) ->
-  server = spawn('hexo', [
-    'serve'
-    '-p 8080'
-  ], cwd: dir.demo)
-  server.stdout.on 'data', (data) ->
-    if data.toString('utf8').indexOf('Hexo is running') > -1
-      callback()
-  server.stderr.on 'data', (data) ->
-    console.log data.toString('utf8')
-  server.on 'error', (err) ->
-    callback err
+# Serve demo site
+gulp.task 'demo:serve', [ 'demo:generate' ], (callback) ->
+  server = gulp.src(dir.dist.demo).pipe webserver(path: '/hexo-theme-colos')
 
-gulp.task 'casper', [ 'demo:serve' ], ->
+# Test demo site
+gulp.task 'casper', [ 'demo:serve' ], (callback) ->
   gulp.src("#{dir.casper}/**/*").pipe(casper()).on 'end', ->
     if server
-      server.kill 'SIGINT'
+      server.emit 'kill'
 
+# Test theme
 gulp.task 'test', [ 'demo:generate', 'casper' ]
 
 # Prepare git information
@@ -127,6 +117,24 @@ gulp.task 'deploy:demo', [ 'git:info' ], (callback) ->
 # Deploy in order, or the temporary deploy dir may be the same
 gulp.task 'deploy', (callback) ->
   sequence 'deploy:theme', 'deploy:demo', callback
+
+# Initialize browsersync for development
+gulp.task 'browsersync', [ 'demo:generate' ], (callback) ->
+  browserSync.init {
+    server:
+      baseDir: dir.dist.demo
+      routes: "/hexo-theme-colos": dir.dist.demo
+    port: 8080
+  }, callback
+
+# Reload demo for browsersync
+gulp.task 'demo:reload', [ 'demo:generate' ], (callback) ->
+  browserSync.reload()
+  callback()
+
+# Dev task
+gulp.task 'dev', [ 'browsersync' ], ->
+  gulp.watch "#{dir.theme}/**/*", [ 'demo:reload' ]
 
 gulp.task 'git-show', (callback) ->
   execCommand 'git show -1', callback
