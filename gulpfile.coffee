@@ -81,7 +81,7 @@ gulp.task 'demo:generate', [ 'build' ], (callback) ->
 gulp.task 'demo:serve', [ 'build' ], (callback) ->
   server = spawn('hexo', [
     'serve'
-    '-p 8000'
+    '-p 8080'
   ], cwd: dir.demo)
   server.stdout.on 'data', (data) ->
     if data.toString('utf8').indexOf('Hexo is running') > -1
