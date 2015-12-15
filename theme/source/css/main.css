@@ -1,0 +1,12 @@
+/* custom properties */
+:root {
+  --heading-color: color(black alpha(-10%));
+}
+
+/* custom selectors */
+@custom-selector :--headings h1, h2, h3, h4, h5, h6;
+
+/* usage */
+:--headings {
+  color: var(--heading-color);
+}
