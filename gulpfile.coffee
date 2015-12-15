@@ -2,9 +2,11 @@ gulp = require 'gulp'
 path = require 'path'
 rimraf = require 'rimraf'
 inquirer = require 'inquirer'
+cssnext = require 'cssnext'
 casper = require 'gulp-casperjs'
 deploy = require 'gulp-deploy-git'
 newer = require 'gulp-newer'
+postcss = require 'gulp-postcss'
 webserver = require 'gulp-webserver'
 sequence = require 'run-sequence'
 exec = require('child_process').exec
@@ -54,7 +56,17 @@ gulp.task 'clean', [ 'clean:dist' ]
 
 # Copy theme
 gulp.task 'copy:theme', (callback) ->
-  gulp.src("#{dir.theme}/**/*", base: dir.theme).pipe(newer(dir.dist.theme)).pipe gulp.dest(dir.dist.theme)
+  gulp.src(["#{dir.theme}/**/*", '!**/*.css'], base: dir.theme).pipe(newer(dir.dist.theme)).pipe gulp.dest(dir.dist.theme)
+
+gulp.task 'postcss', (callback) ->
+  processors = [ cssnext(
+    'browers': [ 'last 2 version' ]
+    'customProperties': true
+    'colorFunction': true
+    'customSelectors': true
+    'sourcemap': true
+    'compress': false) ]
+  gulp.src("#{dir.theme}/**/*.css", base: dir.theme).pipe(postcss(processors)).pipe(newer(dir.dist.theme)).pipe gulp.dest(dir.dist.theme)
 
 # Copy documentation files
 gulp.task 'copy:docs', (callback) ->
@@ -68,7 +80,7 @@ gulp.task 'copy', [
 
 # Build project
 gulp.task 'build', (callback) ->
-  sequence 'clean', 'copy', callback
+  sequence 'clean', ['copy', 'postcss'], callback
 
 # Generate demo site
 gulp.task 'demo:generate', [ 'build' ], (callback) ->
