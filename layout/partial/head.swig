@@ -12,4 +12,5 @@
 		{% endif %}
 	{% endfor %}
 	<link rel="alternate" type="application/rss+xml" title="{{ __('feed.rss.title') }}" href="{{ encodeURI(config.url + config.root + page.lang + '/feed.xml') }}" />
+	{{ css('css/main.css') }}
 </head>
