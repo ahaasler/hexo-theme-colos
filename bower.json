@@ -1,0 +1,24 @@
+{
+  "name": "hexo-theme-colos",
+  "description": "A material design theme for Hexo",
+  "main": "",
+  "authors": [
+    "Adrian Haasler García"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "hexo",
+    "theme",
+    "colos",
+    "material"
+  ],
+  "homepage": "https://github.com/ahaasler/hexo-theme-colos",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

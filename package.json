@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/ahaasler/hexo-theme-colos",
   "devDependencies": {
+    "bower": "^1.7.1",
     "browser-sync": "^2.10.0",
     "casperjs": "^1.1.0-beta3",
     "coffee-script": "^1.10.0",
