@@ -68,6 +68,9 @@ gulp.task 'postcss', (callback) ->
     'compress': false) ]
   gulp.src("#{dir.theme}/**/*.css", base: dir.theme).pipe(postcss(processors)).pipe(newer(dir.dist.theme)).pipe gulp.dest(dir.dist.theme)
 
+gulp.task 'bower', (callback) ->
+  execCommand 'bower install', callback
+
 # Copy documentation files
 gulp.task 'copy:docs', (callback) ->
   gulp.src(docs).pipe(newer(dir.dist.theme)).pipe gulp.dest(dir.dist.theme)
@@ -80,7 +83,7 @@ gulp.task 'copy', [
 
 # Build project
 gulp.task 'build', (callback) ->
-  sequence 'clean', ['copy', 'postcss'], callback
+  sequence 'clean', ['copy', 'postcss', 'bower'], callback
 
 # Generate demo site
 gulp.task 'demo:generate', [ 'build' ], (callback) ->
