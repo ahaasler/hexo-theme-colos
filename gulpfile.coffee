@@ -37,6 +37,24 @@ docs = [
   'LICENSE'
   'README.md'
 ]
+# Bower files
+bowerFiles = [
+  '.bowerrc'
+  'bower.json'
+]
+# Theme files
+themeFiles = [
+  "#{dir.theme}/**/*"
+  '!**/*.css'
+]
+# CSS files
+cssFiles = "#{dir.theme}/**/*.css"
+# Demo files
+demoFiles = [
+  "#{dir.demo}/**/*"
+  "!#{dir.demo}/node_modules/**/*"
+  "!#{dir.demo}/db.json"
+]
 # Git deploy configuration
 git =
   template: '%B\nBuilt from %H.'
@@ -56,7 +74,7 @@ gulp.task 'clean', [ 'clean:dist' ]
 
 # Copy theme
 gulp.task 'copy:theme', (callback) ->
-  gulp.src(["#{dir.theme}/**/*", '!**/*.css'], base: dir.theme).pipe(newer(dir.dist.theme)).pipe gulp.dest(dir.dist.theme)
+  gulp.src(themeFiles, base: dir.theme).pipe(newer(dir.dist.theme)).pipe gulp.dest(dir.dist.theme)
 
 gulp.task 'postcss', (callback) ->
   processors = [ cssnext(
@@ -66,7 +84,7 @@ gulp.task 'postcss', (callback) ->
     'customSelectors': true
     'sourcemap': true
     'compress': false) ]
-  gulp.src("#{dir.theme}/**/*.css", base: dir.theme).pipe(postcss(processors)).pipe(newer(dir.dist.theme)).pipe gulp.dest(dir.dist.theme)
+  gulp.src(cssFiles, base: dir.theme).pipe(postcss(processors)).pipe(newer(dir.dist.theme)).pipe gulp.dest(dir.dist.theme)
 
 gulp.task 'bower', (callback) ->
   execCommand 'bower install', callback
@@ -83,15 +101,15 @@ gulp.task 'copy', [
 
 # Build project
 gulp.task 'build', (callback) ->
-  sequence 'clean', ['copy', 'postcss', 'bower'], callback
+  sequence 'clean', ['copy', 'postcss', 'bower'], 'demo:generate', callback
 
 # Generate demo site
-gulp.task 'demo:generate', [ 'build' ], (callback) ->
+gulp.task 'demo:generate', (callback) ->
   exec 'hexo generate', { cwd: dir.demo }, (err, stdout, stderr) ->
     callback err
 
 # Serve demo site
-gulp.task 'demo:serve', [ 'demo:generate' ], (callback) ->
+gulp.task 'demo:serve', [ 'build' ], (callback) ->
   server = gulp.src(dir.dist.demo).pipe webserver(path: '/hexo-theme-colos')
 
 # Test demo site
@@ -101,7 +119,7 @@ gulp.task 'casper', [ 'demo:serve' ], (callback) ->
       server.emit 'kill'
 
 # Test theme
-gulp.task 'test', [ 'demo:generate', 'casper' ]
+gulp.task 'test', [ 'build', 'casper' ]
 
 # Prepare git information
 gulp.task 'git:info', (callback) ->
@@ -134,7 +152,7 @@ gulp.task 'deploy', (callback) ->
   sequence 'deploy:theme', 'deploy:demo', callback
 
 # Initialize browsersync for development
-gulp.task 'browsersync', [ 'demo:generate' ], (callback) ->
+gulp.task 'browsersync', [ 'build' ], (callback) ->
   browserSync.init {
     server:
       baseDir: dir.dist.demo
@@ -147,9 +165,33 @@ gulp.task 'demo:reload', [ 'demo:generate' ], (callback) ->
   browserSync.reload()
   callback()
 
+# Watch bower
+gulp.task 'watch:bower', (callback) ->
+  gulp.watch bowerFiles, [ 'bower' ]
+
+# Watch theme
+gulp.task 'watch:theme', (callback) ->
+  gulp.watch themeFiles, [ 'copy:theme' ]
+
+# Watch postcss
+gulp.task 'watch:postcss', (callback) ->
+  gulp.watch cssFiles, [ 'postcss' ]
+
+# Watch demo
+gulp.task 'watch:demo', (callback) ->
+  gulp.watch demoFiles, [ 'demo:reload' ]
+
+# Watch task
+gulp.task 'watch', [
+  'watch:bower'
+  'watch:theme'
+  'watch:postcss'
+  'watch:demo'
+]
+
 # Dev task
-gulp.task 'dev', [ 'browsersync' ], ->
-  gulp.watch "#{dir.theme}/**/*", [ 'demo:reload' ]
+gulp.task 'dev', ->
+  sequence 'browsersync', 'watch'
 
 gulp.task 'git-show', (callback) ->
   execCommand 'git show -1', callback
