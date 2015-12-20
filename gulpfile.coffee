@@ -45,15 +45,16 @@ bowerFiles = [
 # Theme files
 themeFiles = [
   "#{dir.theme}/**/*"
-  '!**/*.css'
+  "!#{dir.theme}/**/*.css"
 ]
 # CSS files
 cssFiles = "#{dir.theme}/**/*.css"
 # Demo files
 demoFiles = [
-  "#{dir.demo}/**/*"
-  "!#{dir.demo}/node_modules/**/*"
-  "!#{dir.demo}/db.json"
+  "#{dir.demo}/scaffolds/**/*"
+  "#{dir.demo}/source/**/*"
+  "#{dir.demo}/themes/**/*"
+  "#{dir.demo}/_config_yml"
 ]
 # Git deploy configuration
 git =
