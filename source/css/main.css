@@ -12,3 +12,10 @@ h6 {
   color: #000000;
   color: rgba(0, 0, 0, 0.9);
 }
+
+pre,
+.highlight {
+  background: #2e2e2e;
+  color: #ddd;
+  line-height: 0.8em;
+}
