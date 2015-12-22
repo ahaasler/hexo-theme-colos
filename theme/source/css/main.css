@@ -10,3 +10,5 @@
 :--headings {
   color: var(--heading-color);
 }
+
+@import partial/highlight;

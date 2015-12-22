@@ -3,6 +3,7 @@ path = require 'path'
 rimraf = require 'rimraf'
 inquirer = require 'inquirer'
 cssnext = require 'cssnext'
+postcssImport = require 'postcss-import'
 casper = require 'gulp-casperjs'
 deploy = require 'gulp-deploy-git'
 newer = require 'gulp-newer'
@@ -48,7 +49,10 @@ themeFiles = [
   "!#{dir.theme}/**/*.css"
 ]
 # CSS files
-cssFiles = "#{dir.theme}/**/*.css"
+cssFiles = [
+  "#{dir.theme}/**/*.css"
+  "!#{dir.theme}/**/partial/**/*.css"
+]
 # Demo files
 demoFiles = [
   "#{dir.demo}/scaffolds/**/*"
@@ -78,13 +82,14 @@ gulp.task 'copy:theme', (callback) ->
   gulp.src(themeFiles, base: dir.theme).pipe(newer(dir.dist.theme)).pipe gulp.dest(dir.dist.theme)
 
 gulp.task 'postcss', (callback) ->
-  processors = [ cssnext(
+  processors = [ postcssImport, cssnext(
     'browers': [ 'last 2 version' ]
     'customProperties': true
     'colorFunction': true
     'customSelectors': true
     'sourcemap': true
-    'compress': false) ]
+    'compress': false
+    'import': true) ]
   gulp.src(cssFiles, base: dir.theme).pipe(postcss(processors)).pipe(newer(dir.dist.theme)).pipe gulp.dest(dir.dist.theme)
 
 gulp.task 'bower', (callback) ->
