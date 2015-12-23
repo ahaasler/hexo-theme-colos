@@ -4,6 +4,7 @@ rimraf = require 'rimraf'
 inquirer = require 'inquirer'
 cssnext = require 'cssnext'
 postcssImport = require 'postcss-import'
+postcssNesting = require 'postcss-nesting'
 casper = require 'gulp-casperjs'
 deploy = require 'gulp-deploy-git'
 newer = require 'gulp-newer'
@@ -82,7 +83,7 @@ gulp.task 'copy:theme', (callback) ->
   gulp.src(themeFiles, base: dir.theme).pipe(newer(dir.dist.theme)).pipe gulp.dest(dir.dist.theme)
 
 gulp.task 'postcss', (callback) ->
-  processors = [ postcssImport, cssnext(
+  processors = [ postcssImport, postcssNesting, cssnext(
     'browers': [ 'last 2 version' ]
     'customProperties': true
     'colorFunction': true

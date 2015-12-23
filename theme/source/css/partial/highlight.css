@@ -3,4 +3,7 @@ pre,
   background: #2e2e2e;
   color: #ddd;
   line-height: 0.8em;
+  @nest & .constant {
+    color: #66d9ef;
+  }
 }
