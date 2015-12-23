@@ -17,5 +17,9 @@ pre,
 .highlight {
   background: #2e2e2e;
   color: #ddd;
-  line-height: 0.8em;
+  line-height: 0.8em
+}
+
+pre .constant, .highlight .constant {
+  color: #66d9ef;
 }
