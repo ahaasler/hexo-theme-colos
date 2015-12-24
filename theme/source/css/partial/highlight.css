@@ -13,4 +13,15 @@ pre,
   @nest & .built_in {
     color: var(--cyan);
   }
+  @nest &.bash {
+    @nest & .shebang {
+      color: var(--grey);
+    }
+    @nest & .variable {
+      color: var(--light-grey);
+    }
+    @nest & .title {
+      color: var(--light-green);
+    }
+  }
 }
