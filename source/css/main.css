@@ -2,34 +2,4 @@
 
 /* custom selectors */
 
-/* usage */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: #000000;
-  color: rgba(0, 0, 0, 0.9);
-}
-
-pre,
-.highlight {
-  background: #212121;
-}
-pre,
-.highlight {
-  color: #f5f5f5
-}
-pre .string, .highlight .string {
-  color: #ffeb3b;
-}
-pre .comment, .highlight .comment {
-  color: #727272;
-}
-pre .keyword, .highlight .keyword {
-  color: #FF4081;
-}
-pre .built_in, .highlight .built_in {
-  color: #00BCD4;
-}
+/* usage */h1,h2,h3,h4,h5,h6{color:#000;color:rgba(0,0,0,.9)}.highlight,pre{background:#212121;color:#f5f5f5}.highlight .string,pre .string{color:#ffeb3b}.highlight .comment,pre .comment{color:#727272}.highlight .keyword,pre .keyword{color:#ff4081}.highlight .built_in,pre .built_in{color:#00bcd4}
