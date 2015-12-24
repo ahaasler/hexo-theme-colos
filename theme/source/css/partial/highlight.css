@@ -1,9 +1,16 @@
 pre,
 .highlight {
-  background: #2e2e2e;
-  color: #ddd;
-  line-height: 0.8em;
-  @nest & .constant {
-    color: #66d9ef;
+  color: var(--white);
+  @nest & .string {
+    color: var(--yellow);
+  }
+  @nest & .comment {
+    color: var(--grey);
+  }
+  @nest & .keyword {
+    color: var(--pink);
+  }
+  @nest & .built_in {
+    color: var(--cyan);
   }
 }
