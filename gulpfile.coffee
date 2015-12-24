@@ -83,14 +83,18 @@ gulp.task 'copy:theme', (callback) ->
   gulp.src(themeFiles, base: dir.theme).pipe(newer(dir.dist.theme)).pipe gulp.dest(dir.dist.theme)
 
 gulp.task 'postcss', (callback) ->
-  processors = [ postcssImport, postcssNesting, cssnext(
-    'browers': [ 'last 2 version' ]
-    'customProperties': true
-    'colorFunction': true
-    'customSelectors': true
-    'sourcemap': true
-    'compress': false
-    'import': true) ]
+  processors = [
+    postcssImport
+    postcssNesting
+    cssnext(
+      'browers': [ 'last 2 version' ]
+      'customProperties': true
+      'colorFunction': true
+      'customSelectors': true
+      'sourcemap': true
+      'compress': true
+      'import': true)
+  ]
   gulp.src(cssFiles, base: dir.theme).pipe(postcss(processors)).pipe gulp.dest(dir.dist.theme)
 
 gulp.task 'bower', (callback) ->
