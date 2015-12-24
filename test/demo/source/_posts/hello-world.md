@@ -1,38 +1,43 @@
 title: Hello World
 date: 2015-12-12 11:13:41
+category: code
 ---
-Welcome to [Hexo](http://hexo.io/)! This is your very first post. Check [documentation](http://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](http://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
 
-## Quick Start
+This post contains Hello World examples to showcase the syntax highlighting.
 
-### Create a new post
+## Bash
 
-``` bash
-$ hexo new "My New Post"
+```bash
+#!/bin/bash
+echo "Hello, World!"
 ```
 
-More info: [Writing](http://hexo.io/docs/writing.html)
+## Groovy
 
-### Run server
-
-``` bash
-$ hexo server
+```groovy
+println "Hello, World!"
 ```
 
-More info: [Server](http://hexo.io/docs/server.html)
+## Java
 
-### Generate static files
+```java
+public class HelloWorld {
 
-``` bash
-$ hexo generate
+	public static void main(String[] args) {
+		System.out.println("Hello, World!");
+	}
+
+}
 ```
 
-More info: [Generating](http://hexo.io/docs/generating.html)
+## Ruby
 
-### Deploy to remote sites
-
-``` bash
-$ hexo deploy
+```ruby
+puts 'Hello, World!'
 ```
 
-More info: [Deployment](http://hexo.io/docs/deployment.html)
+## Javascript
+
+```javascript
+document.write('Hello, World!');
+```
