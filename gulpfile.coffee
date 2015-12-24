@@ -91,7 +91,7 @@ gulp.task 'postcss', (callback) ->
     'sourcemap': true
     'compress': false
     'import': true) ]
-  gulp.src(cssFiles, base: dir.theme).pipe(postcss(processors)).pipe(newer(dir.dist.theme)).pipe gulp.dest(dir.dist.theme)
+  gulp.src(cssFiles, base: dir.theme).pipe(postcss(processors)).pipe gulp.dest(dir.dist.theme)
 
 gulp.task 'bower', (callback) ->
   execCommand 'bower install', callback
@@ -182,7 +182,7 @@ gulp.task 'watch:theme', (callback) ->
 
 # Watch postcss
 gulp.task 'watch:postcss', (callback) ->
-  gulp.watch cssFiles, [ 'postcss' ]
+  gulp.watch cssFiles[0], [ 'postcss' ]
 
 # Watch demo
 gulp.task 'watch:demo', (callback) ->
