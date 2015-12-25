@@ -13,6 +13,9 @@ pre,
   @nest & .built_in {
     color: var(--cyan);
   }
+  @nest & .number, .literal {
+    color: var(--deep-purple);
+  }
   @nest &.bash {
     @nest & .shebang {
       color: var(--grey);
