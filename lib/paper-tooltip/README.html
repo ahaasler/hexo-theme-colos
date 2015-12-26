@@ -1,0 +1,42 @@
+<h1 id="paper-tooltip"><a href="#paper-tooltip" class="headerlink" title="paper-tooltip"></a>paper-tooltip</h1><p><code>&lt;paper-tooltip&gt;</code> is a label that appears on hover and focus when the user<br>hovers over an element with the cursor or with the keyboard. It will be centered<br>to an anchor element specified in the <code>for</code> attribute, or, if that doesn’t exist,<br>centered to the parent node containing it.<br>Example:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"display:inline-block"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">button</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-tooltip</span>&gt;</span>Tooltip text<span class="tag">&lt;/<span class="name">paper-tooltip</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;<span class="name">div</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"btn"</span>&gt;</span>Click me!<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-tooltip</span> <span class="attr">for</span>=<span class="string">"btn"</span>&gt;</span>Tooltip text<span class="tag">&lt;/<span class="name">paper-tooltip</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
+<table>
+<thead>
+<tr>
+<th>Custom property</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--paper-tooltip-background</code></td>
+<td>The background color of the tooltip</td>
+<td><code>#616161</code></td>
+</tr>
+<tr>
+<td><code>--paper-tooltip-opacity</code></td>
+<td>The opacity of the tooltip</td>
+<td><code>0.9</code></td>
+</tr>
+<tr>
+<td><code>--paper-tooltip-text-color</code></td>
+<td>The text color of the tooltip</td>
+<td><code>white</code></td>
+</tr>
+<tr>
+<td><code>--paper-tooltip</code></td>
+<td>Mixin applied to the tooltip</td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>

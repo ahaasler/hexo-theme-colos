@@ -1,2 +1,202 @@
-<h1 id="paper-input"><a href="#paper-input" class="headerlink" title="paper-input"></a>paper-input</h1><p><strong>This element is compatible with Polymer 0.5 and lower only, and will be deprecated.</strong><br>You can check out a similar 0.8-compatible version of this element at <a href="https://github.com/polymerelements/paper-input">https://github.com/polymerelements/paper-input</a></p>
-<p>See the <a href="https://www.polymer-project.org/0.5/docs/elements/paper-input.html">component page</a> for more information.</p>
+<!---
+
+This README is automatically generated from the comments in these files:
+paper-input-addon-behavior.html  paper-input-behavior.html  paper-input-char-counter.html  paper-input-container.html  paper-input-error.html  paper-input.html  paper-textarea.html
+
+Edit those files, and our readme bot will duplicate them over here!
+Edit this file, and the bot will squash your changes :)
+
+-->
+<p><a href="https://travis-ci.org/PolymerElements/paper-input"><img src="https://travis-ci.org/PolymerElements/paper-input.svg?branch=master" alt="Build Status"></a></p>
+<p><em><a href="https://elements.polymer-project.org/elements/paper-input">Demo and API Docs</a></em></p>
+<p>##&lt;paper-input&gt;</p>
+<p>Material design: <a href="https://www.google.com/design/spec/components/text-fields.html">Text fields</a></p>
+<p><code>&lt;paper-input&gt;</code> is a single-line text field with Material Design styling.</p>
+<pre><code>&lt;paper-input label=&quot;Input label&quot;&gt;&lt;/paper-input&gt;
+</code></pre><p>It may include an optional error message or character counter.</p>
+<pre><code>&lt;paper-input error-message=&quot;Invalid input!&quot; label=&quot;Input label&quot;&gt;&lt;/paper-input&gt;
+&lt;paper-input char-counter label=&quot;Input label&quot;&gt;&lt;/paper-input&gt;
+</code></pre><p>It can also include custom prefix or suffix elements, which are displayed<br>before or after the text input itself. In order for an element to be<br>considered as a prefix, it must have the <code>prefix</code> attribute (and similarly<br>for <code>suffix</code>).</p>
+<pre><code>&lt;paper-input label=&quot;total&quot;&gt;
+  &lt;div prefix&gt;$&lt;/div&gt;
+  &lt;paper-icon-button suffix icon=&quot;clear&quot;&gt;&lt;/paper-icon-button&gt;
+&lt;/paper-input&gt;
+</code></pre><p>A <code>paper-input</code> can use the native <code>type=search</code> or <code>type=file</code> features.<br>However, since we can’t control the native styling of the input, in these cases<br>it’s recommended to use a placeholder text, or <code>always-float-label</code>,<br>as to not overlap the native UI (search icon, file button, etc.).</p>
+<pre><code>&lt;paper-input label=&quot;search!&quot; type=&quot;search&quot;
+    placeholder=&quot;search for cats&quot; autosave=&quot;test&quot; results=&quot;5&quot;&gt;
+&lt;/paper-input&gt;
+</code></pre><p>See <code>Polymer.PaperInputBehavior</code> for more API docs.</p>
+<h3 id="Focus"><a href="#Focus" class="headerlink" title="Focus"></a>Focus</h3><p>To focus a paper-input, you can call the native <code>focus()</code> method as long as the<br>paper input has a tab index.</p>
+<h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>See <code>Polymer.PaperInputContainer</code> for a list of custom properties used to<br>style this element.</p>
+<p>##&lt;paper-input-char-counter&gt;</p>
+<p><code>&lt;paper-input-char-counter&gt;</code> is a character counter for use with <code>&lt;paper-input-container&gt;</code>. It<br>shows the number of characters entered in the input and the max length if it is specified.</p>
+<pre><code>&lt;paper-input-container&gt;
+  &lt;input is=&quot;iron-input&quot; maxlength=&quot;20&quot;&gt;
+  &lt;paper-input-char-counter&gt;&lt;/paper-input-char-counter&gt;
+&lt;/paper-input-container&gt;
+</code></pre><h3 id="Styling-1"><a href="#Styling-1" class="headerlink" title="Styling"></a>Styling</h3><p>The following mixin is available for styling:</p>
+<table>
+<thead>
+<tr>
+<th>Custom property</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--paper-input-char-counter</code></td>
+<td>Mixin applied to the element</td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
+<p>##&lt;paper-input-container&gt;</p>
+<p><code>&lt;paper-input-container&gt;</code> is a container for a <code>&lt;label&gt;</code>, an <code>&lt;input is=&quot;iron-input&quot;&gt;</code> or<br><code>&lt;iron-autogrow-textarea&gt;</code> and optional add-on elements such as an error message or character<br>counter, used to implement Material Design text fields.</p>
+<p>For example:</p>
+<pre><code>&lt;paper-input-container&gt;
+  &lt;label&gt;Your name&lt;/label&gt;
+  &lt;input is=&quot;iron-input&quot;&gt;
+&lt;/paper-input-container&gt;
+</code></pre><h3 id="Listening_for_input_changes"><a href="#Listening_for_input_changes" class="headerlink" title="Listening for input changes"></a>Listening for input changes</h3><p>By default, it listens for changes on the <code>bind-value</code> attribute on its children nodes and perform<br>tasks such as auto-validating and label styling when the <code>bind-value</code> changes. You can configure<br>the attribute it listens to with the <code>attr-for-value</code> attribute.</p>
+<h3 id="Using_a_custom_input_element"><a href="#Using_a_custom_input_element" class="headerlink" title="Using a custom input element"></a>Using a custom input element</h3><p>You can use a custom input element in a <code>&lt;paper-input-container&gt;</code>, for example to implement a<br>compound input field like a social security number input. The custom input element should have the<br><code>paper-input-input</code> class, have a <code>notify:true</code> value property and optionally implements<br><code>Polymer.IronValidatableBehavior</code> if it is validatable.</p>
+<pre><code>&lt;paper-input-container attr-for-value=&quot;ssn-value&quot;&gt;
+  &lt;label&gt;Social security number&lt;/label&gt;
+  &lt;ssn-input class=&quot;paper-input-input&quot;&gt;&lt;/ssn-input&gt;
+&lt;/paper-input-container&gt;
+</code></pre><h3 id="Validation"><a href="#Validation" class="headerlink" title="Validation"></a>Validation</h3><p>If the <code>auto-validate</code> attribute is set, the input container will validate the input and update<br>the container styling when the input value changes.</p>
+<h3 id="Add-ons"><a href="#Add-ons" class="headerlink" title="Add-ons"></a>Add-ons</h3><p>Add-ons are child elements of a <code>&lt;paper-input-container&gt;</code> with the <code>add-on</code> attribute and<br>implements the <code>Polymer.PaperInputAddonBehavior</code> behavior. They are notified when the input value<br>or validity changes, and may implement functionality such as error messages or character counters.<br>They appear at the bottom of the input.</p>
+<h3 id="Prefixes_and_suffixes"><a href="#Prefixes_and_suffixes" class="headerlink" title="Prefixes and suffixes"></a>Prefixes and suffixes</h3><p>These are child elements of a <code>&lt;paper-input-container&gt;</code> with the <code>prefix</code><br>or <code>suffix</code> attribute, and are displayed inline with the input, before or after.</p>
+<pre><code>&lt;paper-input-container&gt;
+  &lt;div prefix&gt;$&lt;/div&gt;
+  &lt;label&gt;Total&lt;/label&gt;
+  &lt;input is=&quot;iron-input&quot;&gt;
+  &lt;paper-icon-button suffix icon=&quot;clear&quot;&gt;&lt;/paper-icon-button&gt;
+&lt;/paper-input-container&gt;
+</code></pre><h3 id="Styling-2"><a href="#Styling-2" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
+<table>
+<thead>
+<tr>
+<th>Custom property</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--paper-input-container-color</code></td>
+<td>Label and underline color when the input is not focused</td>
+<td><code>--secondary-text-color</code></td>
+</tr>
+<tr>
+<td><code>--paper-input-container-focus-color</code></td>
+<td>Label and underline color when the input is focused</td>
+<td><code>--default-primary-color</code></td>
+</tr>
+<tr>
+<td><code>--paper-input-container-invalid-color</code></td>
+<td>Label and underline color when the input is is invalid</td>
+<td><code>--google-red-500</code></td>
+</tr>
+<tr>
+<td><code>--paper-input-container-input-color</code></td>
+<td>Input foreground color</td>
+<td><code>--primary-text-color</code></td>
+</tr>
+<tr>
+<td><code>--paper-input-container</code></td>
+<td>Mixin applied to the container</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>--paper-input-container-disabled</code></td>
+<td>Mixin applied to the container when it’s disabled</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>--paper-input-container-label</code></td>
+<td>Mixin applied to the label</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>--paper-input-container-label-focus</code></td>
+<td>Mixin applied to the label when the input is focused</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>--paper-input-container-label-floating</code></td>
+<td>Mixin applied to the label when floating</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>--paper-input-container-input</code></td>
+<td>Mixin applied to the input</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>--paper-input-container-underline</code></td>
+<td>Mixin applied to the underline</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>--paper-input-container-underline-focus</code></td>
+<td>Mixin applied to the underline when the input is focused</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>--paper-input-container-underline-disabled</code></td>
+<td>Mixin applied to the underline when the input is disabled</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>--paper-input-prefix</code></td>
+<td>Mixin applied to the input prefix</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>--paper-input-suffix</code></td>
+<td>Mixin applied to the input suffix</td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
+<p>This element is <code>display:block</code> by default, but you can set the <code>inline</code> attribute to make it<br><code>display:inline-block</code>.</p>
+<p>##&lt;paper-input-error&gt;</p>
+<p><code>&lt;paper-input-error&gt;</code> is an error message for use with <code>&lt;paper-input-container&gt;</code>. The error is<br>displayed when the <code>&lt;paper-input-container&gt;</code> is <code>invalid</code>.</p>
+<pre><code>&lt;paper-input-container&gt;
+  &lt;input is=&quot;iron-input&quot; pattern=&quot;[0-9]*&quot;&gt;
+  &lt;paper-input-error&gt;Only numbers are allowed!&lt;/paper-input-error&gt;
+&lt;/paper-input-container&gt;
+</code></pre><h3 id="Styling-3"><a href="#Styling-3" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
+<table>
+<thead>
+<tr>
+<th>Custom property</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--paper-input-container-invalid-color</code></td>
+<td>The foreground color of the error</td>
+<td><code>--google-red-500</code></td>
+</tr>
+<tr>
+<td><code>--paper-input-error</code></td>
+<td>Mixin applied to the error</td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
+<p>##&lt;paper-textarea&gt;</p>
+<p><code>&lt;paper-textarea&gt;</code> is a multi-line text field with Material Design styling.</p>
+<pre><code>&lt;paper-textarea label=&quot;Textarea label&quot;&gt;&lt;/paper-textarea&gt;
+</code></pre><p>See <code>Polymer.PaperInputBehavior</code> for more API docs.</p>
+<h3 id="Validation-1"><a href="#Validation-1" class="headerlink" title="Validation"></a>Validation</h3><p>Currently only <code>required</code> and <code>maxlength</code> validation is supported.</p>
+<h3 id="Styling-4"><a href="#Styling-4" class="headerlink" title="Styling"></a>Styling</h3><p>See <code>Polymer.PaperInputContainer</code> for a list of custom properties used to<br>style this element.</p>
+<p>##Polymer.PaperInputBehavior</p>
+<p>Use <code>Polymer.PaperInputBehavior</code> to implement inputs with <code>&lt;paper-input-container&gt;</code>. This<br>behavior is implemented by <code>&lt;paper-input&gt;</code>. It exposes a number of properties from<br><code>&lt;paper-input-container&gt;</code> and <code>&lt;input is=&quot;iron-input&quot;&gt;</code> and they should be bound in your<br>template.</p>
+<p>The input element can be accessed by the <code>inputElement</code> property if you need to access<br>properties or methods that are not exposed.</p>
+<p>##Polymer.PaperInputAddonBehavior</p>
+<p>Use <code>Polymer.PaperInputAddonBehavior</code> to implement an add-on for <code>&lt;paper-input-container&gt;</code>. A<br>add-on appears below the input, and may display information based on the input value and<br>validity such as a character counter or an error message.</p>

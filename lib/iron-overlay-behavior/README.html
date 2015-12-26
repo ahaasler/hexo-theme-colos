@@ -1,0 +1,51 @@
+<!---
+
+This README is automatically generated from the comments in these files:
+iron-overlay-backdrop.html  iron-overlay-behavior.html
+
+Edit those files, and our readme bot will duplicate them over here!
+Edit this file, and the bot will squash your changes :)
+
+-->
+<p><a href="https://travis-ci.org/PolymerElements/iron-overlay-behavior"><img src="https://travis-ci.org/PolymerElements/iron-overlay-behavior.svg?branch=master" alt="Build Status"></a></p>
+<p><em><a href="https://elements.polymer-project.org/elements/iron-overlay-behavior">Demo and API Docs</a></em></p>
+<p>##&lt;iron-overlay-backdrop&gt;</p>
+<p><code>iron-overlay-backdrop</code> is a backdrop used by <code>Polymer.IronOverlayBehavior</code>. It should be a<br>singleton.</p>
+<h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling.</p>
+<table>
+<thead>
+<tr>
+<th>Custom property</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--iron-overlay-backdrop-background-color</code></td>
+<td>Backdrop background color</td>
+<td>#000</td>
+</tr>
+<tr>
+<td><code>--iron-overlay-backdrop-opacity</code></td>
+<td>Backdrop opacity</td>
+<td>0.6</td>
+</tr>
+<tr>
+<td><code>--iron-overlay-backdrop</code></td>
+<td>Mixin applied to <code>iron-overlay-backdrop</code>.</td>
+<td>{}</td>
+</tr>
+<tr>
+<td><code>--iron-overlay-backdrop-opened</code></td>
+<td>Mixin applied to <code>iron-overlay-backdrop</code> when it is displayed</td>
+<td>{}</td>
+</tr>
+</tbody>
+</table>
+<p>##Polymer.IronOverlayBehavior</p>
+<p>Use <code>Polymer.IronOverlayBehavior</code> to implement an element that can be hidden or shown, and displays<br>on top of other content. It includes an optional backdrop, and can be used to implement a variety<br>of UI controls including dialogs and drop downs. Multiple overlays may be displayed at once.</p>
+<h3 id="Closing_and_canceling"><a href="#Closing_and_canceling" class="headerlink" title="Closing and canceling"></a>Closing and canceling</h3><p>A dialog may be hidden by closing or canceling. The difference between close and cancel is user<br>intent. Closing generally implies that the user acknowledged the content on the overlay. By default,<br>it will cancel whenever the user taps outside it or presses the escape key. This behavior is<br>configurable with the <code>no-cancel-on-esc-key</code> and the <code>no-cancel-on-outside-click</code> properties.<br><code>close()</code> should be called explicitly by the implementer when the user interacts with a control<br>in the overlay element. When the dialog is canceled, the overlay fires an ‘iron-overlay-canceled’<br>event. Call <code>preventDefault</code> on this event to prevent the overlay from closing.</p>
+<h3 id="Positioning"><a href="#Positioning" class="headerlink" title="Positioning"></a>Positioning</h3><p>By default the element is sized and positioned to fit and centered inside the window. You can<br>position and size it manually using CSS. See <code>Polymer.IronFitBehavior</code>.</p>
+<h3 id="Backdrop"><a href="#Backdrop" class="headerlink" title="Backdrop"></a>Backdrop</h3><p>Set the <code>with-backdrop</code> attribute to display a backdrop behind the overlay. The backdrop is<br>appended to <code>&lt;body&gt;</code> and is of type <code>&lt;iron-overlay-backdrop&gt;</code>. See its doc page for styling<br>options.</p>
+<h3 id="Limitations"><a href="#Limitations" class="headerlink" title="Limitations"></a>Limitations</h3><p>The element is styled to appear on top of other content by setting its <code>z-index</code> property. You<br>must ensure no element has a stacking context with a higher <code>z-index</code> than its parent stacking<br>context. You should place this element as a child of <code>&lt;body&gt;</code> whenever possible.</p>

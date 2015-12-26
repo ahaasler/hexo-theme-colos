@@ -1,1 +1,87 @@
-<h1 id="paper-progress"><a href="#paper-progress" class="headerlink" title="paper-progress"></a>paper-progress</h1><p>See the <a href="https://www.polymer-project.org/0.5/docs/elements/paper-progress.html">component page</a> for more information.</p>
+<h1 id="paper-progress"><a href="#paper-progress" class="headerlink" title="paper-progress"></a>paper-progress</h1><p>The progress bars are for situations where the percentage completed can be<br>determined. They give users a quick sense of how much longer an operation<br>will take.</p>
+<p>Example:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-progress</span> <span class="attr">value</span>=<span class="string">"10"</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-progress</span>&gt;</span>
+</code></pre>
+<p>There is also a secondary progress which is useful for displaying intermediate<br>progress, such as the buffer level during a streaming playback progress bar.</p>
+<p>Example:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-progress</span> <span class="attr">value</span>=<span class="string">"10"</span> <span class="attr">secondary-progress</span>=<span class="string">"30"</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-progress</span>&gt;</span>
+</code></pre>
+<h3 id="Styling_progress_bar_3A"><a href="#Styling_progress_bar_3A" class="headerlink" title="Styling progress bar:"></a>Styling progress bar:</h3><p>To change the active progress bar color:</p>
+<pre><code class="css"><span class="selector-tag">paper-progress</span> {
+  <span class="attribute">--paper-progress-active-color</span>: <span class="number">#e91e63</span>;
+}
+</code></pre>
+<p>To change the secondary progress bar color:</p>
+<pre><code class="css"><span class="selector-tag">paper-progress</span> {
+  <span class="attribute">--paper-progress-secondary-color</span>: <span class="number">#f8bbd0</span>;
+}
+</code></pre>
+<p>To change the progress bar background color:</p>
+<pre><code class="css"><span class="selector-tag">paper-progress</span> {
+  <span class="attribute">--paper-progress-container-color</span>: <span class="number">#64ffda</span>;
+}
+</code></pre>
+<p>Add the class <code>transiting</code> to a <code>&lt;paper-progress&gt;</code> to animate the progress bar when<br>the value changed. You can also customize the transition:</p>
+<pre><code class="css"><span class="selector-tag">paper-progress</span> {
+  <span class="attribute">--paper-progress-transition-duration</span>: <span class="number">0.08s</span>;
+  <span class="attribute">--paper-progress-transition-timing-function</span>: ease;
+  <span class="attribute">--paper-progress-transition-transition-delay</span>: <span class="number">0s</span>;
+}
+</code></pre>
+<p>The following mixins are available for styling:</p>
+<table>
+<thead>
+<tr>
+<th>Custom property</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>–paper-progress-container-color</td>
+<td>Mixin applied to container</td>
+<td>–google-grey-300</td>
+</tr>
+<tr>
+<td>–paper-progress-transition-duration</td>
+<td>Duration of the transition</td>
+<td>0.008s</td>
+</tr>
+<tr>
+<td>–paper-progress-transition-timing-function</td>
+<td>The timing function for the transition</td>
+<td>ease</td>
+</tr>
+<tr>
+<td>–paper-progress-transition-delay</td>
+<td>delay for the transition</td>
+<td>0s</td>
+</tr>
+<tr>
+<td>–paper-progress-active-color</td>
+<td>The color of the active bar</td>
+<td>–google-green-500</td>
+</tr>
+<tr>
+<td>–paper-progress-secondary-color</td>
+<td>The color of the secondary bar</td>
+<td>–google-green-100</td>
+</tr>
+<tr>
+<td>–paper-progress-disabled-active-color</td>
+<td>The color of the active bar if disabled</td>
+<td>–google-grey-500</td>
+</tr>
+<tr>
+<td>–paper-progress-disabled-secondary-color</td>
+<td>The color of the secondary bar if disabled</td>
+<td>–google-grey-300</td>
+</tr>
+<tr>
+<td>–paper-progress-height</td>
+<td>The height of the progress bar</td>
+<td>4px</td>
+</tr>
+</tbody>
+</table>

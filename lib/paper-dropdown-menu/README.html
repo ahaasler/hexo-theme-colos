@@ -1,2 +1,69 @@
-<h1 id="paper-dropdown-menu"><a href="#paper-dropdown-menu" class="headerlink" title="paper-dropdown-menu"></a>paper-dropdown-menu</h1><p>owner: @morethanreal</p>
-<p>See the <a href="https://www.polymer-project.org/0.5/docs/elements/paper-dropdown-menu.html">component page</a> for more information.</p>
+<!---
+
+This README is automatically generated from the comments in these files:
+paper-dropdown-menu.html
+
+Edit those files, and our readme bot will duplicate them over here!
+Edit this file, and the bot will squash your changes :)
+
+-->
+<p><a href="https://travis-ci.org/PolymerElements/paper-dropdown-menu"><img src="https://travis-ci.org/PolymerElements/paper-dropdown-menu.svg?branch=master" alt="Build Status"></a></p>
+<p><em><a href="https://elements.polymer-project.org/elements/paper-dropdown-menu">Demo and API Docs</a></em></p>
+<p>##&lt;paper-dropdown-menu&gt;</p>
+<p>Material design: <a href="https://www.google.com/design/spec/components/buttons.html#buttons-dropdown-buttons">Dropdown menus</a></p>
+<p><code>paper-dropdown-menu</code> is similar to a native browser select element.<br><code>paper-dropdown-menu</code> works with selectable content. The currently selected<br>item is displayed in the control. If no item is selected, the <code>label</code> is<br>displayed instead.</p>
+<p>The child element with the class <code>dropdown-content</code> will be used as the dropdown<br>menu. It could be a <code>paper-menu</code> or element that triggers <code>iron-select</code> when<br>selecting its children.</p>
+<p>Example:</p>
+<pre><code>&lt;paper-dropdown-menu label=&quot;Your favourite pastry&quot;&gt;
+  &lt;paper-menu class=&quot;dropdown-content&quot;&gt;
+    &lt;paper-item&gt;Croissant&lt;/paper-item&gt;
+    &lt;paper-item&gt;Donut&lt;/paper-item&gt;
+    &lt;paper-item&gt;Financier&lt;/paper-item&gt;
+    &lt;paper-item&gt;Madeleine&lt;/paper-item&gt;
+  &lt;/paper-menu&gt;
+&lt;/paper-dropdown-menu&gt;
+</code></pre><p>This example renders a dropdown menu with 4 options.</p>
+<p>Similarly to using <code>iron-select</code>, <code>iron-deselect</code> events will cause the<br>current selection of the <code>paper-dropdown-menu</code> to be cleared.</p>
+<h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are also available for styling:</p>
+<table>
+<thead>
+<tr>
+<th>Custom property</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--paper-dropdown-menu</code></td>
+<td>A mixin that is applied to the element host</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>--paper-dropdown-menu-disabled</code></td>
+<td>A mixin that is applied to the element host when disabled</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>--paper-dropdown-menu-ripple</code></td>
+<td>A mixin that is applied to the internal ripple</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>--paper-dropdown-menu-button</code></td>
+<td>A mixin that is applied to the internal menu button</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>--paper-dropdown-menu-input</code></td>
+<td>A mixin that is applied to the internal paper input</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>--paper-dropdown-menu-icon</code></td>
+<td>A mixin that is applied to the internal icon</td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
+<p>You can also use any of the <code>paper-input-container</code> and <code>paper-menu-button</code><br>style mixins and custom properties to style the internal input and menu button<br>respectively.</p>

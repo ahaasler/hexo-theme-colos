@@ -1,0 +1,20 @@
+<!---
+
+This README is automatically generated from the comments in these files:
+iron-dropdown.html
+
+Edit those files, and our readme bot will duplicate them over here!
+Edit this file, and the bot will squash your changes :)
+
+-->
+<p><a href="https://travis-ci.org/PolymerElements/iron-dropdown"><img src="https://travis-ci.org/PolymerElements/iron-dropdown.svg?branch=master" alt="Build Status"></a></p>
+<p><em><a href="https://elements.polymer-project.org/elements/iron-dropdown">Demo and API Docs</a></em></p>
+<p>##&lt;iron-dropdown&gt;</p>
+<p><code>&lt;iron-dropdown&gt;</code> is a generalized element that is useful when you have<br>hidden content (<code>.dropdown-content</code>) that is revealed due to some change in<br>state that should cause it to do so.</p>
+<p>Note that this is a low-level element intended to be used as part of other<br>composite elements that cause dropdowns to be revealed.</p>
+<p>Examples of elements that might be implemented using an <code>iron-dropdown</code><br>include comboboxes, menubuttons, selects. The list goes on.</p>
+<p>The <code>&lt;iron-dropdown&gt;</code> element exposes attributes that allow the position<br>of the <code>.dropdown-content</code> relative to the <code>.dropdown-trigger</code> to be<br>configured.</p>
+<pre><code>&lt;iron-dropdown horizontal-align=&quot;right&quot; vertical-align=&quot;top&quot;&gt;
+  &lt;div class=&quot;dropdown-content&quot;&gt;Hello!&lt;/div&gt;
+&lt;/iron-dropdown&gt;
+</code></pre><p>In the above example, the <code>&lt;div&gt;</code> with class <code>.dropdown-content</code> will be<br>hidden until the dropdown element has <code>opened</code> set to true, or when the <code>open</code><br>method is called on the element.</p>

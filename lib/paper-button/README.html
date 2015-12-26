@@ -1,2 +1,77 @@
-<h1 id="paper-button"><a href="#paper-button" class="headerlink" title="paper-button"></a>paper-button</h1><p><strong>This element is compatible with Polymer 0.5 and lower only, and will be deprecated.</strong><br>You can check out a similar 0.8-compatible version of this element at <a href="https://github.com/polymerelements/paper-button">https://github.com/polymerelements/paper-button</a></p>
-<p>See the <a href="https://www.polymer-project.org/0.5/docs/elements/paper-button.html">component page</a> for more information.</p>
+<!---
+
+This README is automatically generated from the comments in these files:
+paper-button.html
+
+Edit those files, and our readme bot will duplicate them over here!
+Edit this file, and the bot will squash your changes :)
+
+-->
+<p><a href="https://travis-ci.org/PolymerElements/paper-button"><img src="https://travis-ci.org/PolymerElements/paper-button.svg?branch=master" alt="Build Status"></a></p>
+<p><em><a href="https://elements.polymer-project.org/elements/paper-button">Demo and API Docs</a></em></p>
+<p>##&lt;paper-button&gt;</p>
+<p>Material design: <a href="https://www.google.com/design/spec/components/buttons.html">Buttons</a></p>
+<p><code>paper-button</code> is a button. When the user touches the button, a ripple effect emanates<br>from the point of contact. It may be flat or raised. A raised button is styled with a<br>shadow.</p>
+<p>Example:</p>
+<pre><code>&lt;paper-button&gt;Flat button&lt;/paper-button&gt;
+&lt;paper-button raised&gt;Raised button&lt;/paper-button&gt;
+&lt;paper-button noink&gt;No ripple effect&lt;/paper-button&gt;
+&lt;paper-button toggles&gt;Toggle-able button&lt;/paper-button&gt;
+</code></pre><p>A button that has <code>toggles</code> true will remain <code>active</code> after being clicked (and<br>will have an <code>active</code> attribute set). For more information, see the <code>Polymer.IronButtonState</code><br>behavior.</p>
+<p>You may use custom DOM in the button body to create a variety of buttons. For example, to<br>create a button with an icon and some text:</p>
+<pre><code>&lt;paper-button&gt;
+  &lt;iron-icon icon=&quot;favorite&quot;&gt;&lt;/iron-icon&gt;
+  custom button content
+&lt;/paper-button&gt;
+</code></pre><h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>Style the button with CSS as you would a normal DOM element.</p>
+<pre><code>paper-button.fancy {
+  background: green;
+  color: yellow;
+}
+
+paper-button.fancy:hover {
+  background: lime;
+}
+
+paper-button[disabled],
+paper-button[toggles][active] {
+  background: red;
+}
+</code></pre><p>By default, the ripple is the same color as the foreground at 25% opacity. You may<br>customize the color using the <code>--paper-button-ink-color</code> custom property.</p>
+<p>The following custom properties and mixins are also available for styling:</p>
+<table>
+<thead>
+<tr>
+<th>Custom property</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--paper-button-ink-color</code></td>
+<td>Background color of the ripple</td>
+<td><code>Based on the button&#39;s color</code></td>
+</tr>
+<tr>
+<td><code>--paper-button</code></td>
+<td>Mixin applied to the button</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>--paper-button-disabled</code></td>
+<td>Mixin applied to the disabled button. Note that you can also use the <code>paper-button[disabled]</code> selector</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>--paper-button-flat-keyboard-focus</code></td>
+<td>Mixin applied to a flat button after it’s been focused using the keyboard</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>--paper-button-raised-keyboard-focus</code></td>
+<td>Mixin applied to a raised button after it’s been focused using the keyboard</td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
