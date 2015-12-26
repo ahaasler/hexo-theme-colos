@@ -1,3 +1,5 @@
+@import partial/reset;
+
 :root {
   --heading-color: color(black alpha(-10%));
 }
