@@ -3,7 +3,7 @@
 {{ partial('partial/head') }}
 <body>
 	<paper-drawer-panel>
-		<div drawer>Drawer</div>
+		{{ partial('partial/drawer') }}
 		<div main>
 			{{ partial('partial/header') }}
 			<div class="page-content">
