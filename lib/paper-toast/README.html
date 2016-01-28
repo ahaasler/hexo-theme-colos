@@ -6,9 +6,55 @@ paper-toast.html
 Edit those files, and our readme bot will duplicate them over here!
 Edit this file, and the bot will squash your changes :)
 
+The bot does some handling of markdown. Please file a bug if it does the wrong
+thing! https://github.com/PolymerLabs/tedium/issues
+
 -->
 <p><a href="https://travis-ci.org/PolymerElements/paper-toast"><img src="https://travis-ci.org/PolymerElements/paper-toast.svg?branch=master" alt="Build Status"></a></p>
 <p><em><a href="https://elements.polymer-project.org/elements/paper-toast">Demo and API Docs</a></em></p>
 <p>##&lt;paper-toast&gt;</p>
 <p>Material design: <a href="https://www.google.com/design/spec/components/snackbars-toasts.html">Snackbards &amp; toasts</a></p>
-<p><code>paper-toast</code> provides a subtle notification toast.</p>
+<p><code>paper-toast</code> provides a subtle notification toast. Only one <code>paper-toast</code> will<br>be visible on screen.</p>
+<p>Use <code>opened</code> to show the toast:</p>
+<p>Example:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-toast</span> <span class="attr">text</span>=<span class="string">"Hello world!"</span> <span class="attr">opened</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-toast</span>&gt;</span>
+</code></pre>
+<p>Also <code>open()</code> or <code>show()</code> can be used to show the toast:</p>
+<p>Example:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-button</span> <span class="attr">on-click</span>=<span class="string">"openToast"</span>&gt;</span>Open Toast<span class="tag">&lt;/<span class="name">paper-button</span>&gt;</span>
+<span class="tag">&lt;<span class="name">paper-toast</span> <span class="attr">id</span>=<span class="string">"toast"</span> <span class="attr">text</span>=<span class="string">"Hello world!"</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-toast</span>&gt;</span>
+
+...
+
+openToast: function() {
+  this.$.toast.open();
+}
+</code></pre>
+<p>Set <code>duration</code> to 0, a negative number or Infinity to persist the toast on screen:</p>
+<p>Example:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-toast</span> <span class="attr">text</span>=<span class="string">"Terms and conditions"</span> <span class="attr">opened</span> <span class="attr">duration</span>=<span class="string">"0"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span>Show more<span class="tag">&lt;/<span class="name">a</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">paper-toast</span>&gt;</span>
+</code></pre>
+<h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
+<table>
+<thead>
+<tr>
+<th>Custom property</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--paper-toast-background-color</code></td>
+<td>The paper-toast background-color</td>
+<td><code>#323232</code></td>
+</tr>
+<tr>
+<td><code>--paper-toast-color</code></td>
+<td>The paper-toast color</td>
+<td><code>#f1f1f1</code></td>
+</tr>
+</tbody>
+</table>

@@ -6,6 +6,9 @@ paper-tab.html  paper-tabs.html
 Edit those files, and our readme bot will duplicate them over here!
 Edit this file, and the bot will squash your changes :)
 
+The bot does some handling of markdown. Please file a bug if it does the wrong
+thing! https://github.com/PolymerLabs/tedium/issues
+
 -->
 <p><a href="https://travis-ci.org/PolymerElements/paper-tabs"><img src="https://travis-ci.org/PolymerElements/paper-tabs.svg?branch=master" alt="Build Status"></a></p>
 <p><em><a href="https://elements.polymer-project.org/elements/paper-tabs">Demo and API Docs</a></em></p>
@@ -14,37 +17,41 @@ Edit this file, and the bot will squash your changes :)
 <p><code>paper-tabs</code> makes it easy to explore and switch between different views or functional aspects of<br>an app, or to browse categorized data sets.</p>
 <p>Use <code>selected</code> property to get or set the selected tab.</p>
 <p>Example:</p>
-<pre><code>&lt;paper-tabs selected=&quot;0&quot;&gt;
-  &lt;paper-tab&gt;TAB 1&lt;/paper-tab&gt;
-  &lt;paper-tab&gt;TAB 2&lt;/paper-tab&gt;
-  &lt;paper-tab&gt;TAB 3&lt;/paper-tab&gt;
-&lt;/paper-tabs&gt;
-</code></pre><p>See <a href="#paper-tab">paper-tab</a> for more information about<br><code>paper-tab</code>.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-tabs</span> <span class="attr">selected</span>=<span class="string">"0"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-tab</span>&gt;</span>TAB 1<span class="tag">&lt;/<span class="name">paper-tab</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-tab</span>&gt;</span>TAB 2<span class="tag">&lt;/<span class="name">paper-tab</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-tab</span>&gt;</span>TAB 3<span class="tag">&lt;/<span class="name">paper-tab</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">paper-tabs</span>&gt;</span>
+</code></pre>
+<p>See <a href="#paper-tab">paper-tab</a> for more information about<br><code>paper-tab</code>.</p>
 <p>A common usage for <code>paper-tabs</code> is to use it along with <code>iron-pages</code> to switch<br>between different views.</p>
-<pre><code>&lt;paper-tabs selected=&quot;{{selected}}&quot;&gt;
-  &lt;paper-tab&gt;Tab 1&lt;/paper-tab&gt;
-  &lt;paper-tab&gt;Tab 2&lt;/paper-tab&gt;
-  &lt;paper-tab&gt;Tab 3&lt;/paper-tab&gt;
-&lt;/paper-tabs&gt;
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-tabs</span> <span class="attr">selected</span>=<span class="string">"{{selected}}"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-tab</span>&gt;</span>Tab 1<span class="tag">&lt;/<span class="name">paper-tab</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-tab</span>&gt;</span>Tab 2<span class="tag">&lt;/<span class="name">paper-tab</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-tab</span>&gt;</span>Tab 3<span class="tag">&lt;/<span class="name">paper-tab</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">paper-tabs</span>&gt;</span>
 
-&lt;iron-pages selected=&quot;{{selected}}&quot;&gt;
-  &lt;div&gt;Page 1&lt;/div&gt;
-  &lt;div&gt;Page 2&lt;/div&gt;
-  &lt;div&gt;Page 3&lt;/div&gt;
-&lt;/iron-pages&gt;
-</code></pre><p>To use links in tabs, add <code>link</code> attribute to <code>paper-tab</code> and put an <code>&lt;a&gt;</code><br>element in <code>paper-tab</code>.</p>
+<span class="tag">&lt;<span class="name">iron-pages</span> <span class="attr">selected</span>=<span class="string">"{{selected}}"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span>&gt;</span>Page 1<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span>&gt;</span>Page 2<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span>&gt;</span>Page 3<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">iron-pages</span>&gt;</span>
+</code></pre>
+<p>To use links in tabs, add <code>link</code> attribute to <code>paper-tab</code> and put an <code>&lt;a&gt;</code><br>element in <code>paper-tab</code>.</p>
 <p>Example:</p>
-<pre><code>&lt;style is=&quot;custom-style&quot;&gt;
-  .link {
-</code></pre><p>##&lt;paper-tab&gt;</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">style</span> <span class="attr">is</span>=<span class="string">"custom-style"</span>&gt;</span><span class="css">
+  <span class="selector-class">.link</span> {</span>
+</code></pre>
+<p>##&lt;paper-tab&gt;</p>
 <p><code>paper-tab</code> is styled to look like a tab.  It should be used in conjunction with<br><code>paper-tabs</code>.</p>
 <p>Example:</p>
-<pre><code>&lt;paper-tabs selected=&quot;0&quot;&gt;
-  &lt;paper-tab&gt;TAB 1&lt;/paper-tab&gt;
-  &lt;paper-tab&gt;TAB 2&lt;/paper-tab&gt;
-  &lt;paper-tab&gt;TAB 3&lt;/paper-tab&gt;
-&lt;/paper-tabs&gt;
-</code></pre><h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-tabs</span> <span class="attr">selected</span>=<span class="string">"0"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-tab</span>&gt;</span>TAB 1<span class="tag">&lt;/<span class="name">paper-tab</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-tab</span>&gt;</span>TAB 2<span class="tag">&lt;/<span class="name">paper-tab</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-tab</span>&gt;</span>TAB 3<span class="tag">&lt;/<span class="name">paper-tab</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">paper-tabs</span>&gt;</span>
+</code></pre>
+<h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
 <table>
 <thead>
 <tr>
@@ -76,3 +83,4 @@ Edit this file, and the bot will squash your changes :)
 </tr>
 </tbody>
 </table>
+<p>This element applies the mixin <code>--paper-font-common-base</code> but does not import <code>paper-styles/typography.html</code>.<br>In order to apply the <code>Roboto</code> font to this element, make sure you’ve imported <code>paper-styles/typography.html</code>.</p>

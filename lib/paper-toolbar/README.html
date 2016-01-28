@@ -6,6 +6,9 @@ paper-toolbar.html
 Edit those files, and our readme bot will duplicate them over here!
 Edit this file, and the bot will squash your changes :)
 
+The bot does some handling of markdown. Please file a bug if it does the wrong
+thing! https://github.com/PolymerLabs/tedium/issues
+
 -->
 <p><a href="https://travis-ci.org/PolymerElements/paper-toolbar"><img src="https://travis-ci.org/PolymerElements/paper-toolbar.svg?branch=master" alt="Build Status"></a></p>
 <p><em><a href="https://elements.polymer-project.org/elements/paper-toolbar">Demo and API Docs</a></em></p>
@@ -60,12 +63,12 @@ Edit this file, and the bot will squash your changes :)
 <tr>
 <td><code>--paper-toolbar-background</code></td>
 <td>Toolbar background color</td>
-<td><code>--default-primary-color</code></td>
+<td><code>--primary-color</code></td>
 </tr>
 <tr>
 <td><code>--paper-toolbar-color</code></td>
 <td>Toolbar foreground color</td>
-<td><code>--text-primary-color</code></td>
+<td><code>--primary-text-color</code></td>
 </tr>
 <tr>
 <td><code>--paper-toolbar-height</code></td>
@@ -80,6 +83,11 @@ Edit this file, and the bot will squash your changes :)
 <tr>
 <td><code>--paper-toolbar</code></td>
 <td>Mixin applied to the toolbar</td>
+<td><code>{}</code></td>
+</tr>
+<tr>
+<td><code>--paper-toolbar-content</code></td>
+<td>Mixin applied to the content section of the toolbar</td>
 <td><code>{}</code></td>
 </tr>
 <tr>
