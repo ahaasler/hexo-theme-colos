@@ -1,0 +1,102 @@
+<h1 id="paper-drawer"><a href="#paper-drawer" class="headerlink" title="paper-drawer"></a>paper-drawer <a href="http://badge.fury.io/bo/paper-drawer"><img src="https://badge.fury.io/bo/paper-drawer.svg" alt="Bower version"></a></h1><p><code>paper-drawer</code> provides components to build a material design <a href="https://www.google.com/design/spec/patterns/navigation-drawer.html">drawer</a>. The web component is built with <a href="https://www.polymer-project.org">Polymer 1.x</a>.</p>
+<p>The components are designed to be used in combination with <a href="https://github.com/PolymerElements/paper-drawer-panel"><code>paper-drawer-panel</code></a>.</p>
+<p><img src="/hexo-theme-colos/doc/screenshot.png" alt="Screenshot" title="Screenshot"></p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p><code>bower install paper-drawer</code></p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-drawer</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-drawer-title</span> <span class="attr">photo</span>=<span class="string">"face.png"</span> <span class="attr">name</span>=<span class="string">"Jonathan Lee"</span> <span class="attr">email</span>=<span class="string">"heyfromjonathan@gmail.com"</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-drawer-title</span>&gt;</span>
+
+  <span class="tag">&lt;<span class="name">paper-drawer-subheader</span>&gt;</span>Items with icon<span class="tag">&lt;/<span class="name">paper-drawer-subheader</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-drawer-icon-item</span> <span class="attr">icon</span>=<span class="string">"icons:mail"</span>&gt;</span>All mail<span class="tag">&lt;/<span class="name">paper-drawer-icon-item</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-drawer-icon-item</span> <span class="attr">icon</span>=<span class="string">"icons:delete"</span>&gt;</span>Trash<span class="tag">&lt;/<span class="name">paper-drawer-icon-item</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-drawer-icon-item</span> <span class="attr">icon</span>=<span class="string">"icons:error"</span>&gt;</span>Spam<span class="tag">&lt;/<span class="name">paper-drawer-icon-item</span>&gt;</span>
+
+  <span class="tag">&lt;<span class="name">paper-drawer-divider</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-drawer-divider</span>&gt;</span>
+
+  <span class="tag">&lt;<span class="name">paper-drawer-subheader</span>&gt;</span>Items without icon<span class="tag">&lt;/<span class="name">paper-drawer-subheader</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-drawer-item</span>&gt;</span>All mail<span class="tag">&lt;/<span class="name">paper-drawer-item</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-drawer-item</span>&gt;</span>Trash<span class="tag">&lt;/<span class="name">paper-drawer-item</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-drawer-item</span>&gt;</span>Spam<span class="tag">&lt;/<span class="name">paper-drawer-item</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">paper-drawer</span>&gt;</span>
+</code></pre>
+<h2 id="Properties__26amp_3B_styles"><a href="#Properties__26amp_3B_styles" class="headerlink" title="Properties &amp; styles"></a>Properties &amp; styles</h2><p>These properties are available for <code>paper-drawer-title</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>photo</strong></td>
+<td>String</td>
+<td>URL to the photo of the person</td>
+</tr>
+<tr>
+<td><strong>name</strong></td>
+<td>String</td>
+<td>Name of the person</td>
+</tr>
+<tr>
+<td><strong>email</strong></td>
+<td>String</td>
+<td>Email of the person</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Style</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>–paper-drawer-title-background-color</td>
+<td>Background color of the title area</td>
+</tr>
+<tr>
+<td>–paper-drawer-title-color</td>
+<td>Font color of the name and email</td>
+</tr>
+<tr>
+<td>–paper-drawer-title</td>
+<td>Mix-in applied to the title area</td>
+</tr>
+</tbody>
+</table>
+<p>These properties are available for <code>paper-drawer-icon-item</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>icon</strong></td>
+<td>String</td>
+<td>Icon that is shown next to the content</td>
+</tr>
+</tbody>
+</table>
+<h2 id="License"><a href="#License" class="headerlink" title="License"></a>License</h2><pre><code>This software is licensed under the Apache 2 license, quoted below.
+
+Copyright 2011-2015 Collaborne B.V. &lt;http://github.com/Collaborne/&gt;
+
+Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations under
+the License.
+</code></pre>
