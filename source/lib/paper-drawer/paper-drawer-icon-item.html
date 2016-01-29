@@ -1,0 +1,44 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../paper-item/paper-icon-item.html">
+<link rel="import" href="../paper-styles/paper-styles.html">
+<link rel="import" href="../paper-ripple/paper-ripple.html">
+
+<dom-module id="paper-drawer-icon-item">
+
+	<template>
+	
+		<style>
+			.item {
+				color: var(--primary-text-color);
+				@apply(--paper-font-body1);
+				position: relative;
+			}
+
+			.icon {
+				color: var(--disabled-text-color);
+			}
+		</style>
+
+		<paper-icon-item class='item' role='menuitem'>
+			<paper-ripple fit></paper-ripple>
+			<iron-icon class='icon' icon=[[icon]] item-icon></iron-icon>
+			<content></content>
+		</paper-icon-item>
+	</template>
+</dom-module>
+
+<script>
+
+(function() {
+
+	Polymer({
+		is: 'paper-drawer-icon-item',
+		properties: {
+			icon: String
+		}
+	});
+
+})();
+
+</script>
