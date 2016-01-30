@@ -15,4 +15,12 @@
 	{{ css('css/main.css') }}
 	{{ js('lib/webcomponentsjs/webcomponents-lite.min.js') }}
 	{{ component('lib/paper-drawer-panel/paper-drawer-panel') }}
+	{{ component(
+		'lib/paper-drawer/paper-drawer',
+		'lib/paper-drawer/paper-drawer-title',
+		'lib/paper-drawer/paper-drawer-subheader',
+		'lib/paper-drawer/paper-drawer-item',
+		'lib/paper-drawer/paper-drawer-icon-item',
+		'lib/paper-drawer/paper-drawer-divider'
+	) }}
 </head>
