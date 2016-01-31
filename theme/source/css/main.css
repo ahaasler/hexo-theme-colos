@@ -12,5 +12,6 @@
   color: var(--heading-color);
 }
 
+@import partial/layout;
 @import partial/code;
 @import partial/highlight;
