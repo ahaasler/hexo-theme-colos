@@ -1,4 +1,4 @@
-paper-drawer-panel {
+paper-drawer-panel[narrow="false"] {
   @nest & #main {
     left: 0 !important;
   }
