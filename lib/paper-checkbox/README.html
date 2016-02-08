@@ -6,17 +6,21 @@ paper-checkbox.html
 Edit those files, and our readme bot will duplicate them over here!
 Edit this file, and the bot will squash your changes :)
 
+The bot does some handling of markdown. Please file a bug if it does the wrong
+thing! https://github.com/PolymerLabs/tedium/issues
+
 -->
-<p><a href="https://travis-ci.org/PolymerElements/paper-checkbox"><img src="https://travis-ci.org/PolymerElements/paper-checkbox.svg?branch=master" alt="Build Status"></a></p>
-<p><em><a href="https://elements.polymer-project.org/elements/paper-checkbox">Demo and API Docs</a></em></p>
+<p><a href="https://travis-ci.org/PolymerElements/paper-checkbox"><img src="https://travis-ci.org/PolymerElements/paper-checkbox.svg?branch=master" alt="Build status"></a></p>
+<p><em><a href="https://elements.polymer-project.org/elements/paper-checkbox">Demo and API docs</a></em></p>
 <p>##&lt;paper-checkbox&gt;</p>
 <p>Material design: <a href="https://www.google.com/design/spec/components/selection-controls.html#selection-controls-checkbox">Checkbox</a></p>
 <p><code>paper-checkbox</code> is a button that can be either checked or unchecked.  User<br>can tap the checkbox to check or uncheck it.  Usually you use checkboxes<br>to allow user to select multiple options from a set.  If you have a single<br>ON/OFF option, avoid using a single checkbox and use <code>paper-toggle-button</code><br>instead.</p>
 <p>Example:</p>
-<pre><code>&lt;paper-checkbox&gt;label&lt;/paper-checkbox&gt;
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-checkbox</span>&gt;</span>label<span class="tag">&lt;/<span class="name">paper-checkbox</span>&gt;</span>
 
-&lt;paper-checkbox checked&gt; label&lt;/paper-checkbox&gt;
-</code></pre><h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
+<span class="tag">&lt;<span class="name">paper-checkbox</span> <span class="attr">checked</span>&gt;</span> label<span class="tag">&lt;/<span class="name">paper-checkbox</span>&gt;</span>
+</code></pre>
+<h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
 <table>
 <thead>
 <tr>
@@ -44,12 +48,12 @@ Edit this file, and the bot will squash your changes :)
 <tr>
 <td><code>--paper-checkbox-checked-color</code></td>
 <td>Checkbox color when the input is checked</td>
-<td><code>--default-primary-color</code></td>
+<td><code>--primary-color</code></td>
 </tr>
 <tr>
 <td><code>--paper-checkbox-checked-ink-color</code></td>
 <td>Selected/focus ripple color when the input is checked</td>
-<td><code>--default-primary-color</code></td>
+<td><code>--primary-color</code></td>
 </tr>
 <tr>
 <td><code>--paper-checkbox-checkmark-color</code></td>
@@ -71,5 +75,11 @@ Edit this file, and the bot will squash your changes :)
 <td>Checkbox color when invalid</td>
 <td><code>--google-red-500</code></td>
 </tr>
+<tr>
+<td><code>--paper-checkbox-size</code></td>
+<td>Size of the checkbox</td>
+<td><code>18px</code></td>
+</tr>
 </tbody>
 </table>
+<p>This element applies the mixin <code>--paper-font-common-base</code> but does not import <code>paper-styles/typography.html</code>.<br>In order to apply the <code>Roboto</code> font to this element, make sure you’ve imported <code>paper-styles/typography.html</code>.</p>

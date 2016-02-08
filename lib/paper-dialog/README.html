@@ -6,32 +6,37 @@ paper-dialog.html
 Edit those files, and our readme bot will duplicate them over here!
 Edit this file, and the bot will squash your changes :)
 
+The bot does some handling of markdown. Please file a bug if it does the wrong
+thing! https://github.com/PolymerLabs/tedium/issues
+
 -->
-<p><a href="https://travis-ci.org/PolymerElements/paper-dialog"><img src="https://travis-ci.org/PolymerElements/paper-dialog.svg?branch=master" alt="Build Status"></a></p>
-<p><em><a href="https://elements.polymer-project.org/elements/paper-dialog">Demo and API Docs</a></em></p>
+<p><a href="https://travis-ci.org/PolymerElements/paper-dialog"><img src="https://travis-ci.org/PolymerElements/paper-dialog.svg?branch=master" alt="Build status"></a></p>
+<p><em><a href="https://elements.polymer-project.org/elements/paper-dialog">Demo and API docs</a></em></p>
 <p>##&lt;paper-dialog&gt;</p>
 <p>Material design: <a href="https://www.google.com/design/spec/components/dialogs.html">Dialogs</a></p>
 <p><code>&lt;paper-dialog&gt;</code> is a dialog with Material Design styling and optional animations when it is<br>opened or closed. It provides styles for a header, content area, and an action area for buttons.<br>You can use the <code>&lt;paper-dialog-scrollable&gt;</code> element (in its own repository) if you need a scrolling<br>content area. See <code>Polymer.PaperDialogBehavior</code> for specifics.</p>
 <p>For example, the following code implements a dialog with a header, scrolling content area and<br>buttons.</p>
-<pre><code>&lt;paper-dialog&gt;
-  &lt;h2&gt;Header&lt;/h2&gt;
-  &lt;paper-dialog-scrollable&gt;
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-dialog</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>Header<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-dialog-scrollable</span>&gt;</span>
     Lorem ipsum...
-  &lt;/paper-dialog-scrollable&gt;
-  &lt;div class=&quot;buttons&quot;&gt;
-    &lt;paper-button dialog-dismiss&gt;Cancel&lt;/paper-button&gt;
-    &lt;paper-button dialog-confirm&gt;Accept&lt;/paper-button&gt;
-  &lt;/div&gt;
-&lt;/paper-dialog&gt;
-</code></pre><h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>See the docs for <code>Polymer.PaperDialogBehavior</code> for the custom properties available for styling<br>this element.</p>
+  <span class="tag">&lt;/<span class="name">paper-dialog-scrollable</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"buttons"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">paper-button</span> <span class="attr">dialog-dismiss</span>&gt;</span>Cancel<span class="tag">&lt;/<span class="name">paper-button</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">paper-button</span> <span class="attr">dialog-confirm</span>&gt;</span>Accept<span class="tag">&lt;/<span class="name">paper-button</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">paper-dialog</span>&gt;</span>
+</code></pre>
+<h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>See the docs for <code>Polymer.PaperDialogBehavior</code> for the custom properties available for styling<br>this element.</p>
 <h3 id="Animations"><a href="#Animations" class="headerlink" title="Animations"></a>Animations</h3><p>Set the <code>entry-animation</code> and/or <code>exit-animation</code> attributes to add an animation when the dialog<br>is opened or closed. See the documentation in<br><a href="https://github.com/PolymerElements/neon-animation">PolymerElements/neon-animation</a> for more info.</p>
 <p>For example:</p>
-<pre><code>&lt;link rel=&quot;import&quot; href=&quot;components/neon-animation/animations/scale-up-animation.html&quot;&gt;
-&lt;link rel=&quot;import&quot; href=&quot;components/neon-animation/animations/fade-out-animation.html&quot;&gt;
+<pre><code class="html"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"import"</span> <span class="attr">href</span>=<span class="string">"components/neon-animation/animations/scale-up-animation.html"</span>&gt;</span>
+<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"import"</span> <span class="attr">href</span>=<span class="string">"components/neon-animation/animations/fade-out-animation.html"</span>&gt;</span>
 
-&lt;paper-dialog entry-animation=&quot;scale-up-animation&quot;
-              exit-animation=&quot;fade-out-animation&quot;&gt;
-  &lt;h2&gt;Header&lt;/h2&gt;
-  &lt;div&gt;Dialog body&lt;/div&gt;
-&lt;/paper-dialog&gt;
-</code></pre><h3 id="Accessibility"><a href="#Accessibility" class="headerlink" title="Accessibility"></a>Accessibility</h3><p>See the docs for <code>Polymer.PaperDialogBehavior</code> for accessibility features implemented by this<br>element.</p>
+<span class="tag">&lt;<span class="name">paper-dialog</span> <span class="attr">entry-animation</span>=<span class="string">"scale-up-animation"</span>
+              <span class="attr">exit-animation</span>=<span class="string">"fade-out-animation"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>Header<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span>&gt;</span>Dialog body<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">paper-dialog</span>&gt;</span>
+</code></pre>
+<h3 id="Accessibility"><a href="#Accessibility" class="headerlink" title="Accessibility"></a>Accessibility</h3><p>See the docs for <code>Polymer.PaperDialogBehavior</code> for accessibility features implemented by this<br>element.</p>

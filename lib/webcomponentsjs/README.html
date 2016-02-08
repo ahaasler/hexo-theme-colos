@@ -78,7 +78,7 @@ npm install
 # build
 gulp build
 </code></pre><p>The builds will be placed into the <code>dist/</code> directory.</p>
-<h2 id="Contribute"><a href="#Contribute" class="headerlink" title="Contribute"></a>Contribute</h2><p>See the <a href="/hexo-theme-colos/CONTRIBUTING.md">contributing guide</a></p>
+<h2 id="Contribute"><a href="#Contribute" class="headerlink" title="Contribute"></a>Contribute</h2><p>See the <a href="CONTRIBUTING.md">contributing guide</a></p>
 <h2 id="License"><a href="#License" class="headerlink" title="License"></a>License</h2><p>Everything in this repository is BSD style license unless otherwise specified.</p>
 <p>Copyright (c) 2015 The Polymer Authors. All rights reserved.</p>
 <h2 id="Helper_utilities"><a href="#Helper_utilities" class="headerlink" title="Helper utilities"></a>Helper utilities</h2><h3 id="WebComponentsReady"><a href="#WebComponentsReady" class="headerlink" title="WebComponentsReady"></a><code>WebComponentsReady</code></h3><p>Under native HTML Imports, <code>&lt;script&gt;</code> tags in the main document block the loading of such imports. This is to ensure the imports have loaded and any registered elements in them have been upgraded. </p>
@@ -90,10 +90,10 @@ gulp build
 });
 </code></pre>
 <h2 id="Known_Issues"><a href="#Known_Issues" class="headerlink" title="Known Issues"></a>Known Issues</h2><ul>
-<li><a href="/hexo-theme-colos/#constructor">Custom element’s constructor property is unreliable</a></li>
-<li><a href="/hexo-theme-colos/#contentedit">Contenteditable elements do not trigger MutationObserver</a></li>
-<li><a href="/hexo-theme-colos/#hostcontext">ShadowCSS: :host-context(…):host(…) doesn’t work</a></li>
-<li><a href="/hexo-theme-colos/#execcommand">execCommand isn’t supported under Shadow DOM</a></li>
+<li><a href="#constructor">Custom element’s constructor property is unreliable</a></li>
+<li><a href="#contentedit">Contenteditable elements do not trigger MutationObserver</a></li>
+<li><a href="#hostcontext">ShadowCSS: :host-context(…):host(…) doesn’t work</a></li>
+<li><a href="#execcommand">execCommand isn’t supported under Shadow DOM</a></li>
 </ul>
 <h3 id="Custom_element_u2019s_constructor_property_is_unreliable"><a href="#Custom_element_u2019s_constructor_property_is_unreliable" class="headerlink" title="Custom element’s constructor property is unreliable"></a>Custom element’s constructor property is unreliable <a id="constructor"></a></h3><p>See <a href="https://github.com/webcomponents/webcomponentsjs/issues/215">#215</a> for background.</p>
 <p>In Safari and IE, instances of Custom Elements have a <code>constructor</code> property of <code>HTMLUnknownElementConstructor</code> and <code>HTMLUnknownElement</code>, respectively. It’s unsafe to rely on this property for checking element types.</p>
