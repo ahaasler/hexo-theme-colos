@@ -1,8 +1,9 @@
 <header class="site-header">
+	<paper-toolbar>
+		<paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+		<a href="{{ url_for(' ') }}" id="logo">{{ config.title }}</a>
+	</paper-toolbar>
 	<div class="wrapper">
-		<h1>
-			<a href="{{ url_for(' ') }}" id="logo">{{ config.title }}</a>
-		</h1>
 		{{ list_categories({show_count: false}) }}
 		<nav id="language">
 			{% for alternate in _.sortBy(page.alternates, 'lang') %}
