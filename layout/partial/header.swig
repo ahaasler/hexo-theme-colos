@@ -1,7 +1,7 @@
 <header class="site-header">
 	<paper-toolbar>
 		<paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
-		<a href="{{ url_for(' ') }}" id="logo">{{ config.title }}</a>
+		<a href="{{ url_for(' ') }}" id="logo" class="title">{{ config.title }}</a>
 	</paper-toolbar>
 	<div class="wrapper">
 		{{ list_categories({show_count: false}) }}
