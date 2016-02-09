@@ -6,3 +6,8 @@ paper-drawer-panel:not([narrow]) {
     width: 0 !important;
   }
 }
+
+paper-toolbar a {
+  color: white;
+  text-decoration: none;
+}
