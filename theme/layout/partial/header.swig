@@ -2,9 +2,9 @@
 	<paper-toolbar>
 		<paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
 		<a href="{{ url_for(' ') }}" id="logo" class="title">{{ config.title }}</a>
+		{{ list_categories_header({show_count: false}) }}
 	</paper-toolbar>
 	<div class="wrapper">
-		{{ list_categories({show_count: false}) }}
 		<nav id="language">
 			{% for alternate in _.sortBy(page.alternates, 'lang') %}
 				<a href="{{ url_for(alternate.path) }}" hreflang="{{ alternate.lang }}" title="{{ alternate.title }}">
