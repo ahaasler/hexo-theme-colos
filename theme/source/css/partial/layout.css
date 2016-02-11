@@ -7,6 +7,12 @@ paper-drawer-panel:not([narrow]) {
   }
 }
 
+paper-drawer-panel[narrow] {
+  @nest & paper-tabs {
+    display: none;
+  }
+}
+
 paper-toolbar {
   @nest & a {
     color: white;
