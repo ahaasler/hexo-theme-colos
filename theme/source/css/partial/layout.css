@@ -7,7 +7,12 @@ paper-drawer-panel:not([narrow]) {
   }
 }
 
-paper-toolbar a {
-  color: white;
-  text-decoration: none;
+paper-toolbar {
+  @nest & a {
+    color: white;
+    text-decoration: none;
+  }
+  @nest & paper-tab {
+    text-transform: uppercase;
+  }
 }
