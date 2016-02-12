@@ -1,6 +1,6 @@
 casper.options.viewportSize = {
-	width: 940,
-	height: 580
+	width: 800,
+	height: 500
 };
 
 casper.test.begin('Take screenshot', 0, function suite(test) {
