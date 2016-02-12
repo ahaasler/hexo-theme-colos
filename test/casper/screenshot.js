@@ -6,7 +6,7 @@ casper.options.viewportSize = {
 casper.test.begin('Take screenshot', 0, function suite(test) {
 
 	casper.start('http://localhost:8000/hexo-theme-colos', function() {
-		casper.wait(1500, function() {
+		casper.wait(2500, function() {
 			casper.capture('dist/theme/screenshot.png');
 		});
 	});
