@@ -18,7 +18,7 @@
 <li><a href="#demos">Demos</a></li>
 </ul>
 <p><a name="basic"></a></p>
-<h2 id="A_basic_animatable_element"><a href="#A_basic_animatable_element" class="headerlink" title="A basic animatable element"></a>A basic animatable element</h2><p>Elements that can be animated should implement the <code>Polymer.NeonAnimatableBehavior</code> behavior, or <code>Polymer.NeonAnimationRunnerBehavior</code> if they’re also responsible for running an animation.</p>
+<h2 id="A-basic-animatable-element"><a href="#A-basic-animatable-element" class="headerlink" title="A basic animatable element"></a>A basic animatable element</h2><p>Elements that can be animated should implement the <code>Polymer.NeonAnimatableBehavior</code> behavior, or <code>Polymer.NeonAnimationRunnerBehavior</code> if they’re also responsible for running an animation.</p>
 <pre><code class="js">Polymer({
   is: <span class="string">'my-animatable'</span>,
   behaviors: [
@@ -50,8 +50,8 @@
 </code></pre>
 <p><a href="http://morethanreal.github.io/neon-animation-demo/bower_components/neon-animation/demo/doc/basic.html">Live demo</a></p>
 <p><a name="configuration"></a></p>
-<h2 id="Animation_configuration"><a href="#Animation_configuration" class="headerlink" title="Animation configuration"></a>Animation configuration</h2><p><a name="configuration-types"></a></p>
-<h3 id="Animation_types"><a href="#Animation_types" class="headerlink" title="Animation types"></a>Animation types</h3><p>An element might run different animations, for example it might do something different when it enters the view and when it exits from view. You can set the <code>animationConfig</code> property to a map from an animation type to configuration.</p>
+<h2 id="Animation-configuration"><a href="#Animation-configuration" class="headerlink" title="Animation configuration"></a>Animation configuration</h2><p><a name="configuration-types"></a></p>
+<h3 id="Animation-types"><a href="#Animation-types" class="headerlink" title="Animation types"></a>Animation types</h3><p>An element might run different animations, for example it might do something different when it enters the view and when it exits from view. You can set the <code>animationConfig</code> property to a map from an animation type to configuration.</p>
 <pre><code class="js">Polymer({
   is: <span class="string">'my-dialog'</span>,
   behaviors: [
@@ -111,7 +111,7 @@
 }
 </code></pre>
 <p><a name="configuration-properties"></a></p>
-<h3 id="Configuration_properties"><a href="#Configuration_properties" class="headerlink" title="Configuration properties"></a>Configuration properties</h3><p>You can pass additional parameters to configure an animation in the animation configuration object.<br>All animations should accept the following properties:</p>
+<h3 id="Configuration-properties"><a href="#Configuration-properties" class="headerlink" title="Configuration properties"></a>Configuration properties</h3><p>You can pass additional parameters to configure an animation in the animation configuration object.<br>All animations should accept the following properties:</p>
 <ul>
 <li><code>name</code>: The name of an animation, ie. an element implementing <code>Polymer.NeonAnimationBehavior</code>.</li>
 <li><code>node</code>: The target node to apply the animation to. Defaults to <code>this</code>.</li>
@@ -124,7 +124,7 @@
 </ul>
 <p>Animations may define additional configuration properties and they are listed in their documentation.</p>
 <p><a name="configuration-multiple"></a></p>
-<h3 id="Using_multiple_animations"><a href="#Using_multiple_animations" class="headerlink" title="Using multiple animations"></a>Using multiple animations</h3><p>Set the animation configuration to an array to combine animations, like this:</p>
+<h3 id="Using-multiple-animations"><a href="#Using-multiple-animations" class="headerlink" title="Using multiple animations"></a>Using multiple animations</h3><p>Set the animation configuration to an array to combine animations, like this:</p>
 <pre><code class="js">animationConfig: {
   value: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
     <span class="keyword">return</span> {
@@ -142,7 +142,7 @@
 }
 </code></pre>
 <p><a name="configuration-encapsulation"></a></p>
-<h3 id="Running_animations_encapsulated_in_children_nodes"><a href="#Running_animations_encapsulated_in_children_nodes" class="headerlink" title="Running animations encapsulated in children nodes"></a>Running animations encapsulated in children nodes</h3><p>You can include animations in the configuration that are encapsulated in a child element that implement <code>Polymer.NeonAnimatableBehavior</code> with the <code>animatable</code> property.</p>
+<h3 id="Running-animations-encapsulated-in-children-nodes"><a href="#Running-animations-encapsulated-in-children-nodes" class="headerlink" title="Running animations encapsulated in children nodes"></a>Running animations encapsulated in children nodes</h3><p>You can include animations in the configuration that are encapsulated in a child element that implement <code>Polymer.NeonAnimatableBehavior</code> with the <code>animatable</code> property.</p>
 <pre><code class="js">animationConfig: {
   value: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
     <span class="keyword">return</span> {
@@ -156,10 +156,10 @@
 }
 </code></pre>
 <p><a name="page-transitions"></a></p>
-<h2 id="Page_transitions"><a href="#Page_transitions" class="headerlink" title="Page transitions"></a>Page transitions</h2><p><em>The artist formerly known as <code>&lt;core-animated-pages&gt;</code></em></p>
+<h2 id="Page-transitions"><a href="#Page-transitions" class="headerlink" title="Page transitions"></a>Page transitions</h2><p><em>The artist formerly known as <code>&lt;core-animated-pages&gt;</code></em></p>
 <p>The <code>neon-animated-pages</code> element manages a set of pages to switch between, and runs animations between the page transitions. It implements the <code>Polymer.IronSelectableBehavior</code> behavior. Each child node should implement <code>Polymer.NeonAnimatableBehavior</code> and define the <code>entry</code> and <code>exit</code> animations. During a page transition, the <code>entry</code> animation is run on the new page and the <code>exit</code> animation is run on the old page.</p>
 <p><a name="shared-element"></a></p>
-<h3 id="Shared_element_animations"><a href="#Shared_element_animations" class="headerlink" title="Shared element animations"></a>Shared element animations</h3><p>Shared element animations work on multiple nodes. For example, a “hero” animation is used during a page transition to make two elements from separate pages appear to animate as a single element. Shared element animation configurations have an <code>id</code> property that identify they belong in the same animation. Elements containing shared elements also have a <code>sharedElements</code> property defines a map from <code>id</code> to element, the element involved with the animation.</p>
+<h3 id="Shared-element-animations"><a href="#Shared-element-animations" class="headerlink" title="Shared element animations"></a>Shared element animations</h3><p>Shared element animations work on multiple nodes. For example, a “hero” animation is used during a page transition to make two elements from separate pages appear to animate as a single element. Shared element animation configurations have an <code>id</code> property that identify they belong in the same animation. Elements containing shared elements also have a <code>sharedElements</code> property defines a map from <code>id</code> to element, the element involved with the animation.</p>
 <p>In the incoming page:</p>
 <pre><code class="js">properties: {
   animationConfig: {
@@ -207,7 +207,7 @@
 }
 </code></pre>
 <p><a name="declarative-page"></a></p>
-<h3 id="Declarative_page_transitions"><a href="#Declarative_page_transitions" class="headerlink" title="Declarative page transitions"></a>Declarative page transitions</h3><p>For convenience, if you define the <code>entry-animation</code> and <code>exit-animation</code> attributes on <code>&lt;neon-animated-pages&gt;</code>, those animations will apply for all page transitions.</p>
+<h3 id="Declarative-page-transitions"><a href="#Declarative-page-transitions" class="headerlink" title="Declarative page transitions"></a>Declarative page transitions</h3><p>For convenience, if you define the <code>entry-animation</code> and <code>exit-animation</code> attributes on <code>&lt;neon-animated-pages&gt;</code>, those animations will apply for all page transitions.</p>
 <p>For example:</p>
 <pre><code class="js">&lt;neon-animated-pages id=<span class="string">"pages"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"flex"</span> selected=<span class="string">"[[selected]]"</span> entry-animation=<span class="string">"slide-from-right-animation"</span> exit-animation=<span class="string">"slide-left-animation"</span>&gt;
   <span class="xml"><span class="tag">&lt;<span class="name">neon-animatable</span>&gt;</span>1<span class="tag">&lt;/<span class="name">neon-animatable</span>&gt;</span>
@@ -219,7 +219,7 @@
 </code></pre>
 <p>The new page will slide in from the right, and the old page slide away to the left.</p>
 <p><a name="animations"></a></p>
-<h2 id="Included_animations"><a href="#Included_animations" class="headerlink" title="Included animations"></a>Included animations</h2><p>Single element animations:</p>
+<h2 id="Included-animations"><a href="#Included-animations" class="headerlink" title="Included animations"></a>Included animations</h2><p>Single element animations:</p>
 <ul>
 <li><code>fade-in-animation</code> Animates opacity from <code>0</code> to <code>1</code>;</li>
 <li><code>fade-out-animation</code> Animates opacity from <code>1</code> to <code>0</code>;</li>

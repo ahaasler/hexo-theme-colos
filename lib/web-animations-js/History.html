@@ -1,7 +1,7 @@
-<h3 id="2-1-2_-_July_8_2015"><a href="#2-1-2_-_July_8_2015" class="headerlink" title="2.1.2 - July 8 2015"></a>2.1.2 - <em>July 8 2015</em></h3><ul>
+<h3 id="2-1-2-July-8-2015"><a href="#2-1-2-July-8-2015" class="headerlink" title="2.1.2 - July 8 2015"></a>2.1.2 - <em>July 8 2015</em></h3><ul>
 <li>Fix a bug where onfinish was being called for GroupEffects before they were finished.</li>
 </ul>
-<h3 id="2-1-1_-_July_1_2015"><a href="#2-1-1_-_July_1_2015" class="headerlink" title="2.1.1 - July 1 2015"></a>2.1.1 - <em>July 1 2015</em></h3><ul>
+<h3 id="2-1-1-July-1-2015"><a href="#2-1-1-July-1-2015" class="headerlink" title="2.1.1 - July 1 2015"></a>2.1.1 - <em>July 1 2015</em></h3><ul>
 <li>Add Animation.timeline getter</li>
 <li>Add AnimationEffect.parent getter</li>
 <li>Make AnimationEffectTiming (returned by AnimationEffect.timing) attributes mutable</li>
@@ -23,7 +23,7 @@ effect.onsample = function(timeFraction, effect, animation) {
 var myAnimation = document.timeline.play(myEffect);
 </code></pre></li>
 </ul>
-<h3 id="2-1-0_-_June_15_2015"><a href="#2-1-0_-_June_15_2015" class="headerlink" title="2.1.0 - June 15 2015"></a>2.1.0 - <em>June 15 2015</em></h3><ul>
+<h3 id="2-1-0-June-15-2015"><a href="#2-1-0-June-15-2015" class="headerlink" title="2.1.0 - June 15 2015"></a>2.1.0 - <em>June 15 2015</em></h3><ul>
 <li>Fix bug affecting GroupEffects with infinite iteration children</li>
 <li>Add GroupEffect.firstChild and GroupEffect.lastChild</li>
 <li>Add initial values for most CSS properties</li>
@@ -33,7 +33,7 @@ var myAnimation = document.timeline.play(myEffect);
 <li>Add AnimationEffect.remove</li>
 <li>Add Animation.ready and Animation.finished promises</li>
 </ul>
-<h3 id="2-0-0_-_April_5_2015"><a href="#2-0-0_-_April_5_2015" class="headerlink" title="2.0.0 - April 5 2015"></a>2.0.0 - <em>April 5 2015</em></h3><ul>
+<h3 id="2-0-0-April-5-2015"><a href="#2-0-0-April-5-2015" class="headerlink" title="2.0.0 - April 5 2015"></a>2.0.0 - <em>April 5 2015</em></h3><ul>
 <li>Improve behavior of group Animation playback rate.</li>
 <li>Rename Animation to KeyframeEffect.</li>
 <li>Rename AnimationSequence to SequenceEffect.</li>
@@ -44,30 +44,30 @@ var myAnimation = document.timeline.play(myEffect);
 <li>Rename Timeline.getAnimationPlayers to Timeline.getAnimations.</li>
 <li>Rename Element.getAnimationPlayers to Element.getAnimations.</li>
 </ul>
-<h3 id="1-0-7_-_March_10_2015"><a href="#1-0-7_-_March_10_2015" class="headerlink" title="1.0.7 - March 10 2015"></a>1.0.7 - <em>March 10 2015</em></h3><ul>
+<h3 id="1-0-7-March-10-2015"><a href="#1-0-7-March-10-2015" class="headerlink" title="1.0.7 - March 10 2015"></a>1.0.7 - <em>March 10 2015</em></h3><ul>
 <li>Improve performance of constructing groups and sequences.</li>
 <li>Remove support for animating zoom.</li>
 <li>Add bower file.</li>
 </ul>
-<h3 id="1-0-6_-_February_5_2015"><a href="#1-0-6_-_February_5_2015" class="headerlink" title="1.0.6 - February 5 2015"></a>1.0.6 - <em>February 5 2015</em></h3><ul>
+<h3 id="1-0-6-February-5-2015"><a href="#1-0-6-February-5-2015" class="headerlink" title="1.0.6 - February 5 2015"></a>1.0.6 - <em>February 5 2015</em></h3><ul>
 <li>Implement playbackRate setter for group players.</li>
 <li>Fix pausing a group player before its first tick.</li>
 <li>Fix cancelling a group player before its first tick.</li>
 <li>Fix excess CPU use on idle pages where custom effects and groups were used.</li>
 <li>Suppress AnimationTiming.playbackRate deprecation warning for cases where AnimationTiming.playbackRate == 1.</li>
 </ul>
-<h3 id="1-0-5_-_January_6_2015"><a href="#1-0-5_-_January_6_2015" class="headerlink" title="1.0.5 - January 6 2015"></a>1.0.5 - <em>January 6 2015</em></h3><ul>
+<h3 id="1-0-5-January-6-2015"><a href="#1-0-5-January-6-2015" class="headerlink" title="1.0.5 - January 6 2015"></a>1.0.5 - <em>January 6 2015</em></h3><ul>
 <li>Fix loading the polyfill in an SVG document</li>
 <li>Fix a problem where groups didn’t take effect in their first frame</li>
 <li>Don’t rely on performance.now</li>
 </ul>
-<h3 id="1-0-4_-_December_8_2014"><a href="#1-0-4_-_December_8_2014" class="headerlink" title="1.0.4 - December 8 2014"></a>1.0.4 - <em>December 8 2014</em></h3><ul>
+<h3 id="1-0-4-December-8-2014"><a href="#1-0-4-December-8-2014" class="headerlink" title="1.0.4 - December 8 2014"></a>1.0.4 - <em>December 8 2014</em></h3><ul>
 <li>Fix a critical bug where deprecation logic wasn’t being loaded<br>when <code>web-animations-next</code> and <code>web-animations-next-lite</code> were<br>executed on top of a native <code>element.animate</code>.</li>
 </ul>
-<h3 id="1-0-3_-_December_4_2014"><a href="#1-0-3_-_December_4_2014" class="headerlink" title="1.0.3 - December 4 2014"></a>1.0.3 - <em>December 4 2014</em></h3><ul>
+<h3 id="1-0-3-December-4-2014"><a href="#1-0-3-December-4-2014" class="headerlink" title="1.0.3 - December 4 2014"></a>1.0.3 - <em>December 4 2014</em></h3><ul>
 <li>Fix a critical bug on iOS 7 and Safari &lt;= 6. Due to limitations,<br>inline style patching is not supported on these platforms.</li>
 </ul>
-<h3 id="1-0-2_-_November_28_2014"><a href="#1-0-2_-_November_28_2014" class="headerlink" title="1.0.2 - November 28 2014"></a>1.0.2 - <em>November 28 2014</em></h3><ul>
+<h3 id="1-0-2-November-28-2014"><a href="#1-0-2-November-28-2014" class="headerlink" title="1.0.2 - November 28 2014"></a>1.0.2 - <em>November 28 2014</em></h3><ul>
 <li><p>Deprecated <code>AnimationTiming.playbackRate</code>.</p>
 <p>For example, this is no longer supported:</p>
 <pre><code>var player = element.animate(
@@ -82,12 +82,12 @@ player.playbackRate = 2;
 <p>Or file an issue against the specification on GitHub:<br><a href="https://github.com/w3c/web-animations/issues/new">https://github.com/w3c/web-animations/issues/new</a></p>
 </li>
 </ul>
-<h3 id="1-0-1_-_November_26_2014"><a href="#1-0-1_-_November_26_2014" class="headerlink" title="1.0.1 - November 26 2014"></a>1.0.1 - <em>November 26 2014</em></h3><ul>
+<h3 id="1-0-1-November-26-2014"><a href="#1-0-1-November-26-2014" class="headerlink" title="1.0.1 - November 26 2014"></a>1.0.1 - <em>November 26 2014</em></h3><ul>
 <li>Players should be constructed in idle state</li>
 <li><code>play()</code> and <code>reverse()</code> should not force a start times</li>
 <li>Add <code>requestAnimationFrame</code> ids and <code>cancelAnimationFrame</code></li>
 </ul>
-<h3 id="1-0-0__u2014_November_21_2014"><a href="#1-0-0__u2014_November_21_2014" class="headerlink" title="1.0.0 — November 21 2014"></a>1.0.0 — <em>November 21 2014</em></h3><p>  The web-animations-js hackers are pleased to announce the release of<br>  a new codebase for the Web Animations Polyfill:<br>  <a href="https://github.com/web-animations/web-animations-js">https://github.com/web-animations/web-animations-js</a></p>
+<h3 id="1-0-0-—-November-21-2014"><a href="#1-0-0-—-November-21-2014" class="headerlink" title="1.0.0 — November 21 2014"></a>1.0.0 — <em>November 21 2014</em></h3><p>  The web-animations-js hackers are pleased to announce the release of<br>  a new codebase for the Web Animations Polyfill:<br>  <a href="https://github.com/web-animations/web-animations-js">https://github.com/web-animations/web-animations-js</a></p>
 <p>  The previous polyfill has been moved to:<br>  <a href="https://github.com/web-animations/web-animations-js-legacy">https://github.com/web-animations/web-animations-js-legacy</a></p>
 <p>  The new codebase is focused on code-size – our smallest target is<br>  now only 33kb or 11kb after gzip.</p>
 <p>  We’ve implemented native fallback. If the target browser provides<br>  Web Animations features natively, the Polyfill will use them.</p>

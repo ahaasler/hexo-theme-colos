@@ -10,8 +10,8 @@ The bot does some handling of markdown. Please file a bug if it does the wrong
 thing! https://github.com/PolymerLabs/tedium/issues
 
 -->
-<p><a href="https://travis-ci.org/PolymerElements/paper-input"><img src="https://travis-ci.org/PolymerElements/paper-input.svg?branch=master" alt="Build Status"></a></p>
-<p><em><a href="https://elements.polymer-project.org/elements/paper-input">Demo and API Docs</a></em></p>
+<p><a href="https://travis-ci.org/PolymerElements/paper-input"><img src="https://travis-ci.org/PolymerElements/paper-input.svg?branch=master" alt="Build status"></a></p>
+<p><em><a href="https://elements.polymer-project.org/elements/paper-input">Demo and API docs</a></em></p>
 <p>##&lt;paper-input&gt;</p>
 <p>Material design: <a href="https://www.google.com/design/spec/components/text-fields.html">Text fields</a></p>
 <p><code>&lt;paper-input&gt;</code> is a single-line text field with Material Design styling.</p>
@@ -67,8 +67,8 @@ thing! https://github.com/PolymerLabs/tedium/issues
   <span class="tag">&lt;<span class="name">input</span> <span class="attr">is</span>=<span class="string">"iron-input"</span>&gt;</span>
 <span class="tag">&lt;/<span class="name">paper-input-container</span>&gt;</span>
 </code></pre>
-<h3 id="Listening_for_input_changes"><a href="#Listening_for_input_changes" class="headerlink" title="Listening for input changes"></a>Listening for input changes</h3><p>By default, it listens for changes on the <code>bind-value</code> attribute on its children nodes and perform<br>tasks such as auto-validating and label styling when the <code>bind-value</code> changes. You can configure<br>the attribute it listens to with the <code>attr-for-value</code> attribute.</p>
-<h3 id="Using_a_custom_input_element"><a href="#Using_a_custom_input_element" class="headerlink" title="Using a custom input element"></a>Using a custom input element</h3><p>You can use a custom input element in a <code>&lt;paper-input-container&gt;</code>, for example to implement a<br>compound input field like a social security number input. The custom input element should have the<br><code>paper-input-input</code> class, have a <code>notify:true</code> value property and optionally implements<br><code>Polymer.IronValidatableBehavior</code> if it is validatable.</p>
+<h3 id="Listening-for-input-changes"><a href="#Listening-for-input-changes" class="headerlink" title="Listening for input changes"></a>Listening for input changes</h3><p>By default, it listens for changes on the <code>bind-value</code> attribute on its children nodes and perform<br>tasks such as auto-validating and label styling when the <code>bind-value</code> changes. You can configure<br>the attribute it listens to with the <code>attr-for-value</code> attribute.</p>
+<h3 id="Using-a-custom-input-element"><a href="#Using-a-custom-input-element" class="headerlink" title="Using a custom input element"></a>Using a custom input element</h3><p>You can use a custom input element in a <code>&lt;paper-input-container&gt;</code>, for example to implement a<br>compound input field like a social security number input. The custom input element should have the<br><code>paper-input-input</code> class, have a <code>notify:true</code> value property and optionally implements<br><code>Polymer.IronValidatableBehavior</code> if it is validatable.</p>
 <pre><code class="html"><span class="tag">&lt;<span class="name">paper-input-container</span> <span class="attr">attr-for-value</span>=<span class="string">"ssn-value"</span>&gt;</span>
   <span class="tag">&lt;<span class="name">label</span>&gt;</span>Social security number<span class="tag">&lt;/<span class="name">label</span>&gt;</span>
   <span class="tag">&lt;<span class="name">ssn-input</span> <span class="attr">class</span>=<span class="string">"paper-input-input"</span>&gt;</span><span class="tag">&lt;/<span class="name">ssn-input</span>&gt;</span>
@@ -76,7 +76,7 @@ thing! https://github.com/PolymerLabs/tedium/issues
 </code></pre>
 <h3 id="Validation"><a href="#Validation" class="headerlink" title="Validation"></a>Validation</h3><p>If the <code>auto-validate</code> attribute is set, the input container will validate the input and update<br>the container styling when the input value changes.</p>
 <h3 id="Add-ons"><a href="#Add-ons" class="headerlink" title="Add-ons"></a>Add-ons</h3><p>Add-ons are child elements of a <code>&lt;paper-input-container&gt;</code> with the <code>add-on</code> attribute and<br>implements the <code>Polymer.PaperInputAddonBehavior</code> behavior. They are notified when the input value<br>or validity changes, and may implement functionality such as error messages or character counters.<br>They appear at the bottom of the input.</p>
-<h3 id="Prefixes_and_suffixes"><a href="#Prefixes_and_suffixes" class="headerlink" title="Prefixes and suffixes"></a>Prefixes and suffixes</h3><p>These are child elements of a <code>&lt;paper-input-container&gt;</code> with the <code>prefix</code><br>or <code>suffix</code> attribute, and are displayed inline with the input, before or after.</p>
+<h3 id="Prefixes-and-suffixes"><a href="#Prefixes-and-suffixes" class="headerlink" title="Prefixes and suffixes"></a>Prefixes and suffixes</h3><p>These are child elements of a <code>&lt;paper-input-container&gt;</code> with the <code>prefix</code><br>or <code>suffix</code> attribute, and are displayed inline with the input, before or after.</p>
 <pre><code class="html"><span class="tag">&lt;<span class="name">paper-input-container</span>&gt;</span>
   <span class="tag">&lt;<span class="name">div</span> <span class="attr">prefix</span>&gt;</span>$<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
   <span class="tag">&lt;<span class="name">label</span>&gt;</span>Total<span class="tag">&lt;/<span class="name">label</span>&gt;</span>
@@ -102,12 +102,12 @@ thing! https://github.com/PolymerLabs/tedium/issues
 <tr>
 <td><code>--paper-input-container-focus-color</code></td>
 <td>Label and underline color when the input is focused</td>
-<td><code>--default-primary-color</code></td>
+<td><code>--primary-color</code></td>
 </tr>
 <tr>
 <td><code>--paper-input-container-invalid-color</code></td>
 <td>Label and underline color when the input is is invalid</td>
-<td><code>--google-red-500</code></td>
+<td><code>--error-color</code></td>
 </tr>
 <tr>
 <td><code>--paper-input-container-input-color</code></td>
@@ -192,7 +192,7 @@ thing! https://github.com/PolymerLabs/tedium/issues
 <tr>
 <td><code>--paper-input-container-invalid-color</code></td>
 <td>The foreground color of the error</td>
-<td><code>--google-red-500</code></td>
+<td><code>--error-color</code></td>
 </tr>
 <tr>
 <td><code>--paper-input-error</code></td>
