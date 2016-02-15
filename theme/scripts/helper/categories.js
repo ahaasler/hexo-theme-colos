@@ -6,6 +6,17 @@ hexo.extend.helper.register('list_categories_header', function headerCategoriesH
   result = result.replace(new RegExp("</ul>", 'g'), "</paper-tabs>");
   result = result.replace(new RegExp("<li ", 'g'), "<paper-tab ");
   result = result.replace(new RegExp("</li>", 'g'), "</paper-tab>");
+  // Get current
+  var currentIndex = result.search(/<paper-tab [^>]*><a [^>]*class="[^"]*current[^"]*"[^>]*>/i);
+  if (currentIndex > 0) {
+    for (var pos = result.search(/<paper-tab /), last = -1, selected = 0; pos !== -1; pos = result.substr(last + 1).search(/<paper-tab /), selected++) {
+      last += pos + 1;
+      if (last === currentIndex) {
+        result = result.replace(new RegExp("<paper-tabs "), '<paper-tabs selected="' + selected + '" ');
+        break;
+      }
+    }
+  }
   return result;
 });
 
