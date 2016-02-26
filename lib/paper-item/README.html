@@ -6,22 +6,27 @@ paper-icon-item.html  paper-item-behavior.html  paper-item-body.html  paper-item
 Edit those files, and our readme bot will duplicate them over here!
 Edit this file, and the bot will squash your changes :)
 
+The bot does some handling of markdown. Please file a bug if it does the wrong
+thing! https://github.com/PolymerLabs/tedium/issues
+
 -->
-<p><a href="https://travis-ci.org/PolymerElements/paper-item"><img src="https://travis-ci.org/PolymerElements/paper-item.svg?branch=master" alt="Build Status"></a></p>
-<p><em><a href="https://elements.polymer-project.org/elements/paper-item">Demo and API Docs</a></em></p>
+<p><a href="https://travis-ci.org/PolymerElements/paper-item"><img src="https://travis-ci.org/PolymerElements/paper-item.svg?branch=master" alt="Build status"></a></p>
+<p><em><a href="https://elements.polymer-project.org/elements/paper-item">Demo and API docs</a></em></p>
 <p>##&lt;paper-item&gt;</p>
 <p>Material design: <a href="https://www.google.com/design/spec/components/lists.html">Lists</a></p>
 <p><code>&lt;paper-item&gt;</code> is an interactive list item. By default, it is a horizontal flexbox.</p>
-<pre><code>&lt;paper-item&gt;Item&lt;/paper-item&gt;
-</code></pre><p>Use this element with <code>&lt;paper-item-body&gt;</code> to make Material Design styled two-line and three-line<br>items.</p>
-<pre><code>&lt;paper-item&gt;
-  &lt;paper-item-body two-line&gt;
-    &lt;div&gt;Show your status&lt;/div&gt;
-    &lt;div secondary&gt;Your status is visible to everyone&lt;/div&gt;
-  &lt;/paper-item-body&gt;
-  &lt;iron-icon icon=&quot;warning&quot;&gt;&lt;/iron-icon&gt;
-&lt;/paper-item&gt;
-</code></pre><h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-item</span>&gt;</span>Item<span class="tag">&lt;/<span class="name">paper-item</span>&gt;</span>
+</code></pre>
+<p>Use this element with <code>&lt;paper-item-body&gt;</code> to make Material Design styled two-line and three-line<br>items.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-item</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-item-body</span> <span class="attr">two-line</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span>&gt;</span>Show your status<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">secondary</span>&gt;</span>Your status is visible to everyone<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">paper-item-body</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">iron-icon</span> <span class="attr">icon</span>=<span class="string">"warning"</span>&gt;</span><span class="tag">&lt;/<span class="name">iron-icon</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">paper-item</span>&gt;</span>
+</code></pre>
+<h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
 <table>
 <thead>
 <tr>
@@ -74,23 +79,25 @@ Edit this file, and the bot will squash your changes :)
 </tbody>
 </table>
 <h3 id="Accessibility"><a href="#Accessibility" class="headerlink" title="Accessibility"></a>Accessibility</h3><p>This element has <code>role=&quot;listitem&quot;</code> by default. Depending on usage, it may be more appropriate to set<br><code>role=&quot;menuitem&quot;</code>, <code>role=&quot;menuitemcheckbox&quot;</code> or <code>role=&quot;menuitemradio&quot;</code>.</p>
-<pre><code>&lt;paper-item role=&quot;menuitemcheckbox&quot;&gt;
-  &lt;paper-item-body&gt;
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-item</span> <span class="attr">role</span>=<span class="string">"menuitemcheckbox"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-item-body</span>&gt;</span>
     Show your status
-  &lt;/paper-item-body&gt;
-  &lt;paper-checkbox&gt;&lt;/paper-checkbox&gt;
-&lt;/paper-item&gt;
-</code></pre><p>##&lt;paper-icon-item&gt;</p>
+  <span class="tag">&lt;/<span class="name">paper-item-body</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-checkbox</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-checkbox</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">paper-item</span>&gt;</span>
+</code></pre>
+<p>##&lt;paper-icon-item&gt;</p>
 <p><code>&lt;paper-icon-item&gt;</code> is a convenience element to make an item with icon. It is an interactive list<br>item with a fixed-width icon area, according to Material Design. This is useful if the icons are of<br>varying widths, but you want the item bodies to line up. Use this like a <code>&lt;paper-item&gt;</code>. The child<br>node with the attribute <code>item-icon</code> is placed in the icon area.</p>
-<pre><code>&lt;paper-icon-item&gt;
-  &lt;iron-icon icon=&quot;favorite&quot; item-icon&gt;&lt;/iron-icon&gt;
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-icon-item</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">iron-icon</span> <span class="attr">icon</span>=<span class="string">"favorite"</span> <span class="attr">item-icon</span>&gt;</span><span class="tag">&lt;/<span class="name">iron-icon</span>&gt;</span>
   Favorite
-&lt;/paper-icon-item&gt;
-&lt;paper-icon-item&gt;
-  &lt;div class=&quot;avatar&quot; item-icon&gt;&lt;/div&gt;
+<span class="tag">&lt;/<span class="name">paper-icon-item</span>&gt;</span>
+<span class="tag">&lt;<span class="name">paper-icon-item</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"avatar"</span> <span class="attr">item-icon</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
   Avatar
-&lt;/paper-icon-item&gt;
-</code></pre><h3 id="Styling-1"><a href="#Styling-1" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
+<span class="tag">&lt;/<span class="name">paper-icon-item</span>&gt;</span>
+</code></pre>
+<h3 id="Styling-1"><a href="#Styling-1" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
 <table>
 <thead>
 <tr>
@@ -104,6 +111,11 @@ Edit this file, and the bot will squash your changes :)
 <td><code>--paper-item-icon-width</code></td>
 <td>Width of the icon area</td>
 <td><code>56px</code></td>
+</tr>
+<tr>
+<td><code>--paper-item-icon</code></td>
+<td>Mixin applied to the icon area</td>
+<td><code>{}</code></td>
 </tr>
 <tr>
 <td><code>--paper-icon-item</code></td>
@@ -144,13 +156,14 @@ Edit this file, and the bot will squash your changes :)
 </table>
 <p>##&lt;paper-item-body&gt;</p>
 <p>Use <code>&lt;paper-item-body&gt;</code> in a <code>&lt;paper-item&gt;</code> or <code>&lt;paper-icon-item&gt;</code> to make two- or<br>three- line items. It is a flex item that is a vertical flexbox.</p>
-<pre><code>&lt;paper-item&gt;
-  &lt;paper-item-body two-line&gt;
-    &lt;div&gt;Show your status&lt;/div&gt;
-    &lt;div secondary&gt;Your status is visible to everyone&lt;/div&gt;
-  &lt;/paper-item-body&gt;
-&lt;/paper-item&gt;
-</code></pre><p>The child elements with the <code>secondary</code> attribute is given secondary text styling.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-item</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-item-body</span> <span class="attr">two-line</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span>&gt;</span>Show your status<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">secondary</span>&gt;</span>Your status is visible to everyone<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">paper-item-body</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">paper-item</span>&gt;</span>
+</code></pre>
+<p>The child elements with the <code>secondary</code> attribute is given secondary text styling.</p>
 <h3 id="Styling-2"><a href="#Styling-2" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
 <table>
 <thead>

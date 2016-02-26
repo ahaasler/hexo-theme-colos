@@ -39,9 +39,49 @@ thing! https://github.com/PolymerLabs/tedium/issues
 </code></pre>
 <p>To use links in tabs, add <code>link</code> attribute to <code>paper-tab</code> and put an <code>&lt;a&gt;</code><br>element in <code>paper-tab</code>.</p>
 <p>Example:</p>
-<pre><code class="html"><span class="tag">&lt;<span class="name">style</span> <span class="attr">is</span>=<span class="string">"custom-style"</span>&gt;</span><span class="css">
-  <span class="selector-class">.link</span> {</span>
+<pre><code>
+&lt;style is="custom-style">
+  .link {
+    &#64;apply(--layout-horizontal);
+    &#64;apply(--layout-center-center);
+  }
+&lt;/style>
+
+&lt;paper-tabs selected="0">
+  &lt;paper-tab link>
+    &lt;a href="#link1" class="link">TAB ONE&lt;/a>
+  &lt;/paper-tab>
+  &lt;paper-tab link>
+    &lt;a href="#link2" class="link">TAB TWO&lt;/a>
+  &lt;/paper-tab>
+  &lt;paper-tab link>
+    &lt;a href="#link3" class="link">TAB THREE&lt;/a>
+  &lt;/paper-tab>
+&lt;/paper-tabs>
 </code></pre>
+
+<h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
+<table>
+<thead>
+<tr>
+<th>Custom property</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--paper-tabs-selection-bar-color</code></td>
+<td>Color for the selection bar</td>
+<td><code>--paper-yellow-a100</code></td>
+</tr>
+<tr>
+<td><code>--paper-tabs</code></td>
+<td>Mixin applied to the tabs</td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
 <p>##&lt;paper-tab&gt;</p>
 <p><code>paper-tab</code> is styled to look like a tab.  It should be used in conjunction with<br><code>paper-tabs</code>.</p>
 <p>Example:</p>
@@ -51,7 +91,7 @@ thing! https://github.com/PolymerLabs/tedium/issues
   <span class="tag">&lt;<span class="name">paper-tab</span>&gt;</span>TAB 3<span class="tag">&lt;/<span class="name">paper-tab</span>&gt;</span>
 <span class="tag">&lt;/<span class="name">paper-tabs</span>&gt;</span>
 </code></pre>
-<h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
+<h3 id="Styling-1"><a href="#Styling-1" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
 <table>
 <thead>
 <tr>

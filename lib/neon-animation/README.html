@@ -210,12 +210,12 @@
 <h3 id="Declarative-page-transitions"><a href="#Declarative-page-transitions" class="headerlink" title="Declarative page transitions"></a>Declarative page transitions</h3><p>For convenience, if you define the <code>entry-animation</code> and <code>exit-animation</code> attributes on <code>&lt;neon-animated-pages&gt;</code>, those animations will apply for all page transitions.</p>
 <p>For example:</p>
 <pre><code class="js">&lt;neon-animated-pages id=<span class="string">"pages"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"flex"</span> selected=<span class="string">"[[selected]]"</span> entry-animation=<span class="string">"slide-from-right-animation"</span> exit-animation=<span class="string">"slide-left-animation"</span>&gt;
-  <span class="xml"><span class="tag">&lt;<span class="name">neon-animatable</span>&gt;</span>1<span class="tag">&lt;/<span class="name">neon-animatable</span>&gt;</span>
-  <span class="tag">&lt;<span class="name">neon-animatable</span>&gt;</span>2<span class="tag">&lt;/<span class="name">neon-animatable</span>&gt;</span>
-  <span class="tag">&lt;<span class="name">neon-animatable</span>&gt;</span>3<span class="tag">&lt;/<span class="name">neon-animatable</span>&gt;</span>
-  <span class="tag">&lt;<span class="name">neon-animatable</span>&gt;</span>4<span class="tag">&lt;/<span class="name">neon-animatable</span>&gt;</span>
-  <span class="tag">&lt;<span class="name">neon-animatable</span>&gt;</span>5<span class="tag">&lt;/<span class="name">neon-animatable</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">neon-animated-pages</span>&gt;</span></span>
+  &lt;neon-animatable&gt;1&lt;/neon-animatable&gt;
+  &lt;neon-animatable&gt;2&lt;/neon-animatable&gt;
+  &lt;neon-animatable&gt;3&lt;/neon-animatable&gt;
+  &lt;neon-animatable&gt;4&lt;/neon-animatable&gt;
+  &lt;neon-animatable&gt;5&lt;/neon-animatable&gt;
+&lt;/neon-animated-pages&gt;
 </code></pre>
 <p>The new page will slide in from the right, and the old page slide away to the left.</p>
 <p><a name="animations"></a></p>

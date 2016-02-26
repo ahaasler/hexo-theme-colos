@@ -6,17 +6,21 @@ paper-radio-button.html
 Edit those files, and our readme bot will duplicate them over here!
 Edit this file, and the bot will squash your changes :)
 
+The bot does some handling of markdown. Please file a bug if it does the wrong
+thing! https://github.com/PolymerLabs/tedium/issues
+
 -->
-<p><a href="https://travis-ci.org/PolymerElements/paper-radio-button"><img src="https://travis-ci.org/PolymerElements/paper-radio-button.svg?branch=master" alt="Build Status"></a></p>
-<p><em><a href="https://elements.polymer-project.org/elements/paper-radio-button">Demo and API Docs</a></em></p>
+<p><a href="https://travis-ci.org/PolymerElements/paper-radio-button"><img src="https://travis-ci.org/PolymerElements/paper-radio-button.svg?branch=master" alt="Build status"></a></p>
+<p><em><a href="https://elements.polymer-project.org/elements/paper-radio-button">Demo and API docs</a></em></p>
 <p>##&lt;paper-radio-button&gt;</p>
 <p>Material design: <a href="https://www.google.com/design/spec/components/selection-controls.html#selection-controls-radio-button">Radio button</a></p>
 <p><code>paper-radio-button</code> is a button that can be either checked or unchecked.<br>User can tap the radio button to check or uncheck it.</p>
 <p>Use a <code>&lt;paper-radio-group&gt;</code> to group a set of radio buttons.  When radio buttons<br>are inside a radio group, exactly one radio button in the group can be checked<br>at any time.</p>
 <p>Example:</p>
-<pre><code>&lt;paper-radio-button&gt;&lt;/paper-radio-button&gt;
-&lt;paper-radio-button&gt;Item label&lt;/paper-radio-button&gt;
-</code></pre><h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-radio-button</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-radio-button</span>&gt;</span>
+<span class="tag">&lt;<span class="name">paper-radio-button</span>&gt;</span>Item label<span class="tag">&lt;/<span class="name">paper-radio-button</span>&gt;</span>
+</code></pre>
+<h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
 <table>
 <thead>
 <tr>
@@ -44,12 +48,12 @@ Edit this file, and the bot will squash your changes :)
 <tr>
 <td><code>--paper-radio-button-checked-color</code></td>
 <td>Radio button color when the input is checked</td>
-<td><code>--default-primary-color</code></td>
+<td><code>--primary-color</code></td>
 </tr>
 <tr>
 <td><code>--paper-radio-button-checked-ink-color</code></td>
 <td>Selected/focus ripple color when the input is checked</td>
-<td><code>--default-primary-color</code></td>
+<td><code>--primary-color</code></td>
 </tr>
 <tr>
 <td><code>--paper-radio-button-label-color</code></td>
@@ -63,3 +67,4 @@ Edit this file, and the bot will squash your changes :)
 </tr>
 </tbody>
 </table>
+<p>This element applies the mixin <code>--paper-font-common-base</code> but does not import <code>paper-styles/typography.html</code>.<br>In order to apply the <code>Roboto</code> font to this element, make sure you’ve imported <code>paper-styles/typography.html</code>.</p>
