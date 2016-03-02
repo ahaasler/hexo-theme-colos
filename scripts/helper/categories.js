@@ -2,9 +2,10 @@
 
 hexo.extend.helper.register('list_categories_header', function headerCategoriesHelper() {
   var result = this.list_categories(arguments[0]);
+  result = '<style is="custom-style">paper-tab[link] a { @apply(--layout-horizontal); @apply(--layout-center-center); }</style>' + result;
   result = result.replace(new RegExp("<ul ", 'g'), "<paper-tabs ");
   result = result.replace(new RegExp("</ul>", 'g'), "</paper-tabs>");
-  result = result.replace(new RegExp("<li ", 'g'), "<paper-tab ");
+  result = result.replace(new RegExp("<li ", 'g'), "<paper-tab link ");
   result = result.replace(new RegExp("</li>", 'g'), "</paper-tab>");
   // Get current
   var currentIndex = result.search(/<paper-tab [^>]*><a [^>]*class="[^"]*current[^"]*"[^>]*>/i);
