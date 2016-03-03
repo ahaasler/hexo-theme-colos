@@ -20,5 +20,8 @@ paper-toolbar {
   }
   @nest & paper-tab {
     text-transform: uppercase;
+    @nest &[link] a {
+      padding: 0 1em;
+    }
   }
 }
