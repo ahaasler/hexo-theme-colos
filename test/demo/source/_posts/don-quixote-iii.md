@@ -1,4 +1,4 @@
-title: "Don Quixote Chapter III: Wherein is related the droll way in which Don Quixote had himself dubbed a knight""
+title: "Don Quixote Chapter III: Wherein is related the droll way in which Don Quixote had himself dubbed a knight"
 date: 2016-02-28 09:15:41
 category: book
 ---
