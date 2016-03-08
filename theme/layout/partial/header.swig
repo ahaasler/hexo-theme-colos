@@ -2,7 +2,7 @@
 	<paper-toolbar>
 		<paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
 		<a href="{{ url_for(' ') }}" id="logo" class="title">{{ config.title }}</a>
-		{{ list_categories_header({show_count: false, show_current: true}) }}
+		{{ header_menu({show_count: false, show_current: true}) }}
 	</paper-toolbar>
 	<div class="wrapper">
 		<nav id="language">

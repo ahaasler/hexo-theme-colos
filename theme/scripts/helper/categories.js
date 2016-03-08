@@ -1,6 +1,6 @@
 'use strict';
 
-hexo.extend.helper.register('list_categories_header', function headerCategoriesHelper() {
+hexo.extend.helper.register('header_menu', function headerCategoriesHelper() {
   var result = this.list_categories(arguments[0]);
   result = '<style is="custom-style">paper-tab[link] a { @apply(--layout-horizontal); @apply(--layout-center-center); }</style>' + result;
   result = result.replace(new RegExp("<ul ", 'g'), "<paper-tabs ");
