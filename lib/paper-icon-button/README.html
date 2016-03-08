@@ -6,24 +6,35 @@ paper-icon-button.html
 Edit those files, and our readme bot will duplicate them over here!
 Edit this file, and the bot will squash your changes :)
 
+The bot does some handling of markdown. Please file a bug if it does the wrong
+thing! https://github.com/PolymerLabs/tedium/issues
+
 -->
-<p><a href="https://travis-ci.org/PolymerElements/paper-icon-button"><img src="https://travis-ci.org/PolymerElements/paper-icon-button.svg?branch=master" alt="Build Status"></a></p>
-<p><em><a href="https://elements.polymer-project.org/elements/paper-icon-button">Demo and API Docs</a></em></p>
+<p><a href="https://travis-ci.org/PolymerElements/paper-icon-button"><img src="https://travis-ci.org/PolymerElements/paper-icon-button.svg?branch=master" alt="Build status"></a></p>
+<p><em><a href="https://elements.polymer-project.org/elements/paper-icon-button">Demo and API docs</a></em></p>
 <p>##&lt;paper-icon-button&gt;</p>
 <p>Material design: <a href="https://www.google.com/design/spec/components/buttons.html#buttons-toggle-buttons">Icon toggles</a></p>
 <p><code>paper-icon-button</code> is a button with an image placed at the center. When the user touches<br>the button, a ripple effect emanates from the center of the button.</p>
 <p><code>paper-icon-button</code> includes a default icon set.  Use <code>icon</code> to specify which icon<br>from the icon set to use.</p>
-<pre><code>&lt;paper-icon-button icon=&quot;menu&quot;&gt;&lt;/paper-icon-button&gt;
-</code></pre><p>See <a href="#iron-iconset"><code>iron-iconset</code></a> for more information about<br>how to use a custom icon set.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-icon-button</span> <span class="attr">icon</span>=<span class="string">"menu"</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-icon-button</span>&gt;</span>
+</code></pre>
+<p>See <a href="iron-iconset"><code>iron-iconset</code></a> for more information about<br>how to use a custom icon set.</p>
 <p>Example:</p>
-<pre><code>&lt;link href=&quot;path/to/iron-icons/iron-icons.html&quot; rel=&quot;import&quot;&gt;
+<pre><code class="html"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"path/to/iron-icons/iron-icons.html"</span> <span class="attr">rel</span>=<span class="string">"import"</span>&gt;</span>
 
-&lt;paper-icon-button icon=&quot;favorite&quot;&gt;&lt;/paper-icon-button&gt;
-&lt;paper-icon-button src=&quot;star.png&quot;&gt;&lt;/paper-icon-button&gt;
-</code></pre><h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>Style the button with CSS as you would a normal DOM element. If you are using the icons<br>provided by <code>iron-icons</code>, they will inherit the foreground color of the button.</p>
-<pre><code>/* make a red &quot;favorite&quot; button */
-&lt;paper-icon-button icon=&quot;favorite&quot; style=&quot;color: red;&quot;&gt;&lt;/paper-icon-button&gt;
-</code></pre><p>By default, the ripple is the same color as the foreground at 25% opacity. You may<br>customize the color using the <code>--paper-icon-button-ink-color</code> custom property.</p>
+<span class="tag">&lt;<span class="name">paper-icon-button</span> <span class="attr">icon</span>=<span class="string">"favorite"</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-icon-button</span>&gt;</span>
+<span class="tag">&lt;<span class="name">paper-icon-button</span> <span class="attr">src</span>=<span class="string">"star.png"</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-icon-button</span>&gt;</span>
+</code></pre>
+<p>To use <code>paper-icon-button</code> as a link, wrap it in an anchor tag. Since <code>paper-icon-button</code><br>will already receive focus, you may want to prevent the anchor tag from receiving focus<br>as well by setting its tabindex to -1.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"https://www.polymer-project.org"</span> <span class="attr">tabindex</span>=<span class="string">"-1"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-icon-button</span> <span class="attr">icon</span>=<span class="string">"polymer"</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-icon-button</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">a</span>&gt;</span>
+</code></pre>
+<h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>Style the button with CSS as you would a normal DOM element. If you are using the icons<br>provided by <code>iron-icons</code>, they will inherit the foreground color of the button.</p>
+<pre><code class="html">/* make a red "favorite" button */
+<span class="tag">&lt;<span class="name">paper-icon-button</span> <span class="attr">icon</span>=<span class="string">"favorite"</span> <span class="attr">style</span>=<span class="string">"color: red;"</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-icon-button</span>&gt;</span>
+</code></pre>
+<p>By default, the ripple is the same color as the foreground at 25% opacity. You may<br>customize the color using the <code>--paper-icon-button-ink-color</code> custom property.</p>
 <p>The following custom properties and mixins are available for styling:</p>
 <table>
 <thead>
