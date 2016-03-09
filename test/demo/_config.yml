@@ -70,3 +70,13 @@ theme: colos
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type:
+
+# Colos configuration
+colos:
+  menu:
+  -
+    type: link
+    title: home
+    path: /
+  -
+    type: categories
