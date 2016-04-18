@@ -1,27 +1,44 @@
+<!doctype html>
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-styles/paper-styles.html">
 
+<!--
+Title section of the drawer
+
+### Styling
+
+Style                                 | Description
+------------------------------------- | ------------
+--paper-drawer-title-background-color | Background color of the title area
+--paper-drawer-title-color            | Font color of the name and email
+--paper-drawer-title                  | Mix-in applied to the title area
+
+@demo demo/index.html
+
+-->
 <dom-module id="paper-drawer-title">
 
 	<template>
-	
+
 		<style>
 			:host {
 				display: block;
 				padding: 16px 16px 0 16px;
 				background: var(--paper-drawer-title-background-color, black);
 				@apply(--paper-drawer-title);
+				cursor: pointer;
 			}
-		
+
 			.photo {
 				height: 60px;
 				width: 60px;
 				border-radius: 50%;
 			}
-			
+
 			.sub-title {
 				color: var(--paper-drawer-title-color, white);
 				min-height: 56px;
+				height: 56px;
 				@apply(--layout-vertical);
 				@apply(--layout-center-justified);
 				@apply(--layout-flex);
@@ -29,12 +46,12 @@
 			}
 		</style>
 
-		<div><img src=[[photo]] class='photo'></img></div>
-		<div class='sub-title'>
+		<div><img src="[[photo]]" class="photo" /></div>
+		<div class="sub-title">
 			<div>[[name]]</div>
 			<div>[[email]]</div>
 		</div>
-		
+
 	</template>
 </dom-module>
 
@@ -45,8 +62,19 @@
 	Polymer({
 		is: 'paper-drawer-title',
 		properties: {
+			/**
+			 * URL to the photo of the person
+			 */
 			photo: String,
+
+			/**
+			 * Name of the person
+			 */
 			name: String,
+
+			/**
+			 * Email of the person
+			 */
 			email: String
 		}
 	});

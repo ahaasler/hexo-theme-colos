@@ -6,18 +6,24 @@ iron-input.html
 Edit those files, and our readme bot will duplicate them over here!
 Edit this file, and the bot will squash your changes :)
 
+The bot does some handling of markdown. Please file a bug if it does the wrong
+thing! https://github.com/PolymerLabs/tedium/issues
+
 -->
-<p><a href="https://travis-ci.org/PolymerElements/iron-input"><img src="https://travis-ci.org/PolymerElements/iron-input.svg?branch=master" alt="Build Status"></a></p>
-<p><em><a href="https://elements.polymer-project.org/elements/iron-input">Demo and API Docs</a></em></p>
+<p><a href="https://travis-ci.org/PolymerElements/iron-input"><img src="https://travis-ci.org/PolymerElements/iron-input.svg?branch=master" alt="Build status"></a></p>
+<p><em><a href="https://elements.polymer-project.org/elements/iron-input">Demo and API docs</a></em></p>
 <p>##&lt;iron-input&gt;</p>
 <p><code>&lt;iron-input&gt;</code> adds two-way binding and custom validators using <code>Polymer.IronValidatorBehavior</code><br>to <code>&lt;input&gt;</code>.</p>
 <h3 id="Two-way-binding"><a href="#Two-way-binding" class="headerlink" title="Two-way binding"></a>Two-way binding</h3><p>By default you can only get notified of changes to an <code>input</code>‘s <code>value</code> due to user input:</p>
-<pre><code>&lt;input value=&quot;{{myValue::input}}&quot;&gt;
-</code></pre><p><code>iron-input</code> adds the <code>bind-value</code> property that mirrors the <code>value</code> property, and can be used<br>for two-way data binding. <code>bind-value</code> will notify if it is changed either by user input or by script.</p>
-<pre><code>&lt;input is=&quot;iron-input&quot; bind-value=&quot;{{myValue}}&quot;&gt;
-</code></pre><h3 id="Custom-validators"><a href="#Custom-validators" class="headerlink" title="Custom validators"></a>Custom validators</h3><p>You can use custom validators that implement <code>Polymer.IronValidatorBehavior</code> with <code>&lt;iron-input&gt;</code>.</p>
-<pre><code>&lt;input is=&quot;iron-input&quot; validator=&quot;my-custom-validator&quot;&gt;
-</code></pre><h3 id="Stopping-invalid-input"><a href="#Stopping-invalid-input" class="headerlink" title="Stopping invalid input"></a>Stopping invalid input</h3><p>It may be desirable to only allow users to enter certain characters. You can use the<br><code>prevent-invalid-input</code> and <code>allowed-pattern</code> attributes together to accomplish this. This feature<br>is separate from validation, and <code>allowed-pattern</code> does not affect how the input is validated.</p>
-<pre><code>&lt;!-- only allow characters that match [0-9] --&gt;
-&lt;input is=&quot;iron-input&quot; prevent-invalid-input allowed-pattern=&quot;[0-9]&quot;&gt;
+<pre><code class="html"><span class="tag">&lt;<span class="name">input</span> <span class="attr">value</span>=<span class="string">"{{myValue::input}}"</span>&gt;</span>
+</code></pre>
+<p><code>iron-input</code> adds the <code>bind-value</code> property that mirrors the <code>value</code> property, and can be used<br>for two-way data binding. <code>bind-value</code> will notify if it is changed either by user input or by script.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">input</span> <span class="attr">is</span>=<span class="string">"iron-input"</span> <span class="attr">bind-value</span>=<span class="string">"{{myValue}}"</span>&gt;</span>
+</code></pre>
+<h3 id="Custom-validators"><a href="#Custom-validators" class="headerlink" title="Custom validators"></a>Custom validators</h3><p>You can use custom validators that implement <code>Polymer.IronValidatorBehavior</code> with <code>&lt;iron-input&gt;</code>.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">input</span> <span class="attr">is</span>=<span class="string">"iron-input"</span> <span class="attr">validator</span>=<span class="string">"my-custom-validator"</span>&gt;</span>
+</code></pre>
+<h3 id="Stopping-invalid-input"><a href="#Stopping-invalid-input" class="headerlink" title="Stopping invalid input"></a>Stopping invalid input</h3><p>It may be desirable to only allow users to enter certain characters. You can use the<br><code>prevent-invalid-input</code> and <code>allowed-pattern</code> attributes together to accomplish this. This feature<br>is separate from validation, and <code>allowed-pattern</code> does not affect how the input is validated.</p>
+<pre><code class="html"><span class="comment">&lt;!-- only allow characters that match [0-9] --&gt;</span>
+<span class="tag">&lt;<span class="name">input</span> <span class="attr">is</span>=<span class="string">"iron-input"</span> <span class="attr">prevent-invalid-input</span> <span class="attr">allowed-pattern</span>=<span class="string">"[0-9]"</span>&gt;</span>
 </code></pre>

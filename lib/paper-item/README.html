@@ -26,6 +26,20 @@ thing! https://github.com/PolymerLabs/tedium/issues
   <span class="tag">&lt;<span class="name">iron-icon</span> <span class="attr">icon</span>=<span class="string">"warning"</span>&gt;</span><span class="tag">&lt;/<span class="name">iron-icon</span>&gt;</span>
 <span class="tag">&lt;/<span class="name">paper-item</span>&gt;</span>
 </code></pre>
+<p>To use <code>paper-item</code> as a link, wrap it in an anchor tag. Since <code>paper-item</code> will<br>already receive focus, you may want to prevent the anchor tag from receiving<br>focus as well by setting its tabindex to -1.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"https://www.polymer-project.org/"</span> <span class="attr">tabindex</span>=<span class="string">"-1"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-item</span> <span class="attr">raised</span>&gt;</span>Polymer Project<span class="tag">&lt;/<span class="name">paper-item</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">a</span>&gt;</span>
+</code></pre>
+<p>If you are concerned about performance and want to use <code>paper-item</code> in a <code>paper-listbox</code><br>with many items, you can just use a native <code>button</code> with the <code>paper-item</code> class<br>applied (provided you have correctly included the shared styles):</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">style</span> <span class="attr">is</span>=<span class="string">"custom-style"</span> <span class="attr">include</span>=<span class="string">"paper-item-shared-styles"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">paper-listbox</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"paper-item"</span> <span class="attr">role</span>=<span class="string">"option"</span>&gt;</span>Inbox<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"paper-item"</span> <span class="attr">role</span>=<span class="string">"option"</span>&gt;</span>Starred<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"paper-item"</span> <span class="attr">role</span>=<span class="string">"option"</span>&gt;</span>Sent mail<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">paper-listbox</span>&gt;</span>
+</code></pre>
 <h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
 <table>
 <thead>
