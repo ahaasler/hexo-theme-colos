@@ -140,7 +140,7 @@ gulp.task 'git:info', (callback) ->
 
 # Deploy distribution theme folder to git
 gulp.task 'deploy:theme', [ 'git:info' ], (callback) ->
-  gulp.src("#{dir.dist.theme}/**/*").pipe deploy(
+  gulp.src("#{dir.dist.theme}/**/*", read: false).pipe deploy(
     repository: "https://#{git.login}:#{git.token}@#{git.repo}"
     branches: [ 'HEAD' ]
     remoteBranch: 'master'
@@ -150,7 +150,7 @@ gulp.task 'deploy:theme', [ 'git:info' ], (callback) ->
 
 # Deploy distribution demo folder to git
 gulp.task 'deploy:demo', [ 'git:info' ], (callback) ->
-  gulp.src("#{dir.dist.demo}/**/*").pipe deploy(
+  gulp.src("#{dir.dist.demo}/**/*", read: false).pipe deploy(
     repository: "https://#{git.login}:#{git.token}@#{git.repo}"
     branches: [ 'HEAD' ]
     remoteBranch: 'gh-pages'
