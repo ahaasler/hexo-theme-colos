@@ -1,6 +1,5 @@
 {
   "name": "paper-drawer",
-  "version": "1.0.7",
   "authors": [
     "collaborne"
   ],
@@ -26,5 +25,11 @@
     "paper-item": "PolymerElements/paper-item#^1.0.0",
     "paper-ripple": "PolymerElements/paper-ripple#^1.0.0",
     "paper-styles": "PolymerElements/paper-styles#^1.0.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "test-fixture": "PolymerElements/test-fixture#^1.0.0",
+    "web-component-tester": "*",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   }
 }

@@ -6,11 +6,7 @@
 	<meta name="description" content="{{ config.description }}">
 	<meta name="generator" content="Hexo v{{ env.version }}">
 	<link rel="canonical" href="{{ url | replace('index.html', '') }}">
-	{% for alternate in page.alternates %}
-		{% if alternate.lang != page.lang %}
-			<link rel="alternate" href="{{ url_for(alternate.path) }}" hreflang="{{ alternate.lang }}" />
-		{% endif %}
-	{% endfor %}
+	{% if config.multilingual %}{{ list_head_alternates() }}{% endif %}
 	<link rel="alternate" type="application/rss+xml" title="{{ __('feed.rss.title') }}" href="{{ encodeURI(config.url + config.root + page.lang + '/feed.xml') }}" />
 	{{ css('css/main.css') }}
 	{{ js('lib/webcomponentsjs/webcomponents-lite.min.js') }}

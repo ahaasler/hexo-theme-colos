@@ -1,17 +1,23 @@
+<!doctype html>
 <link rel="import" href="../polymer/polymer.html">
 
+<!--
+Holder for the drawer
+
+@demo demo/index.html
+-->
 <dom-module id="paper-drawer">
 
 	<template>
-	
+
 		<style>
 			.scroll {
 				-webkit-overflow-scrolling: touch;
-	      		overflow-y: auto;
+				overflow-y: auto;
 			}
 		</style>
 
-		<div class='scroll fit'>
+		<div class="scroll fit">
 			<content></content>
 		</div>
 	</template>
