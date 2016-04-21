@@ -1,3 +1,29 @@
+<h3 id="2-2-0-April-6-2016"><a href="#2-2-0-April-6-2016" class="headerlink" title="2.2.0 - April 6 2016"></a>2.2.0 - <em>April 6 2016</em></h3><ul>
+<li><p>Deprecated the use of hyphens in property names.</p>
+<p>For example, this is deprecated:</p>
+<pre><code>element.animate([{&apos;font-size&apos;: &apos;0px&apos;}, {&apos;font-size&apos;: &apos;10px&apos;}]);
+</code></pre><p>and this should be used instead:</p>
+<pre><code>element.animate([{fontSize: &apos;0px&apos;}, {fontSize: &apos;10px&apos;}]);
+</code></pre></li>
+<li><p>Added arbitrary easing capitalisation.</p>
+</li>
+<li><p>Added “id” effect option. (<a href="http://w3c.github.io/web-animations/#dom-keyframeanimationoptions-id">http://w3c.github.io/web-animations/#dom-keyframeanimationoptions-id</a>)</p>
+</li>
+<li><p>Added “oncancel” event handler.</p>
+</li>
+<li><p>Added value list keyframe syntax.</p>
+<p>As as alternative to:</p>
+<pre><code>element.animate([{color: &apos;red&apos;}, {color: &apos;green&apos;}, {color: &apos;blue&apos;}]);
+</code></pre><p>you can now use:</p>
+<pre><code>element.animate({color: [&apos;red&apos;, &apos;green&apos;, &apos;blue&apos;]});
+</code></pre></li>
+<li><p>Fixed easing TypeError in FireFox Nightly when using groups.</p>
+</li>
+<li><p>Fixed delayed animation updates on Safari and Firefox</p>
+</li>
+<li><p>Fixed infinite recursion when setting onfinish to null.</p>
+</li>
+</ul>
 <h3 id="2-1-4-December-1-2015"><a href="#2-1-4-December-1-2015" class="headerlink" title="2.1.4 - December 1 2015"></a>2.1.4 - <em>December 1 2015</em></h3><ul>
 <li>Use <code>Date.now()</code> instead of <code>performace.now()</code> for mobile Safari.</li>
 </ul>
