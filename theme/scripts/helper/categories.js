@@ -2,7 +2,6 @@
 
 hexo.extend.helper.register('header_menu', function headerCategoriesHelper() {
   var categories = getCategories(this, arguments[0]);
-  console.log(categories);
   var result = categories.html;
   result = '<style is="custom-style">paper-tab[link] a { @apply(--layout-horizontal); @apply(--layout-center-center); }</style>' + result;
   result = result.replace(new RegExp("<ul ", 'g'), "<paper-tabs ");
