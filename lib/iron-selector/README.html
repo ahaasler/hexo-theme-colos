@@ -29,6 +29,16 @@ thing! https://github.com/PolymerLabs/tedium/issues
   <span class="tag">&lt;<span class="name">div</span> <span class="attr">name</span>=<span class="string">"zot"</span>&gt;</span>Zot<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
 <span class="tag">&lt;/<span class="name">iron-selector</span>&gt;</span>
 </code></pre>
+<p>  If no matching element is found using <code>attForSelected</code>, use <code>fallbackSelection</code> as fallback.</p>
+<p>  Example:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">iron-selector</span> <span class="attr">attr-for-selected</span>=<span class="string">"name"</span> <span class="attr">selected</span>=<span class="string">"non-existing"</span>
+               <span class="attr">fallback-selection</span>=<span class="string">"default"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">name</span>=<span class="string">"foo"</span>&gt;</span>Foo<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">name</span>=<span class="string">"bar"</span>&gt;</span>Bar<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">name</span>=<span class="string">"default"</span>&gt;</span>Default<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">iron-selector</span>&gt;</span>
+</code></pre>
+<p>  Note: When the selector is multi, the selection will set to <code>fallbackSelection</code> iff<br>  the number of matching elements is zero.</p>
 <p>  <code>iron-selector</code> is not styled. Use the <code>iron-selected</code> CSS class to style the selected element.</p>
 <p>  Example:</p>
 <pre><code class="html"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined">

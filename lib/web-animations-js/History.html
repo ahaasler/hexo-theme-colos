@@ -1,3 +1,20 @@
+<h3 id="2-2-1-April-28-2016"><a href="#2-2-1-April-28-2016" class="headerlink" title="2.2.1 - April 28 2016"></a>2.2.1 - <em>April 28 2016</em></h3><ul>
+<li><p><a href="https://github.com/web-animations/web-animations-next/pull/437">Deprecated invalid timing inputs</a> as they will soon throw <a href="https://github.com/web-animations/web-animations-next/pull/426">TypeErrors</a> in native browsers.</p>
+<p>For example, this is deprecated and will eventually throw a TypeError:</p>
+<pre><code>element.animate([], {
+    duration: -1,
+    iterationStart: -1,
+    iterations: -1,
+    easing: &apos;garbage string&apos;,
+});
+</code></pre></li>
+<li><p><a href="https://github.com/web-animations/web-animations-next/pull/434">Fixed polyfill crash in browsers based on Chromium 36 to 46.</a></p>
+</li>
+<li><p><a href="https://github.com/web-animations/web-animations-next/pull/428">Increased cubic-bezier accuracy.</a></p>
+</li>
+<li><p><a href="https://github.com/web-animations/web-animations-next/pull/427">Added support for grad and turn units for angles.</a></p>
+</li>
+</ul>
 <h3 id="2-2-0-April-6-2016"><a href="#2-2-0-April-6-2016" class="headerlink" title="2.2.0 - April 6 2016"></a>2.2.0 - <em>April 6 2016</em></h3><ul>
 <li><p>Deprecated the use of hyphens in property names.</p>
 <p>For example, this is deprecated:</p>
