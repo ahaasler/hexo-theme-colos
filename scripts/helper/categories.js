@@ -23,6 +23,50 @@ hexo.extend.helper.register('list_categories_drawer', function drawerCategoriesH
   return result;
 });
 
+function getMenu(self) {
+  var menu = self.theme.menu || [
+    {
+      "type": "link",
+      "title": "home",
+      "path": "/"
+    },
+    {
+      "type": "categories"
+    }
+  ];
+  var result = {
+    elements: [],
+    current: -1
+  };
+  var currentPath = self.path.replace(/^\//g, '').replace(/index\.html$/g, '');
+  menu.forEach(function (element, index) {
+    switch (element.type) {
+      case 'link':
+        var elementPath = element.path.replace(/^\//g, '').replace(/index\.html$/g, '');
+        var isCurrent = elementPath.length > 3 ? currentPath.indexOf(elementPath) > -1 : currentPath === elementPath;
+        if (isCurrent) {
+          result.current = index;
+        }
+        result.elements.push({
+          name: element.title,
+          url: self.url_for(element.path),
+          current: isCurrent
+        });
+        break;
+      case 'categories':
+        var categories = getCategories(self, {show_count: false, show_current: true});
+        if (categories.current > -1) {
+          result.current = categories.current + index;
+        }
+        categories.categories.forEach(function(category) {
+          result.elements.push(category);
+        });
+        break;
+    }
+  });
+  return result;
+}
+
 function getCategories(self, config) {
   var html = self.list_categories(config);
   var result = {
