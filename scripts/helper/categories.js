@@ -1,15 +1,15 @@
 'use strict';
 
 hexo.extend.helper.register('header_menu', function headerCategoriesHelper() {
-  var categories = getCategories(this, arguments[0]);
+  var menu = getMenu(this);
   var result = '<style is="custom-style">paper-tab[link] a { @apply(--layout-horizontal); @apply(--layout-center-center); }</style>';
   result += '<paper-tabs class="category-list">';
-  for (var i = 0; i < categories.categories.length; i++) {
-    result += '<paper-tab link class="category-list-item"><a class="category-list-link" href="' + categories.categories[i].url + '">' + categories.categories[i].name + '</a></paper-tab>';
+  for (var i = 0; i < menu.elements.length; i++) {
+    result += '<paper-tab link class="category-list-item"><a class="category-list-link" href="' + menu.elements[i].url + '">' + menu.elements[i].name + '</a></paper-tab>';
   }
   result += '</paper-tabs>';
-  if (categories.current >= 0) {
-    result = result.replace(new RegExp("<paper-tabs "), '<paper-tabs selected="' + categories.current + '" ');
+  if (menu.current >= 0) {
+    result = result.replace(new RegExp("<paper-tabs "), '<paper-tabs selected="' + menu.current + '" ');
   }
   return result;
 });
