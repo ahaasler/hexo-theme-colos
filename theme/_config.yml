@@ -1,0 +1,10 @@
+# Colos theme configuration
+
+# Menu
+menu:
+-
+  type: link
+  title: home
+  path: /
+-
+  type: categories
