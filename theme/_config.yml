@@ -7,4 +7,8 @@ menu:
   title: home
   path: /
 -
+  type: link
+  title: archives
+  path: archives/
+-
   type: categories
