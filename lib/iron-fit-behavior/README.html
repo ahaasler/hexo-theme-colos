@@ -13,7 +13,7 @@ thing! https://github.com/PolymerLabs/tedium/issues
 <p><a href="https://travis-ci.org/PolymerElements/iron-fit-behavior"><img src="https://travis-ci.org/PolymerElements/iron-fit-behavior.svg?branch=master" alt="Build status"></a></p>
 <p><em><a href="https://elements.polymer-project.org/elements/iron-fit-behavior">Demo and API docs</a></em></p>
 <p>##Polymer.IronFitBehavior</p>
-<p>Polymer.IronFitBehavior fits an element in another element using <code>max-height</code> and <code>max-width</code>, and<br>optionally centers it in the window or another element.</p>
+<p><code>Polymer.IronFitBehavior</code> fits an element in another element using <code>max-height</code> and <code>max-width</code>, and<br>optionally centers it in the window or another element.</p>
 <p>The element will only be sized and/or positioned if it has not already been sized and/or positioned<br>by CSS.</p>
 <table>
 <thead>
@@ -36,12 +36,26 @@ thing! https://github.com/PolymerLabs/tedium/issues
 <td>Element is not horizontally centered</td>
 </tr>
 <tr>
-<td><code>max-height</code> or <code>height</code> set</td>
-<td>Element respects <code>max-height</code> or <code>height</code></td>
+<td><code>max-height</code> set</td>
+<td>Element respects <code>max-height</code></td>
 </tr>
 <tr>
-<td><code>max-width</code> or <code>width</code> set</td>
-<td>Element respects <code>max-width</code> or <code>width</code></td>
+<td><code>max-width</code> set</td>
+<td>Element respects <code>max-width</code></td>
 </tr>
 </tbody>
 </table>
+<p><code>Polymer.IronFitBehavior</code> can position an element into another element using<br><code>verticalAlign</code> and <code>horizontalAlign</code>. This will override the element’s css position.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">iron-fit-impl</span> <span class="attr">vertical-align</span>=<span class="string">"top"</span> <span class="attr">horizontal-align</span>=<span class="string">"auto"</span>&gt;</span>
+    Positioned into the container
+  <span class="tag">&lt;/<span class="name">iron-fit-impl</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<p>Use <code>noOverlap</code> to position the element around another element without overlapping it.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">iron-fit-impl</span> <span class="attr">no-overlap</span> <span class="attr">vertical-align</span>=<span class="string">"auto"</span> <span class="attr">horizontal-align</span>=<span class="string">"auto"</span>&gt;</span>
+    Positioned around the container
+  <span class="tag">&lt;/<span class="name">iron-fit-impl</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
