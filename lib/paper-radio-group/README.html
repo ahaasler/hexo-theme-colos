@@ -6,23 +6,44 @@ paper-radio-group.html
 Edit those files, and our readme bot will duplicate them over here!
 Edit this file, and the bot will squash your changes :)
 
+The bot does some handling of markdown. Please file a bug if it does the wrong
+thing! https://github.com/PolymerLabs/tedium/issues
+
 -->
-<p><a href="https://travis-ci.org/PolymerElements/paper-radio-group"><img src="https://travis-ci.org/PolymerElements/paper-radio-group.svg?branch=master" alt="Build Status"></a></p>
-<p><em><a href="https://elements.polymer-project.org/elements/paper-radio-group">Demo and API Docs</a></em></p>
+<p><a href="https://travis-ci.org/PolymerElements/paper-radio-group"><img src="https://travis-ci.org/PolymerElements/paper-radio-group.svg?branch=master" alt="Build status"></a></p>
+<p><em><a href="https://elements.polymer-project.org/elements/paper-radio-group">Demo and API docs</a></em></p>
 <p>##&lt;paper-radio-group&gt;</p>
 <p>Material design: <a href="https://www.google.com/design/spec/components/selection-controls.html#selection-controls-radio-button">Radio button</a></p>
 <p><code>paper-radio-group</code> allows user to select at most one radio button from a set.<br>Checking one radio button that belongs to a radio group unchecks any<br>previously checked radio button within the same group. Use<br><code>selected</code> to get or set the selected radio button.</p>
 <p>The <paper-radio-buttons> inside the group must have the <code>name</code> attribute<br>set.</p>
 <p>Example:</p>
-<pre><code>&lt;paper-radio-group selected=&quot;small&quot;&gt;
-  &lt;paper-radio-button name=&quot;small&quot;&gt;Small&lt;/paper-radio-button&gt;
-  &lt;paper-radio-button name=&quot;medium&quot;&gt;Medium&lt;/paper-radio-button&gt;
-  &lt;paper-radio-button name=&quot;large&quot;&gt;Large&lt;/paper-radio-button&gt;
-&lt;/paper-radio-group&gt;
-</code></pre><p>Radio-button-groups can be made optional, and allow zero buttons to be selected:</p>
-<pre><code>&lt;paper-radio-group selected=&quot;small&quot; allow-empty-selection&gt;
-  &lt;paper-radio-button name=&quot;small&quot;&gt;Small&lt;/paper-radio-button&gt;
-  &lt;paper-radio-button name=&quot;medium&quot;&gt;Medium&lt;/paper-radio-button&gt;
-  &lt;paper-radio-button name=&quot;large&quot;&gt;Large&lt;/paper-radio-button&gt;
-&lt;/paper-radio-group&gt;
-</code></pre><p>See <a href="paper-radio-button">paper-radio-button</a> for more<br>information about <code>paper-radio-button</code>.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-radio-group</span> <span class="attr">selected</span>=<span class="string">"small"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-radio-button</span> <span class="attr">name</span>=<span class="string">"small"</span>&gt;</span>Small<span class="tag">&lt;/<span class="name">paper-radio-button</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-radio-button</span> <span class="attr">name</span>=<span class="string">"medium"</span>&gt;</span>Medium<span class="tag">&lt;/<span class="name">paper-radio-button</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-radio-button</span> <span class="attr">name</span>=<span class="string">"large"</span>&gt;</span>Large<span class="tag">&lt;/<span class="name">paper-radio-button</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">paper-radio-group</span>&gt;</span>
+</code></pre>
+<p>Radio-button-groups can be made optional, and allow zero buttons to be selected:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-radio-group</span> <span class="attr">selected</span>=<span class="string">"small"</span> <span class="attr">allow-empty-selection</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-radio-button</span> <span class="attr">name</span>=<span class="string">"small"</span>&gt;</span>Small<span class="tag">&lt;/<span class="name">paper-radio-button</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-radio-button</span> <span class="attr">name</span>=<span class="string">"medium"</span>&gt;</span>Medium<span class="tag">&lt;/<span class="name">paper-radio-button</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-radio-button</span> <span class="attr">name</span>=<span class="string">"large"</span>&gt;</span>Large<span class="tag">&lt;/<span class="name">paper-radio-button</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">paper-radio-group</span>&gt;</span>
+</code></pre>
+<p>See <a href="paper-radio-button">paper-radio-button</a> for more<br>information about <code>paper-radio-button</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Custom property</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--paper-radio-group-item-padding</code></td>
+<td>The padding of the item</td>
+<td><code>12px</code></td>
+</tr>
+</tbody>
+</table>
