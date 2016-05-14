@@ -486,13 +486,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             assert.isBelow(rect.height, elRect.height, 'height ok');
           });
 
-          test('min-height is respected: element is hidden if does not have enough height', function() {
+          test('min-height is preserved: element is displayed even if partially', function() {
             parent.style.top = '-10px';
             el.verticalAlign = 'top';
             el.style.minHeight = elRect.height + 'px';
             el.refit();
             var rect = el.getBoundingClientRect();
-            assert.isFalse(intersects(rect, fitRect), 'not visible');
+            assert.equal(rect.height, elRect.height, 'min-height ok');
+            assert.isTrue(intersects(rect, fitRect), 'partially visible');
+          });
+
+          test('dynamicAlign will prefer bottom align if it minimizes the cropping', function() {
+            parent.style.top = '-10px';
+            parentRect = parent.getBoundingClientRect();
+            el.verticalAlign = 'top';
+            el.dynamicAlign = true;
+            el.refit();
+            var rect = el.getBoundingClientRect();
+            assert.equal(rect.bottom, parentRect.bottom, 'bottom ok');
+            assert.equal(rect.height, elRect.height, 'no cropping');
           });
         });
 
@@ -547,13 +559,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             assert.equal(rect.height, 100, 'height ok');
           });
 
-          test('min-height is respected: element is hidden if does not have enough height', function() {
+          test('min-height is preserved: element is displayed even if partially', function() {
             parent.style.top = (elRect.height - 10 - parentRect.height) + 'px';
             el.verticalAlign = 'bottom';
             el.style.minHeight = elRect.height + 'px';
             el.refit();
             var rect = el.getBoundingClientRect();
-            assert.isFalse(intersects(rect, fitRect), 'not visible');
+            assert.equal(rect.height, elRect.height, 'min-height ok');
+            assert.isTrue(intersects(rect, fitRect), 'partially visible');
+          });
+
+          test('dynamicAlign will prefer top align if it minimizes the cropping', function() {
+            parent.style.top = (window.innerHeight - elRect.height) + 'px';
+            parentRect = parent.getBoundingClientRect();
+            el.verticalAlign = 'bottom';
+            el.dynamicAlign = true;
+            el.refit();
+            var rect = el.getBoundingClientRect();
+            assert.equal(rect.top, parentRect.top, 'top ok');
+            assert.equal(rect.height, elRect.height, 'no cropping');
           });
         });
 
@@ -659,14 +683,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             assert.isBelow(rect.width, elRect.width, 'width ok');
           });
 
-          test('min-width is respected: element is hidden if does not have enough width', function() {
+          test('min-width is preserved: element is displayed even if partially', function() {
             parent.style.left = '-10px';
             el.style.minWidth = elRect.width + 'px';
             el.horizontalAlign = 'left';
             el.refit();
             var rect = el.getBoundingClientRect();
-            assert.isFalse(intersects(rect, fitRect), 'not visible');
+            assert.equal(rect.width, elRect.width, 'min-width ok');
+            assert.isTrue(intersects(rect, fitRect), 'partially visible');
           });
+
+          test('dynamicAlign will prefer right align if it minimizes the cropping', function() {
+            parent.style.left = '-10px';
+            parentRect = parent.getBoundingClientRect();
+            el.horizontalAlign = 'left';
+            el.dynamicAlign = true;
+            el.refit();
+            var rect = el.getBoundingClientRect();
+            assert.equal(rect.right, parentRect.right, 'right ok');
+            assert.equal(rect.height, elRect.height, 'no cropping');
+          });
+
         });
 
         suite('when horizontalAlign is right', function() {
@@ -723,13 +760,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             assert.equal(rect.width, 100, 'width ok');
           });
 
-          test('min-width is respected: element is hidden if does not have enough width', function() {
+          test('min-width is preserved: element is displayed even if partially', function() {
             parent.style.left = (elRect.width - 10 - parentRect.width) + 'px';
             el.horizontalAlign = 'right';
             el.style.minWidth = elRect.width + 'px';
             el.refit();
             var rect = el.getBoundingClientRect();
-            assert.isFalse(intersects(rect, fitRect), 'not visible');
+            assert.equal(rect.width, elRect.width, 'min-width ok');
+            assert.isTrue(intersects(rect, fitRect), 'partially visible');
+          });
+
+          test('dynamicAlign will prefer left align if it minimizes the cropping', function() {
+            parent.style.left = (window.innerWidth - elRect.width) + 'px';
+            parentRect = parent.getBoundingClientRect();
+            el.horizontalAlign = 'right';
+            el.dynamicAlign = true;
+            el.refit();
+            var rect = el.getBoundingClientRect();
+            assert.equal(rect.left, parentRect.left, 'left ok');
+            assert.equal(rect.height, elRect.height, 'no cropping');
           });
 
         });
@@ -777,6 +826,55 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             var rect = el.getBoundingClientRect();
             assert.equal(rect.width, elRect.width, 'no cropping');
             assert.isFalse(intersects(rect, parentRect), 'no overlap');
+          });
+        });
+
+        suite('prefer horizontal overlap to vertical overlap', function() {
+          setup(function() {
+            el.noOverlap = true;
+            el.dynamicAlign = true;
+            // Make space around the positionTarget.
+            parent.style.top = elRect.height + 'px';
+            parent.style.left = elRect.width + 'px';
+            parent.style.width = '10px';
+            parent.style.height = '10px';
+            parentRect = parent.getBoundingClientRect();
+          });
+
+          test('top-left aligns to target bottom-left', function() {
+            el.verticalAlign = 'top';
+            el.horizontalAlign = 'left';
+            el.refit();
+            var rect = el.getBoundingClientRect();
+            assert.equal(rect.left, parentRect.left, 'left ok');
+            assert.equal(rect.top, parentRect.bottom, 'top ok');
+          });
+
+          test('top-right aligns to target bottom-right', function() {
+            el.verticalAlign = 'top';
+            el.horizontalAlign = 'right';
+            el.refit();
+            var rect = el.getBoundingClientRect();
+            assert.equal(rect.right, parentRect.right, 'right ok');
+            assert.equal(rect.top, parentRect.bottom, 'top ok');
+          });
+
+          test('bottom-left aligns to target top-left', function() {
+            el.verticalAlign = 'bottom';
+            el.horizontalAlign = 'left';
+            el.refit();
+            var rect = el.getBoundingClientRect();
+            assert.equal(rect.left, parentRect.left, 'left ok');
+            assert.equal(rect.bottom, parentRect.top, 'bottom ok');
+          });
+
+          test('bottom-right aligns to target top-right', function() {
+            el.verticalAlign = 'bottom';
+            el.horizontalAlign = 'right';
+            el.refit();
+            var rect = el.getBoundingClientRect();
+            assert.equal(rect.right, parentRect.right, 'right ok');
+            assert.equal(rect.bottom, parentRect.top, 'bottom ok');
           });
 
         });
