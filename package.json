@@ -36,7 +36,7 @@
     "gulp-newer": "^1.1.0",
     "gulp-postcss": "^6.0.1",
     "gulp-webserver": "^0.9.1",
-    "hexo": "^3.2.0-beta.2",
+    "hexo": "^3.2.0",
     "hexo-generator-archive": "^0.1.2",
     "hexo-generator-category": "^0.1.2",
     "hexo-generator-index": "^0.2.0",
