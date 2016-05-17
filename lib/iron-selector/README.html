@@ -29,7 +29,7 @@ thing! https://github.com/PolymerLabs/tedium/issues
   <span class="tag">&lt;<span class="name">div</span> <span class="attr">name</span>=<span class="string">"zot"</span>&gt;</span>Zot<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
 <span class="tag">&lt;/<span class="name">iron-selector</span>&gt;</span>
 </code></pre>
-<p>  If no matching element is found using <code>attForSelected</code>, use <code>fallbackSelection</code> as fallback.</p>
+<p>  You can specify a default fallback with <code>fallbackSelection</code> in case the <code>selected</code> attribute does<br>  not match the <code>attrForSelected</code> attribute of any elements.</p>
 <p>  Example:</p>
 <pre><code class="html"><span class="tag">&lt;<span class="name">iron-selector</span> <span class="attr">attr-for-selected</span>=<span class="string">"name"</span> <span class="attr">selected</span>=<span class="string">"non-existing"</span>
                <span class="attr">fallback-selection</span>=<span class="string">"default"</span>&gt;</span>
