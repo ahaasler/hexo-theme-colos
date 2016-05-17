@@ -15,11 +15,11 @@ hexo.extend.helper.register('header_menu', function headerCategoriesHelper() {
 });
 
 hexo.extend.helper.register('list_categories_drawer', function drawerCategoriesHelper() {
-  var result = this.list_categories(arguments[0]);
-  result = result.replace(new RegExp("<ul [^>]+>", 'g'), "");
-  result = result.replace(new RegExp("</ul>", 'g'), "");
-  result = result.replace(new RegExp("<li ", 'g'), "<paper-drawer-item ");
-  result = result.replace(new RegExp("</li>", 'g'), "</paper-drawer-item>");
+  var menu = getMenu(this);
+  var result = '';
+  for (var i = 0; i < menu.elements.length; i++) {
+    result += '<paper-drawer-item><a href="' + menu.elements[i].url + '">' + menu.elements[i].name + '</a></paper-drawer-item>';
+  }
   return result;
 });
 
