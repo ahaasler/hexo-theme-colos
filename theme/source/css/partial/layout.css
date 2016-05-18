@@ -18,10 +18,13 @@ paper-toolbar {
     color: white;
     text-decoration: none;
   }
-  @nest & paper-tab {
-    text-transform: uppercase;
-    @nest &[link] a {
-      padding: 0 1em;
+  @nest & paper-tabs {
+    height: 100%!important;
+    @nest & paper-tab {
+      text-transform: uppercase;
+      @nest &[link] a {
+        padding: 0 1em;
+      }
     }
   }
 }
