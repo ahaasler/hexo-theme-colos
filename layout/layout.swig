@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang }}">
 {{ partial('partial/head') }}
-<body>
+<body class="fullbleed">
 	<paper-drawer-panel>
 		{{ partial('partial/drawer') }}
-		<div main>
+		<paper-header-panel main mode="waterfall-tall">
 			{{ partial('partial/header') }}
 			<div class="page-content">
 				<div class="wrapper">
@@ -13,7 +13,7 @@
 			</div>
 			{{ partial('partial/pagination') }}
 			{{ partial('partial/footer') }}
-		</div>
+		</paper-header-panel>
 	</paper-drawer-panel>
 </body>
 </html>
