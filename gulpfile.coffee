@@ -9,6 +9,7 @@ casper = require 'gulp-casperjs'
 deploy = require 'gulp-deploy-git'
 newer = require 'gulp-newer'
 postcss = require 'gulp-postcss'
+vulcanize = require 'gulp-vulcanize'
 webserver = require 'gulp-webserver'
 sequence = require 'run-sequence'
 exec = require('child_process').exec
@@ -100,6 +101,12 @@ gulp.task 'postcss', (callback) ->
 gulp.task 'bower', (callback) ->
   execCommand 'bower install', callback
 
+gulp.task 'vulcanize', ['bower', 'copy'], (callback) ->
+  gulp.src("#{dir.dist.theme}/source/lib/elements.html").pipe(vulcanize(
+    abspath: ''
+    excludes: []
+    stripExcludes: false)).pipe gulp.dest("#{dir.dist.theme}/source/lib")
+
 # Copy documentation files
 gulp.task 'copy:docs', (callback) ->
   gulp.src(docs).pipe(newer(dir.dist.theme)).pipe gulp.dest(dir.dist.theme)
@@ -112,7 +119,7 @@ gulp.task 'copy', [
 
 # Build project
 gulp.task 'build', (callback) ->
-  sequence 'clean', ['copy', 'postcss', 'bower'], 'demo:generate', callback
+  sequence 'clean', ['copy', 'postcss', 'bower', 'vulcanize'], 'demo:generate', callback
 
 # Generate demo site
 gulp.task 'demo:generate', (callback) ->
