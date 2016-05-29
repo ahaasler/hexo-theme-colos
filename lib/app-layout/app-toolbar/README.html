@@ -1,0 +1,61 @@
+<p>##&lt;app-toolbar&gt;</p>
+<p>app-toolbar is a horizontal toolbar containing items that can be used for<br>label, navigation, search and actions.</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Add a title to the toolbar.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">app-toolbar</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">title</span>&gt;</span>App name<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">app-toolbar</span>&gt;</span>
+</code></pre>
+<p>Add a button to the left and right side of the toolbar.</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">app-toolbar</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-icon-button</span> <span class="attr">icon</span>=<span class="string">"menu"</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-icon-button</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">div</span> <span class="attr">title</span>&gt;</span>App name<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-icon-button</span> <span class="attr">icon</span>=<span class="string">"search"</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-icon-button</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">app-toolbar</span>&gt;</span>
+</code></pre>
+<p>You can use the attributes <code>top-item</code> or <code>bottom-item</code> to completely fit an element<br>to the top or bottom of the toolbar respectively.</p>
+<h3 id="Content-attributes"><a href="#Content-attributes" class="headerlink" title="Content attributes"></a>Content attributes</h3><table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td>The main title element.</td>
+</tr>
+<tr>
+<td><code>condensed-title</code></td>
+<td>The title element if used inside a condensed app-header.</td>
+</tr>
+<tr>
+<td><code>spacer</code></td>
+<td>Adds a left margin of <code>64px</code>.</td>
+</tr>
+<tr>
+<td><code>bottom-item</code></td>
+<td>Sticks the element to the bottom of the toolbar.</td>
+</tr>
+<tr>
+<td><code>top-item</code></td>
+<td>Sticks the element to the top of the toolbar.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><table>
+<thead>
+<tr>
+<th>Custom property</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--app-toolbar-font-size</code></td>
+<td>Toolbar font size</td>
+<td>20px</td>
+</tr>
+</tbody>
+</table>

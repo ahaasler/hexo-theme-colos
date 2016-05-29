@@ -1,0 +1,30 @@
+<p>##&lt;app-scrollpos-control&gt;</p>
+<p>app-scrollpos-control is a manager for saving and restoring the scroll position when multiple<br>pages are sharing the same document scroller.</p>
+<p>Example:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">app-scrollpos-control</span> <span class="attr">selected</span>=<span class="string">"{{page}}"</span>&gt;</span><span class="tag">&lt;/<span class="name">app-scrollpos-control</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">app-drawer-layout</span>&gt;</span>
+
+  <span class="tag">&lt;<span class="name">app-drawer</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">paper-menu</span> <span class="attr">selected</span>=<span class="string">"{{page}}"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">paper-item</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">paper-item</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">paper-item</span>&gt;</span>About<span class="tag">&lt;/<span class="name">paper-item</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">paper-item</span>&gt;</span>Schedule<span class="tag">&lt;/<span class="name">paper-item</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">paper-item</span>&gt;</span>Account<span class="tag">&lt;/<span class="name">paper-item</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">paper-menu</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">app-drawer</span>&gt;</span>
+
+  <span class="tag">&lt;<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">app-toolbar</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">paper-icon-button</span> <span class="attr">icon</span>=<span class="string">"menu"</span> <span class="attr">drawer-toggle</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-icon-button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">app-toolbar</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">iron-pages</span> <span class="attr">selected</span>=<span class="string">"{{page}}"</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">sample-content</span> <span class="attr">size</span>=<span class="string">"100"</span>&gt;</span><span class="tag">&lt;/<span class="name">sample-content</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">sample-content</span> <span class="attr">size</span>=<span class="string">"100"</span>&gt;</span><span class="tag">&lt;/<span class="name">sample-content</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">sample-content</span> <span class="attr">size</span>=<span class="string">"100"</span>&gt;</span><span class="tag">&lt;/<span class="name">sample-content</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">sample-content</span> <span class="attr">size</span>=<span class="string">"100"</span>&gt;</span><span class="tag">&lt;/<span class="name">sample-content</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">iron-pages</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="tag">&lt;/<span class="name">app-drawer-layout</span>&gt;</span>
+</code></pre>

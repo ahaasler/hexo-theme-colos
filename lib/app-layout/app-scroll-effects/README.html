@@ -1,0 +1,45 @@
+<h1 id="Scroll-effects"><a href="#Scroll-effects" class="headerlink" title="Scroll effects"></a>Scroll effects</h1><p><code>Polymer.AppScrollEffectsBehavior</code> provides an interface that allows an element to use scrolls effects.</p>
+<h3 id="Importing-the-app-layout-effects"><a href="#Importing-the-app-layout-effects" class="headerlink" title="Importing the app-layout effects"></a>Importing the app-layout effects</h3><p>app-layout provides a set of scroll effects that can be used by explicitly importing <code>app-scroll-effects.html</code>:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"import"</span> <span class="attr">href</span>=<span class="string">"/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html"</span>&gt;</span>
+</code></pre>
+<p>The scroll effects can also be used by individually importing <code>app-layout/app-scroll-effects/effects/[effectName].html</code>.<br>For example:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"import"</span> <span class="attr">href</span>=<span class="string">"/bower_components/app-layout/app-scroll-effects/effects/waterfall.html"</span>&gt;</span>
+</code></pre>
+<h3 id="Consuming-effects"><a href="#Consuming-effects" class="headerlink" title="Consuming effects"></a>Consuming effects</h3><p>Effects can be consumed via the <code>effects</code> property. For example:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">app-header</span> <span class="attr">effects</span>=<span class="string">"waterfall"</span>&gt;</span><span class="tag">&lt;/<span class="name">app-header</span>&gt;</span>
+</code></pre>
+<h3 id="Creating-scroll-effects"><a href="#Creating-scroll-effects" class="headerlink" title="Creating scroll effects"></a>Creating scroll effects</h3><p>You may want to create a custom scroll effect if you need to modify the CSS of an element<br>based on the scroll position.</p>
+<p>A scroll effect definition is an object with <code>setUp()</code>, <code>tearDown()</code> and <code>run()</code> functions.</p>
+<p>To register the effect, you can use <code>Polymer.AppLayout.registerEffect(effectName, effectDef)</code><br>For example, let’s define an effect that resizes the header’s logo:</p>
+<pre><code class="js">Polymer.AppLayout.registerEffect(<span class="string">'resizable-logo'</span>, {
+  setUp: <span class="function"><span class="keyword">function</span>(<span class="params">config</span>) </span>{
+    <span class="comment">// the effect's config is passed to the setUp.</span>
+    <span class="keyword">this</span>._fxResizeLogo = { logo: Polymer.dom(<span class="keyword">this</span>).querySelector(<span class="string">'[logo]'</span>) };
+  },
+
+  run: <span class="function"><span class="keyword">function</span>(<span class="params">progress</span>) </span>{
+     <span class="comment">// the progress of the effect</span>
+     <span class="keyword">this</span>.transform(<span class="string">'scale3d('</span> + progress + <span class="string">', '</span>+ progress +<span class="string">', 1)'</span>,  <span class="keyword">this</span>._fxResizeLogo.logo);
+  },
+
+  tearDown: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+     <span class="comment">// clean up and reset of states</span>
+     <span class="keyword">delete</span> <span class="keyword">this</span>._fxResizeLogo;
+  }
+});
+</code></pre>
+<p>Now, you can consume the effect:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">app-header</span> <span class="attr">id</span>=<span class="string">"appHeader"</span> <span class="attr">effects</span>=<span class="string">"resizable-logo"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">img</span> <span class="attr">logo</span> <span class="attr">src</span>=<span class="string">"logo.svg"</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">app-header</span>&gt;</span>
+</code></pre>
+<h3 id="Imperative-API"><a href="#Imperative-API" class="headerlink" title="Imperative API"></a>Imperative API</h3><pre><code class="js"><span class="keyword">var</span> logoEffect = appHeader.createEffect(<span class="string">'resizable-logo'</span>, effectConfig);
+<span class="comment">// run the effect: logoEffect.run(progress);</span>
+<span class="comment">// tear down the effect: logoEffect.tearDown();</span>
+</code></pre>
+<h3 id="Configuring-effects"><a href="#Configuring-effects" class="headerlink" title="Configuring effects"></a>Configuring effects</h3><p>For effects installed via the <code>effects</code> property, their configuration can be set<br>via the <code>effectsConfig</code> property. For example:</p>
+<pre><code class="html"><span class="tag">&lt;<span class="name">app-header</span> <span class="attr">effects</span>=<span class="string">"waterfall"</span>
+  <span class="attr">effects-config</span>=<span class="string">'{"waterfall": {"startsAt": 0, "endsAt": 0.5}}'</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">app-header</span>&gt;</span>
+</code></pre>
+<p>All effects have a <code>startsAt</code> and <code>endsAt</code> config property. They specify at what<br>point the effect should start and end. This value goes from 0 to 1 inclusive.</p>
