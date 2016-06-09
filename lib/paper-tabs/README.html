@@ -37,7 +37,7 @@ thing! https://github.com/PolymerLabs/tedium/issues
   <span class="tag">&lt;<span class="name">div</span>&gt;</span>Page 3<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
 <span class="tag">&lt;/<span class="name">iron-pages</span>&gt;</span>
 </code></pre>
-<p>To use links in tabs, add <code>link</code> attribute to <code>paper-tab</code> and put an <code>&lt;a&gt;</code><br>element in <code>paper-tab</code>.</p>
+<p>To use links in tabs, add <code>link</code> attribute to <code>paper-tab</code> and put an <code>&lt;a&gt;</code><br>element in <code>paper-tab</code> with a <code>tabindex</code> of -1.</p>
 <p>Example:</p>
 <pre><code>
 &lt;style is="custom-style">
@@ -49,13 +49,13 @@ thing! https://github.com/PolymerLabs/tedium/issues
 
 &lt;paper-tabs selected="0">
   &lt;paper-tab link>
-    &lt;a href="#link1" class="link">TAB ONE&lt;/a>
+    &lt;a href="#link1" class="link" tabindex="-1">TAB ONE&lt;/a>
   &lt;/paper-tab>
   &lt;paper-tab link>
-    &lt;a href="#link2" class="link">TAB TWO&lt;/a>
+    &lt;a href="#link2" class="link" tabindex="-1">TAB TWO&lt;/a>
   &lt;/paper-tab>
   &lt;paper-tab link>
-    &lt;a href="#link3" class="link">TAB THREE&lt;/a>
+    &lt;a href="#link3" class="link" tabindex="-1">TAB THREE&lt;/a>
   &lt;/paper-tab>
 &lt;/paper-tabs>
 </code></pre>

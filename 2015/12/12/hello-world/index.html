@@ -23,14 +23,16 @@
   <paper-drawer-item><a href="/hexo-theme-colos/">home</a></paper-drawer-item><paper-drawer-item><a href="/hexo-theme-colos/archives/">archives</a></paper-drawer-item><paper-drawer-item><a href="/hexo-theme-colos/categories/book/">book</a></paper-drawer-item><paper-drawer-item><a href="/hexo-theme-colos/categories/code/">code</a></paper-drawer-item>
 </paper-drawer>
 
-		<paper-header-panel main mode="waterfall-tall">
-			<paper-toolbar class="tall site-header">
-	<paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
-	<a href="/hexo-theme-colos/ " id="logo" class="title">Colos</a>
-	<style is="custom-style">paper-tab[link] a { @apply(--layout-horizontal); @apply(--layout-center-center); }</style><paper-tabs selected="3" class="category-list"><paper-tab link class="category-list-item"><a class="category-list-link" href="/hexo-theme-colos/">home</a></paper-tab><paper-tab link class="category-list-item"><a class="category-list-link" href="/hexo-theme-colos/archives/">archives</a></paper-tab><paper-tab link class="category-list-item"><a class="category-list-link" href="/hexo-theme-colos/categories/book/">book</a></paper-tab><paper-tab link class="category-list-item"><a class="category-list-link" href="/hexo-theme-colos/categories/code/">code</a></paper-tab></paper-tabs>
-	<div class="flex"></div>
-	
-</paper-toolbar>
+		<app-header-layout main mode="waterfall-tall">
+			<app-header main effects="waterfall resize-title blend-background parallax-background" condenses reveals>
+	<app-toolbar class="tall site-header">
+		<paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+		<a href="/hexo-theme-colos/ " id="logo" class="title">Colos</a>
+		<style is="custom-style">paper-tab[link] a { @apply(--layout-horizontal); @apply(--layout-center-center); }</style><paper-tabs selected="3" class="category-list"><paper-tab link class="category-list-item"><a class="category-list-link" href="/hexo-theme-colos/">home</a></paper-tab><paper-tab link class="category-list-item"><a class="category-list-link" href="/hexo-theme-colos/archives/">archives</a></paper-tab><paper-tab link class="category-list-item"><a class="category-list-link" href="/hexo-theme-colos/categories/book/">book</a></paper-tab><paper-tab link class="category-list-item"><a class="category-list-link" href="/hexo-theme-colos/categories/code/">code</a></paper-tab></paper-tabs>
+		<div class="flex"></div>
+		
+	</app-toolbar>
+</app-header>
 
 			<div class="page-content">
 				<div class="wrapper">
@@ -77,7 +79,7 @@
 	</div>
 </footer>
 
-		</paper-header-panel>
+		</app-header-layout>
 	</paper-drawer-panel>
 </body>
 </html>
