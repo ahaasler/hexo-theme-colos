@@ -4,7 +4,7 @@
 <body class="fullbleed">
 	<paper-drawer-panel>
 		{{ partial('partial/drawer') }}
-		<paper-header-panel main mode="waterfall-tall">
+		<app-header-layout main mode="waterfall-tall">
 			{{ partial('partial/header') }}
 			<div class="page-content">
 				<div class="wrapper">
@@ -13,7 +13,7 @@
 			</div>
 			{{ partial('partial/pagination') }}
 			{{ partial('partial/footer') }}
-		</paper-header-panel>
+		</app-header-layout>
 	</paper-drawer-panel>
 </body>
 </html>
