@@ -2,9 +2,9 @@
 <html lang="{{ page.lang }}">
 {{ partial('partial/head') }}
 <body class="fullbleed">
-	<paper-drawer-panel>
+	<app-drawer-layout>
 		{{ partial('partial/drawer') }}
-		<app-header-layout main mode="waterfall-tall">
+		<app-header-layout mode="waterfall-tall">
 			{{ partial('partial/header') }}
 			<div class="page-content">
 				<div class="wrapper">
@@ -14,6 +14,6 @@
 			{{ partial('partial/pagination') }}
 			{{ partial('partial/footer') }}
 		</app-header-layout>
-	</paper-drawer-panel>
+	</app-drawer-layout>
 </body>
 </html>
