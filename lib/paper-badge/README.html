@@ -6,28 +6,32 @@ paper-badge.html
 Edit those files, and our readme bot will duplicate them over here!
 Edit this file, and the bot will squash your changes :)
 
+The bot does some handling of markdown. Please file a bug if it does the wrong
+thing! https://github.com/PolymerLabs/tedium/issues
+
 -->
-<p><a href="https://travis-ci.org/PolymerElements/paper-badge"><img src="https://travis-ci.org/PolymerElements/paper-badge.svg?branch=master" alt="Build Status"></a></p>
-<p><em><a href="https://elements.polymer-project.org/elements/paper-badge">Demo and API Docs</a></em></p>
+<p><a href="https://travis-ci.org/PolymerElements/paper-badge"><img src="https://travis-ci.org/PolymerElements/paper-badge.svg?branch=master" alt="Build status"></a></p>
+<p><em><a href="https://elements.polymer-project.org/elements/paper-badge">Demo and API docs</a></em></p>
 <p>##&lt;paper-badge&gt;</p>
 <p><code>&lt;paper-badge&gt;</code> is a circular text badge that is displayed on the top right<br>corner of an element, representing a status or a notification. It will badge<br>the anchor element specified in the <code>for</code> attribute, or, if that doesn’t exist,<br>centered to the parent node containing it.</p>
 <p>Badges can also contain an icon by adding the <code>icon</code> attribute and setting<br>it to the id of the desired icon. Please note that you should still set the<br><code>label</code> attribute in order to keep the element accessible. Also note that you will need to import<br>the <code>iron-iconset</code> that includes the icons you want to use. See <a href="../iron-icon">iron-icon</a><br>for more information on how to import and use icon sets.</p>
 <p>Example:</p>
-<pre><code>&lt;div style=&quot;display:inline-block&quot;&gt;
-  &lt;span&gt;Inbox&lt;/span&gt;
-  &lt;paper-badge label=&quot;3&quot;&gt;&lt;/paper-badge&gt;
-&lt;/div&gt;
+<pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"display:inline-block"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">span</span>&gt;</span>Inbox<span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-badge</span> <span class="attr">label</span>=<span class="string">"3"</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-badge</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
 
-&lt;div&gt;
-  &lt;paper-button id=&quot;btn&quot;&gt;Status&lt;/paper-button&gt;
-  &lt;paper-badge icon=&quot;favorite&quot; for=&quot;btn&quot; label=&quot;favorite icon&quot;&gt;&lt;/paper-badge&gt;
-&lt;/div&gt;
+<span class="tag">&lt;<span class="name">div</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-button</span> <span class="attr">id</span>=<span class="string">"btn"</span>&gt;</span>Status<span class="tag">&lt;/<span class="name">paper-button</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-badge</span> <span class="attr">icon</span>=<span class="string">"favorite"</span> <span class="attr">for</span>=<span class="string">"btn"</span> <span class="attr">label</span>=<span class="string">"favorite icon"</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-badge</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
 
-&lt;div&gt;
-  &lt;paper-icon-button id=&quot;account-box&quot; icon=&quot;account-box&quot; alt=&quot;account-box&quot;&gt;&lt;/paper-icon-button&gt;
-  &lt;paper-badge icon=&quot;social:mood&quot; for=&quot;account-box&quot; label=&quot;mood icon&quot;&gt;&lt;/paper-badge&gt;
-&lt;/div&gt;
-</code></pre><h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
+<span class="tag">&lt;<span class="name">div</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-icon-button</span> <span class="attr">id</span>=<span class="string">"account-box"</span> <span class="attr">icon</span>=<span class="string">"account-box"</span> <span class="attr">alt</span>=<span class="string">"account-box"</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-icon-button</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">paper-badge</span> <span class="attr">icon</span>=<span class="string">"social:mood"</span> <span class="attr">for</span>=<span class="string">"account-box"</span> <span class="attr">label</span>=<span class="string">"mood icon"</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-badge</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+</code></pre>
+<h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
 <table>
 <thead>
 <tr>
