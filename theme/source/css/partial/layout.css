@@ -1,13 +1,13 @@
-paper-drawer-panel:not([narrow]) {
-  @nest & #main {
-    left: 0 !important;
+app-drawer-layout:not([narrow]) {
+  @nest & #contentContainer {
+    margin-left: 0 !important;
   }
-  @nest & #drawer {
-    width: 0 !important;
+  @nest & app-drawer {
+    visibility: hidden !important;
   }
 }
 
-paper-drawer-panel[narrow] {
+app-drawer-layout[narrow] {
   @nest & paper-tabs {
     display: none;
   }
