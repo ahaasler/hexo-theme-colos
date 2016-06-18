@@ -1,15 +1,13 @@
-app-drawer-layout:not([narrow]) {
-  @nest & #contentContainer {
-    margin-left: 0 !important;
-  }
-  @nest & app-drawer {
+app-drawer-layout > #contentContainer:not(.narrow) {
+  margin-left: 0 !important;
+  @nest & + app-drawer {
     visibility: hidden !important;
   }
 }
 
-app-drawer-layout[narrow] {
+app-drawer-layout > .narrow {
   @nest & paper-tabs {
-    display: none;
+    display: none !important;
   }
 }
 
