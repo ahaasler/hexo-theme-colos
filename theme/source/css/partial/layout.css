@@ -11,7 +11,8 @@ app-drawer-layout > .narrow {
   }
 }
 
-paper-toolbar {
+app-toolbar {
+  background-color: var(--deep-purple);
   @nest & a {
     color: white;
     text-decoration: none;
