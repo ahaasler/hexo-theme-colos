@@ -12958,7 +12958,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer.IronA11yKeysBehavior = {
       properties: {
         /**
-         * The HTMLElement that will be firing relevant KeyboardEvents.
+         * The EventTarget that will be firing relevant KeyboardEvents. Set it to
+         * `null` to disable the listeners.
+         * @type {?EventTarget}
          */
         keyEventTarget: {
           type: Object,
@@ -13098,7 +13100,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _resetKeyEventListeners: function() {
         this._unlistenKeyEventListeners();
 
-        if (this.isAttached) {
+        if (this.isAttached && this.keyEventTarget) {
           this._listenKeyEventListeners();
         }
       },
@@ -14063,8 +14065,9 @@ Apply `circle` class to make the rippling effect within a circle.
         } else {
           this.keyEventTarget = this.parentNode;
         }
-        this.listen(this.keyEventTarget, 'up', 'uiUpAction');
-        this.listen(this.keyEventTarget, 'down', 'uiDownAction');
+        var keyEventTarget = /** @type {!EventTarget} */ (this.keyEventTarget);
+        this.listen(keyEventTarget, 'up', 'uiUpAction');
+        this.listen(keyEventTarget, 'down', 'uiDownAction');
       },
 
       detached: function() {
@@ -16389,6 +16392,7 @@ Use `noOverlap` to position the element around another element without overlappi
 
     /**
      * Memoize information needed to position and size the target element.
+     * @suppress {deprecated}
      */
     _discoverInfo: function() {
       if (this._fitInfo) {
@@ -17217,6 +17221,7 @@ Custom property | Description | Default
      * Returns the deepest overlay in the path.
      * @param {Array<Element>=} path
      * @return {Element|undefined}
+     * @suppress {missingProperties}
      * @private
      */
     _overlayInPath: function(path) {
@@ -17274,12 +17279,11 @@ Custom property | Description | Default
      * @param {!Element} overlay1
      * @param {!Element} overlay2
      * @return {boolean}
+     * @suppress {missingProperties}
      * @private
      */
     _shouldBeBehindOverlay: function(overlay1, overlay2) {
-      var o1 = /** @type {?} */ (overlay1);
-      var o2 = /** @type {?} */ (overlay2);
-      return !o1.alwaysOnTop && o2.alwaysOnTop;
+      return !overlay1.alwaysOnTop && overlay2.alwaysOnTop;
     }
   };
 
@@ -21081,13 +21085,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * Forward focus to inputElement. Overriden from IronControlState.
      */
     _focusBlurHandler: function(event) {
-      if (this._shiftTabPressed)
-        return;
-
       Polymer.IronControlState._focusBlurHandler.call(this, event);
 
       // Forward the focus to the nested input.
-      if (this.focused)
+      if (this.focused && !this._shiftTabPressed)
         this._focusableElement.focus();
     },
 
@@ -21257,6 +21258,10 @@ Custom property | Description | Default
         @apply(--paper-input-char-counter);
       }
 
+      :host([hidden]) {
+        display: none !important;
+      }
+
       :host-context([dir="rtl"]) {
         float: left;
       }
@@ -21423,6 +21428,10 @@ This element is `display:block` by default, but you can set the `inline` attribu
         opacity: 0.33;
 
         @apply(--paper-input-container-disabled);
+      }
+
+      :host([hidden]) {
+        display: none !important;
       }
 
       .floated-label-placeholder {
@@ -21614,7 +21623,7 @@ This element is `display:block` by default, but you can set the `inline` attribu
     </style>
 
     <template is="dom-if" if="[[!noLabelFloat]]">
-      <div class="floated-label-placeholder">&nbsp;</div>
+      <div class="floated-label-placeholder" aria-hidden="true">&nbsp;</div>
     </template>
 
     <div class$="[[_computeInputContentClass(noLabelFloat,alwaysFloatLabel,focused,invalid,_inputHasContent)]]">
@@ -22072,6 +22081,10 @@ style this element.
         display: block;
       }
 
+      :host([hidden]) {
+        display: none !important;
+      }
+
       input::-webkit-input-placeholder {
         color: var(--paper-input-container-color, --secondary-text-color);
       }
@@ -22093,7 +22106,7 @@ style this element.
 
       <content select="[prefix]"></content>
 
-      <label hidden$="[[!label]]">[[label]]</label>
+      <label hidden$="[[!label]]" aria-hidden="true">[[label]]</label>
 
       <input is="iron-input" id="input" aria-labelledby$="[[_ariaLabelledBy]]" aria-describedby$="[[_ariaDescribedBy]]" disabled$="[[disabled]]" title$="[[title]]" bind-value="{{value}}" invalid="{{invalid}}" prevent-invalid-input="[[preventInvalidInput]]" allowed-pattern="[[allowedPattern]]" validator="[[validator]]" type$="[[type]]" pattern$="[[pattern]]" required$="[[required]]" autocomplete$="[[autocomplete]]" autofocus$="[[autofocus]]" inputmode$="[[inputmode]]" minlength$="[[minlength]]" maxlength$="[[maxlength]]" min$="[[min]]" max$="[[max]]" step$="[[step]]" name$="[[name]]" placeholder$="[[placeholder]]" readonly$="[[readonly]]" list$="[[list]]" size$="[[size]]" autocapitalize$="[[autocapitalize]]" autocorrect$="[[autocorrect]]" on-change="_onChange" tabindex$="[[tabindex]]" autosave$="[[autosave]]" results$="[[results]]" accept$="[[accept]]" multiple$="[[multiple]]">
 
@@ -25159,11 +25172,15 @@ style this element.
       :host {
         display: block;
       }
+
+      :host([hidden]) {
+        display: none !important;
+      }
     </style>
 
     <paper-input-container no-label-float$="[[noLabelFloat]]" always-float-label="[[_computeAlwaysFloatLabel(alwaysFloatLabel,placeholder)]]" auto-validate$="[[autoValidate]]" disabled$="[[disabled]]" invalid="[[invalid]]">
 
-      <label hidden$="[[!label]]">[[label]]</label>
+      <label hidden$="[[!label]]" aria-hidden="true">[[label]]</label>
 
       <iron-autogrow-textarea id="input" class="paper-input-input" bind-value="{{value}}" disabled$="[[disabled]]" autocomplete$="[[autocomplete]]" autofocus$="[[autofocus]]" inputmode$="[[inputmode]]" name$="[[name]]" placeholder$="[[placeholder]]" readonly$="[[readonly]]" required$="[[required]]" maxlength$="[[maxlength]]" autocapitalize$="[[autocapitalize]]" rows$="[[rows]]" max-rows$="[[maxRows]]" on-change="_onChange"></iron-autogrow-textarea>
 
@@ -31547,12 +31564,18 @@ Style                                 | Description
 				@apply(--layout-flex);
 				@apply(--paper-font-body1);
 			}
+
+			.name,.email {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
 		</style>
 
 		<div><img src="[[photo]]" class="photo"></div>
 		<div class="sub-title">
-			<div>[[name]]</div>
-			<div>[[email]]</div>
+			<div class="name">[[name]]</div>
+			<div class="email">[[email]]</div>
 		</div>
 
 	</template>
