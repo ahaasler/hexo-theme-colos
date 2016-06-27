@@ -13100,12 +13100,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _resetKeyEventListeners: function() {
         this._unlistenKeyEventListeners();
 
-        if (this.isAttached && this.keyEventTarget) {
+        if (this.isAttached) {
           this._listenKeyEventListeners();
         }
       },
 
       _listenKeyEventListeners: function() {
+        if (!this.keyEventTarget) {
+          return;
+        }
         Object.keys(this._keyBindings).forEach(function(eventName) {
           var keyBindings = this._keyBindings[eventName];
           var boundKeyHandler = this._onKeyBindingEvent.bind(this, keyBindings);
@@ -21304,7 +21307,7 @@ Custom property | Description | Default
 
       state.value = state.value || '';
 
-      var counter = state.value.length.toString();
+      var counter = state.value.toString().length.toString();
 
       if (state.inputElement.hasAttribute('maxlength')) {
         counter += '/' + state.inputElement.getAttribute('maxlength');
