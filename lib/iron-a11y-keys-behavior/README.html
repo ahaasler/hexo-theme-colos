@@ -14,5 +14,21 @@ thing! https://github.com/PolymerLabs/tedium/issues
 <p><em><a href="https://elements.polymer-project.org/elements/iron-a11y-keys-behavior">Demo and API docs</a></em></p>
 <p>##Polymer.IronA11yKeysBehavior</p>
 <p><code>Polymer.IronA11yKeysBehavior</code> provides a normalized interface for processing<br>keyboard commands that pertain to <a href="http://www.w3.org/TR/wai-aria-practices/#kbd_general_binding">WAI-ARIA best practices</a>.<br>The element takes care of browser differences with respect to Keyboard events<br>and uses an expressive syntax to filter key presses.</p>
-<p>Use the <code>keyBindings</code> prototype property to express what combination of keys<br>will trigger the event to fire.</p>
-<p>Use the <code>key-event-target</code> attribute to set up event handlers on a specific<br>node.<br>The <code>keys-pressed</code> event will fire when one of the key combinations set with the<br><code>keys</code> property is pressed.</p>
+<p>Use the <code>keyBindings</code> prototype property to express what combination of keys<br>will trigger the callback. A key binding has the format<br><code>&quot;KEY+MODIFIER:EVENT&quot;: &quot;callback&quot;</code> (<code>&quot;KEY&quot;: &quot;callback&quot;</code> or<br><code>&quot;KEY:EVENT&quot;: &quot;callback&quot;</code> are valid as well). Some examples:</p>
+<pre><code class="javascript">keyBindings: {
+  <span class="string">'space'</span>: <span class="string">'_onKeydown'</span>, <span class="comment">// same as 'space:keydown'</span>
+  <span class="string">'shift+tab'</span>: <span class="string">'_onKeydown'</span>,
+  <span class="string">'enter:keypress'</span>: <span class="string">'_onKeypress'</span>,
+  <span class="string">'esc:keyup'</span>: <span class="string">'_onKeyup'</span>
+}
+</code></pre>
+<p>The callback will receive with an event containing the following information in <code>event.detail</code>:</p>
+<pre><code class="javascript">_onKeydown: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>{
+  <span class="built_in">console</span>.log(event.detail.combo); <span class="comment">// KEY+MODIFIER, e.g. "shift+tab"</span>
+  <span class="built_in">console</span>.log(event.detail.key); <span class="comment">// KEY only, e.g. "tab"</span>
+  <span class="built_in">console</span>.log(event.detail.event); <span class="comment">// EVENT, e.g. "keydown"</span>
+  <span class="built_in">console</span>.log(event.detail.keyboardEvent); <span class="comment">// the original KeyboardEvent</span>
+}
+</code></pre>
+<p>Use the <code>keyEventTarget</code> attribute to set up event handlers on a specific<br>node.</p>
+<p>See the <a href="https://github.com/PolymerElements/iron-a11y-keys-behavior/blob/master/demo/x-key-aware.html">demo source code</a><br>for an example.</p>

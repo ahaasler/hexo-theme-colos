@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<title>Hello World | Colos</title>
 	<meta name="description" content="">
-	<meta name="generator" content="Hexo v3.2.0">
+	<meta name="generator" content="Hexo v3.2.2">
 	<link rel="canonical" href="https://ahaasler.github.io/hexo-theme-colos/2015/12/12/hello-world/">
 	
 	<link rel="alternate" type="application/rss+xml" title="RSS feed" href="https://ahaasler.github.io/hexo-theme-colos/hexo-theme-colos//feed.xml" />
@@ -23,15 +23,19 @@
   <paper-drawer-item><a href="/hexo-theme-colos/">home</a></paper-drawer-item><paper-drawer-item><a href="/hexo-theme-colos/archives/">archives</a></paper-drawer-item><paper-drawer-item><a href="/hexo-theme-colos/categories/book/">book</a></paper-drawer-item><paper-drawer-item><a href="/hexo-theme-colos/categories/code/">code</a></paper-drawer-item>
 </app-drawer>
 
-		<app-header-layout mode="waterfall-tall">
-			<app-header main effects="waterfall resize-title blend-background parallax-background" condenses reveals>
-	<app-toolbar class="tall site-header">
+		<app-header-layout>
+			<app-header condenses fixed effects="blend-background parallax-background resize-title waterfall">
+	<app-toolbar>
 		<paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
 		<a href="/hexo-theme-colos/ " id="logo" class="title">Colos</a>
+		<div condensed-title>Hello World</div>
 		<div class="flex"></div>
 		<style is="custom-style">paper-tab[link] a { @apply(--layout-horizontal); @apply(--layout-center-center); }</style><paper-tabs selected="3" class="category-list"><paper-tab link class="category-list-item"><a class="category-list-link" href="/hexo-theme-colos/">home</a></paper-tab><paper-tab link class="category-list-item"><a class="category-list-link" href="/hexo-theme-colos/archives/">archives</a></paper-tab><paper-tab link class="category-list-item"><a class="category-list-link" href="/hexo-theme-colos/categories/book/">book</a></paper-tab><paper-tab link class="category-list-item"><a class="category-list-link" href="/hexo-theme-colos/categories/code/">code</a></paper-tab></paper-tabs>
-		<div class="flex"></div>
 		
+	</app-toolbar>
+	<app-toolbar class="middle"></app-toolbar>
+	<app-toolbar class="bottom">
+		<div title>Hello World</div>
 	</app-toolbar>
 </app-header>
 
@@ -47,11 +51,11 @@
 	<div class="post-content">
 		
 			<p>This post contains Hello World examples to showcase the syntax highlighting.</p>
-<h2 id="Bash"><a href="#Bash" class="headerlink" title="Bash"></a>Bash</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Hello, World!"</span></span><br></pre></td></tr></table></figure>
-<h2 id="Groovy"><a href="#Groovy" class="headerlink" title="Groovy"></a>Groovy</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">println <span class="string">"Hello, World!"</span></span><br></pre></td></tr></table></figure>
-<h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Hello, World!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Ruby"><a href="#Ruby" class="headerlink" title="Ruby"></a>Ruby</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">puts <span class="string">'Hello, World!'</span></span><br></pre></td></tr></table></figure>
-<h2 id="Javascript"><a href="#Javascript" class="headerlink" title="Javascript"></a>Javascript</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.write(<span class="string">'Hello, World!'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="Bash"><a href="#Bash" class="headerlink" title="Bash"></a>Bash</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"Hello, World!"</span></div></pre></td></tr></table></figure>
+<h2 id="Groovy"><a href="#Groovy" class="headerlink" title="Groovy"></a>Groovy</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">println <span class="string">"Hello, World!"</span></div></pre></td></tr></table></figure>
+<h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"Hello, World!"</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Ruby"><a href="#Ruby" class="headerlink" title="Ruby"></a>Ruby</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">puts <span class="string">'Hello, World!'</span></div></pre></td></tr></table></figure>
+<h2 id="Javascript"><a href="#Javascript" class="headerlink" title="Javascript"></a>Javascript</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.write(<span class="string">'Hello, World!'</span>);</div></pre></td></tr></table></figure>
 
 		
 	</div>
