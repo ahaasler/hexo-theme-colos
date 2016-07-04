@@ -4,7 +4,7 @@
 <body class="fullbleed">
 	<app-drawer-layout>
 		{{ partial('partial/drawer') }}
-		<app-header-layout mode="waterfall-tall">
+		<app-header-layout>
 			{{ partial('partial/header') }}
 			<div class="page-content">
 				<div class="wrapper">
