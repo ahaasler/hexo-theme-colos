@@ -11,11 +11,31 @@ app-drawer-layout > .narrow {
   }
 }
 
-app-toolbar {
+app-header {
+  color: #fff;
   background-color: var(--deep-purple);
+}
+
+app-toolbar {
+  @nest &.middle {
+    height: 10em;
+  }
+  @nest &.bottom {
+    height: 4em;
+  }
   @nest & a {
     color: white;
     text-decoration: none;
+  }
+  @nest & [title] {
+    position: absolute;
+    margin-left: 2em;
+    font-size: 1.6em;
+    font-weight: 300;
+  }
+  @nest & [condensed-title] {
+    margin-left: 1.2em;
+    font-weight: 300;
   }
   @nest & paper-tabs {
     height: 100%!important;
