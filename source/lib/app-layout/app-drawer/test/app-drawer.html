@@ -116,8 +116,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.isFalse(drawer.noFocusTrap);
       });
 
-      test('set scroll direction', function() {
-        assert.equal(drawer['__polymerGesturesTouchAction'], 'pan-y');
+      test('set scroll direction', function(done) {
+        window.setTimeout(function() {
+          assert.equal(drawer['__polymerGesturesTouchAction'], 'pan-y');
+          done();
+        }, 350);
       });
 
       test('transitions are enabled after attached', function(done) {
@@ -224,15 +227,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         assert.equal(drawer.getWidth(), contentContainer.offsetWidth);
       });
 
-      test('app-drawer-reset-layout', function(done) {
+      test('app-drawer-reset-layout', function() {
         var listenerSpy = sinon.spy();
         drawer.addEventListener('app-drawer-reset-layout', listenerSpy);
         drawer.align = 'right';
 
-        window.setTimeout(function() {
-          assert.isTrue(listenerSpy.called);
-          done();
-        }, 1);
+        assert.isTrue(listenerSpy.called);
       });
 
       test('app-drawer-transitioned', function(done) {
