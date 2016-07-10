@@ -55,7 +55,7 @@ With an app-header-layout:
   <app-header-layout>
     <app-header>
       <app-toolbar>
-        <div title>App name</div>
+        <div main-title>App name</div>
       </app-toolbar>
     </app-header>
 
@@ -76,7 +76,7 @@ Add the `drawer-toggle` attribute to elements inside `app-drawer-layout` that to
     <app-header>
       <app-toolbar>
         <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-        <div title>App name</div>
+        <div main-title>App name</div>
       </app-toolbar>
     </app-header>
 
@@ -210,12 +210,7 @@ Custom property                          | Description                          
 
       resetLayout: function() {
         this.debounce('_resetLayout', function() {
-          if (!this.isAttached) {
-            return;
-          }
-
           var drawer = this.drawer;
-          var drawerWidth = this.drawer.getWidth();
           var contentContainer = this.$.contentContainer;
 
           if (this.narrow) {
@@ -228,6 +223,7 @@ Custom property                          | Description                          
             drawer.opened = drawer.persistent = true;
             contentContainer.classList.remove('narrow');
 
+            var drawerWidth = this.drawer.getWidth();
             if (drawer.position == 'right') {
               contentContainer.style.marginLeft = '';
               contentContainer.style.marginRight = drawerWidth + 'px';
