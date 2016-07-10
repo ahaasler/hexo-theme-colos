@@ -11,4 +11,13 @@
 	{{ css('css/main.css') }}
 	{{ js('lib/webcomponentsjs/webcomponents-lite.min.js') }}
 	{{ component('lib/elements') }}
+	{% if page.cover %}
+		<style is="custom-style">
+			app-header {
+				--app-header-background-front-layer: {
+					background-image: url({{ url_for(page.cover) }});
+				};
+			}
+		</style>
+	{% endif %}
 </head>

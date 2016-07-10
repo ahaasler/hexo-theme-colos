@@ -14,6 +14,9 @@ app-drawer-layout > .narrow {
 app-header {
   color: #fff;
   background-color: var(--deep-purple);
+  @nest & #backgroundFrontLayer {
+    background-position: center center;
+  }
 }
 
 app-toolbar {
