@@ -3,28 +3,29 @@
 <p>app-header is container element for app-toolbars at the top of the screen that can have scroll<br>effects. By default, an app-header moves away from the viewport when scrolling down and<br>if using <code>reveals</code>, the header slides back when scrolling back up. For example,</p>
 <pre><code class="html"><span class="tag">&lt;<span class="name">app-header</span> <span class="attr">reveals</span>&gt;</span>
   <span class="tag">&lt;<span class="name">app-toolbar</span>&gt;</span>
-    <span class="tag">&lt;<span class="name">div</span> <span class="attr">main-title</span>&gt;</span>App name<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">title</span>&gt;</span>App name<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
   <span class="tag">&lt;/<span class="name">app-toolbar</span>&gt;</span>
 <span class="tag">&lt;/<span class="name">app-header</span>&gt;</span>
 </code></pre>
-<p>app-header can also condense when scrolling down. To achieve this behavior, the header<br>must have a larger height than the <code>sticky</code> element in the light DOM. For example:</p>
+<p>app-header can also condense when scrolling down. To achieve this behavior, the header<br>must have a larger height than the <code>primary</code> element in the light DOM. For example:</p>
 <pre><code class="html"><span class="tag">&lt;<span class="name">app-header</span> <span class="attr">style</span>=<span class="string">"height: 96px;"</span> <span class="attr">condenses</span> <span class="attr">fixed</span>&gt;</span>
   <span class="tag">&lt;<span class="name">app-toolbar</span> <span class="attr">style</span>=<span class="string">"height: 64px;"</span>&gt;</span>
-    <span class="tag">&lt;<span class="name">div</span> <span class="attr">main-title</span>&gt;</span>App name<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">title</span>&gt;</span>App name<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
   <span class="tag">&lt;/<span class="name">app-toolbar</span>&gt;</span>
 <span class="tag">&lt;/<span class="name">app-header</span>&gt;</span>
 </code></pre>
 <p>In this case the header is initially <code>96px</code> tall, and it shrinks to <code>64px</code> when scrolling down.<br>That is what is meant by “condensing”.</p>
-<h3 id="Sticky-element"><a href="#Sticky-element" class="headerlink" title="Sticky element"></a>Sticky element</h3><p>The element that is positioned fixed to top of the header’s <code>scrollTarget</code> when a threshold<br>is reached, similar to <code>position: sticky</code> in CSS. This element <strong>must</strong> be an immediate<br>child of app-header. By default, the <code>sticky</code> element is the first `app-toolbar that<br>is an immediate child of app-header.</p>
+<h3 id="Primary-element"><a href="#Primary-element" class="headerlink" title="Primary element"></a>Primary element</h3><p>As the header condenses, the immediate children of app-header are stacked up.<br>In this case, the primary element is the immediate child that would always stayed above<br>the others as the header condenses. By default, the <code>primary</code> element is the first app-toolbar<br>that is an immediate children of app-header.</p>
 <pre><code class="html"><span class="tag">&lt;<span class="name">app-header</span> <span class="attr">condenses</span>&gt;</span>
-  <span class="tag">&lt;<span class="name">app-toolbar</span>&gt;</span> Sticky element <span class="tag">&lt;/<span class="name">app-toolbar</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">app-toolbar</span>&gt;</span> Primary element <span class="tag">&lt;/<span class="name">app-toolbar</span>&gt;</span>
 <span class="tag">&lt;/<span class="name">app-header</span>&gt;</span>
 </code></pre>
-<h4 id="Customizing-the-sticky-element"><a href="#Customizing-the-sticky-element" class="headerlink" title="Customizing the sticky element"></a>Customizing the sticky element</h4><pre><code class="html"><span class="tag">&lt;<span class="name">app-header</span> <span class="attr">condenses</span>&gt;</span>
+<pre><code class="html"><span class="tag">&lt;<span class="name">app-header</span> <span class="attr">condenses</span>&gt;</span>
   <span class="tag">&lt;<span class="name">app-toolbar</span>&gt;</span><span class="tag">&lt;/<span class="name">app-toolbar</span>&gt;</span>
-  <span class="tag">&lt;<span class="name">app-toolbar</span> <span class="attr">sticky</span>&gt;</span> Sticky element <span class="tag">&lt;/<span class="name">app-toolbar</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">app-toolbar</span> <span class="attr">primary</span>&gt;</span> Primary element <span class="tag">&lt;/<span class="name">app-toolbar</span>&gt;</span>
 <span class="tag">&lt;/<span class="name">app-header</span>&gt;</span>
 </code></pre>
+<p>The primary element must be a direct child of app-header.</p>
 <h3 id="Scroll-target"><a href="#Scroll-target" class="headerlink" title="Scroll target"></a>Scroll target</h3><p>The app-header’s <code>scrollTarget</code> property allows to customize the scrollable element to which<br>the header responds when the user scrolls. By default, app-header uses the document as<br>the scroll target, but you can customize this property by setting the id of the element, e.g.</p>
 <pre><code class="html"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"scrollingRegion"</span> <span class="attr">style</span>=<span class="string">"overflow-y: auto;"</span>&gt;</span>
   <span class="tag">&lt;<span class="name">app-header</span> <span class="attr">scroll-target</span>=<span class="string">"scrollingRegion"</span>&gt;</span>
@@ -72,19 +73,19 @@
 </code></pre>
 <p>The fraction determines how far the background moves relative to the scroll position.<br>This value can be assigned via the <code>scalar</code> config value and it is typically a value<br>between 0 and 1 inclusive. If <code>scalar=0</code>, the background doesn’t move away from the header.<br><a href="/app-scroll-effects#configuring-effects">More about configuration for scroll effects</a></p>
 <ul>
-<li><strong>resize-title</strong><br>Progressively interpolates the size of the title from the element with the <code>main-title</code> attribute<br>to the element with the <code>condensed-title</code> attribute as the header condenses. For example:</li>
+<li><strong>resize-title</strong><br>Progressively interpolates the size of the title from the element with the <code>title</code> attribute<br>to the element with the <code>condensed-title</code> attribute as the header condenses. For example:</li>
 </ul>
 <pre><code class="html"><span class="tag">&lt;<span class="name">app-header</span> <span class="attr">condenses</span> <span class="attr">reveals</span> <span class="attr">effects</span>=<span class="string">"resize-title"</span>&gt;</span>
   <span class="tag">&lt;<span class="name">app-toolbar</span>&gt;</span>
       <span class="tag">&lt;<span class="name">h4</span> <span class="attr">condensed-title</span>&gt;</span>App name<span class="tag">&lt;/<span class="name">h4</span>&gt;</span>
   <span class="tag">&lt;/<span class="name">app-toolbar</span>&gt;</span>
   <span class="tag">&lt;<span class="name">app-toolbar</span>&gt;</span>
-      <span class="tag">&lt;<span class="name">h1</span> <span class="attr">main-title</span>&gt;</span>App name<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">h1</span> <span class="attr">title</span>&gt;</span>App name<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>
   <span class="tag">&lt;/<span class="name">app-toolbar</span>&gt;</span>
 <span class="tag">&lt;/<span class="name">app-header</span>&gt;</span>
 </code></pre>
 <ul>
-<li><p><strong>resize-snapped-title</strong><br>Upon scrolling past a threshold, this effect fades in/out the titles using opacity transitions.<br>Similarly to <code>resize-title</code>, the <code>main-title</code> and <code>condensed-title</code> elements must be placed in the<br>light DOM.</p>
+<li><p><strong>resize-snapped-title</strong><br>Upon scrolling past a threshold, this effect fades in/out the titles using opacity transitions.<br>Similarly to <code>resize-title</code>, the <code>title</code> and <code>condensed-title</code> elements must be placed in the<br>light DOM.</p>
 </li>
 <li><p><strong>waterfall</strong><br>Toggles the shadow property in app-header to create a sense of depth (as recommended in the<br>MD spec) between the header and the underneath content. You can change the shadow by<br>customizing the <code>--app-header-shadow</code> mixin. For example:</p>
 </li>
@@ -97,7 +98,7 @@
 </code></pre>
 <pre><code class="html"><span class="tag">&lt;<span class="name">app-header</span> <span class="attr">condenses</span> <span class="attr">reveals</span> <span class="attr">effects</span>=<span class="string">"waterfall"</span>&gt;</span>
   <span class="tag">&lt;<span class="name">app-toolbar</span>&gt;</span>
-      <span class="tag">&lt;<span class="name">h1</span> <span class="attr">main-title</span>&gt;</span>App name<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">h1</span> <span class="attr">title</span>&gt;</span>App name<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>
   <span class="tag">&lt;/<span class="name">app-toolbar</span>&gt;</span>
 <span class="tag">&lt;/<span class="name">app-header</span>&gt;</span>
 </code></pre>
@@ -114,7 +115,7 @@
 </thead>
 <tbody>
 <tr>
-<td><code>sticky</code></td>
+<td><code>primary</code></td>
 <td>Element that remains at the top when the header condenses.</td>
 <td>The first app-toolbar in the light DOM.</td>
 </tr>
