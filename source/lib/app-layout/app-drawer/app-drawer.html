@@ -211,6 +211,7 @@ Custom property                  | Description                            | Defa
         position: {
           type: String,
           readOnly: true,
+          value: 'left',
           reflectToAttribute: true
         },
 
@@ -233,7 +234,7 @@ Custom property                  | Description                            | Defa
       },
 
       observers: [
-        'resetLayout(position, isAttached)',
+        'resetLayout(position)',
         '_resetPosition(align, isAttached)'
       ],
 
@@ -250,6 +251,9 @@ Custom property                  | Description                            | Defa
       _lastTabStop: null,
 
       ready: function() {
+        // Set the scroll direction so you can vertically scroll inside the drawer.
+        this.setScrollDirection('y');
+
         // Only transition the drawer after its first render (e.g. app-drawer-layout
         // may need to set the initial opened state which should not be transitioned).
         this._setTransitionDuration('0s');
@@ -263,12 +267,9 @@ Custom property                  | Description                            | Defa
           this._boundEscKeydownHandler = this._escKeydownHandler.bind(this);
           this._resetDrawerState();
 
+          this.listen(this, 'track', '_track');
           this.addEventListener('transitionend', this._transitionend.bind(this));
           this.addEventListener('keydown', this._tabKeydownHandler.bind(this))
-
-          // Only listen for horizontal track so you can vertically scroll inside the drawer.
-          this.listen(this, 'track', '_track');
-          this.setScrollDirection('y');
         });
       },
 
@@ -307,13 +308,16 @@ Custom property                  | Description                            | Defa
       },
 
       /**
-       * Resets the layout. The event fired is used by app-drawer-layout to position the
-       * content.
+       * Resets the layout. If you changed the size of app-header via CSS
+       * you can notify the changes by either firing the `iron-resize` event
+       * or calling `resetLayout` directly.
        *
        * @method resetLayout
        */
       resetLayout: function() {
-        this.fire('app-drawer-reset-layout');
+        this.debounce('_resetLayout', function() {
+          this.fire('app-drawer-reset-layout');
+        }, 1);
       },
 
       _isRTL: function() {

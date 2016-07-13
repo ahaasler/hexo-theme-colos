@@ -21,18 +21,18 @@ if using `reveals`, the header slides back when scrolling back up. For example:
 ```html
 <app-header reveals>
   <app-toolbar>
-    <div main-title>App name</div>
+    <div title>App name</div>
   </app-toolbar>
 </app-header>
 ```
 
 app-header can also condense when scrolling down. To achieve this behavior, the header
-must have a larger height than the `sticky` element in the light DOM. For example:
+must have a larger height than the `primary` element in the light DOM. For example:
 
 ```html
 <app-header style="height: 96px;" condenses fixed>
   <app-toolbar style="height: 64px;">
-    <div main-title>App name</div>
+    <div title>App name</div>
   </app-toolbar>
 </app-header>
 ```
@@ -40,27 +40,27 @@ must have a larger height than the `sticky` element in the light DOM. For exampl
 In this case the header is initially `96px` tall, and it shrinks to `64px` when scrolling down.
 That is what is meant by "condensing".
 
-### Sticky element
+### Primary element
 
-The element that is positioned fixed to top of the header's `scrollTarget` when a threshold
-is reached, similar to `position: sticky` in CSS. This element **must** be an immediate
-child of app-header. By default, the `sticky` element is the first `app-toolbar that
-is an immediate child of app-header.
+As the header condenses, the immediate children of app-header are stacked up.
+In this case, the primary element is the immediate child that would always stayed above
+the others as the header condenses. By default, the `primary` element is the first app-toolbar
+that is an immediate children of app-header.
 
 ```html
 <app-header condenses>
-  <app-toolbar> Sticky element </app-toolbar>
+  <app-toolbar> Primary element </app-toolbar>
 </app-header>
 ```
-
-#### Customizing the sticky element
 
 ```html
 <app-header condenses>
   <app-toolbar></app-toolbar>
-  <app-toolbar sticky> Sticky element </app-toolbar>
+  <app-toolbar primary> Primary element </app-toolbar>
 </app-header>
 ```
+
+The primary element must be a direct child of app-header.
 
 ### Scroll target
 
@@ -152,7 +152,7 @@ This value can be assigned via the `scalar` config value and it is typically a v
 between 0 and 1 inclusive. If `scalar=0`, the background doesn't move away from the header.
 
 * **resize-title**
-Progressively interpolates the size of the title from the element with the `main-title` attribute
+Progressively interpolates the size of the title from the element with the `title` attribute
 to the element with the `condensed-title` attribute as the header condenses. For example:
 
 ```html
@@ -161,14 +161,14 @@ to the element with the `condensed-title` attribute as the header condenses. For
       <h4 condensed-title>App name</h4>
   </app-toolbar>
   <app-toolbar>
-      <h1 main-title>App name</h1>
+      <h1 title>App name</h1>
   </app-toolbar>
 </app-header>
 ```
 
 * **resize-snapped-title**
 Upon scrolling past a threshold, this effect fades in/out the titles using opacity transitions.
-Similarly to `resize-title`, the `main-title` and `condensed-title` elements must be placed in the
+Similarly to `resize-title`, the `title` and `condensed-title` elements must be placed in the
 light DOM.
 
 * **waterfall**
@@ -187,7 +187,7 @@ app-header {
 ```html
 <app-header condenses reveals effects="waterfall">
   <app-toolbar>
-      <h1 main-title>App name</h1>
+      <h1 title>App name</h1>
   </app-toolbar>
 </app-header>
 ```
@@ -199,7 +199,7 @@ Installs the waterfall, resize-title, blend-background and parallax-background e
 
 Attribute | Description         | Default
 ----------|---------------------|----------------------------------------
-`sticky` | Element that remains at the top when the header condenses. | The first app-toolbar in the light DOM.
+`primary` | Element that remains at the top when the header condenses. | The first app-toolbar in the light DOM.
 
 
 ## Styling
@@ -220,7 +220,7 @@ Mixin | Description | Default
 @demo app-header/demo/music.html Reveals Demo
 @demo app-header/demo/no-effects.html Condenses and Reveals Demo
 @demo app-header/demo/notes.html Fixed with Dynamic Shadow Demo
-@demo app-header/demo/custom-sticky-element.html Custom Sticky Element Demo
+@demo app-header/demo/custom-primary-element.html Custom Primary Element Demo
 -->
 
 <dom-module id="app-header">
@@ -261,7 +261,7 @@ Mixin | Description | Default
         opacity: 0;
       }
 
-      #contentContainer > ::content [main-title] {
+      #contentContainer > ::content [title] {
         -webkit-transform-origin: left top;
         transform-origin: left top;
         white-space: nowrap;
@@ -300,14 +300,14 @@ Mixin | Description | Default
       :host([disabled]) #backgroundFrontLayer,
       :host([disabled]) #backgroundRearLayer,
       :host([disabled]) ::content > app-toolbar:first-of-type,
-      :host([disabled]) ::content > [sticky],
+      :host([disabled]) ::content > [primary],
       /* Silent scrolling should not run CSS transitions */
       :host-context(.app-layout-silent-scroll),
       :host-context(.app-layout-silent-scroll)::after,
       :host-context(.app-layout-silent-scroll) #backgroundFrontLayer,
       :host-context(.app-layout-silent-scroll) #backgroundRearLayer,
       :host-context(.app-layout-silent-scroll) ::content > app-toolbar:first-of-type,
-      :host-context(.app-layout-silent-scroll) ::content > [sticky] {
+      :host-context(.app-layout-silent-scroll) ::content > [primary] {
         transition: none !important;
       }
     </style>
@@ -328,10 +328,10 @@ Mixin | Description | Default
       properties: {
         /**
          * If true, the header will automatically collapse when scrolling down.
-         * That is, the `sticky` element remains visible when the header is fully condensed
-         * whereas the rest of the elements will collapse below `sticky` element.
+         * That is, the `primary` element remains visible when the header is fully condensed
+         * whereas the rest of the elements will collapse below `primary` element.
          *
-         * By default, the `sticky` element is the first toolbar in the light DOM:
+         * By default, the `primary` element is the first toolbar in the light DOM:
          *
          *```html
          * <app-header condenses>
@@ -342,18 +342,18 @@ Mixin | Description | Default
          * ```
          *
          * Additionally, you can specify which toolbar or element remains visible in condensed mode
-         * by adding the `sticky` attribute to that element. For example: if we want the last
-         * toolbar to remain visible, we can add the `sticky` attribute to it.
+         * by adding the `primary` attribute to that element. For example: if we want the last
+         * toolbar to remain visible, we can add the `primary` attribute to it.
          *
          *```html
          * <app-header condenses>
          *   <app-toolbar></app-toolbar>
          *   <app-toolbar></app-toolbar>
-         *   <app-toolbar sticky>This toolbar remains on top</app-toolbar>
+         *   <app-toolbar primary>This toolbar remains on top</app-toolbar>
          * </app-header>
          * ```
          *
-         * Note the `sticky` element must be a direct child of `app-header`.
+         * Note the `primary` element must be a child of `app-header`.
          */
         condenses: {
           type: Boolean,
@@ -409,18 +409,18 @@ Mixin | Description | Default
       _dHeight: 0,
 
       /**
-       * The offsetTop of `_stickyEl`
+       * The offsetTop of `_primaryEl`
        *
        * @type {number}
        */
-      _stickyElTop: 0,
+      _primaryElTop: 0,
 
       /**
        * The element that remains visible when the header condenses.
        *
        * @type {HTMLElement}
        */
-      _stickyEl: null,
+      _primaryEl: null,
 
       /**
        * The header's top value used for the `transformY`
@@ -452,27 +452,27 @@ Mixin | Description | Default
       },
 
       /**
-       * Returns a reference to the sticky element.
+       * Returns a reference to the element that remains visible when the header condenses.
        *
        * @return {HTMLElement}?
        */
-      _getStickyEl: function() {
+      _getPrimaryEl: function() {
         /** @type {HTMLElement} */
-        var stickyEl;
+        var primaryEl;
         var nodes = Polymer.dom(this.$.content).getDistributedNodes();
 
         for (var i = 0; i < nodes.length; i++) {
           if (nodes[i].nodeType === Node.ELEMENT_NODE) {
             var node = /** @type {HTMLElement} */ (nodes[i]);
-            if (node.hasAttribute('sticky')) {
-              stickyEl = node;
+            if (node.hasAttribute('primary')) {
+              primaryEl = node;
               break;
-            } else if (!stickyEl) {
-              stickyEl = node;
+            } else if (!primaryEl) {
+              primaryEl = node;
             }
           }
         }
-        return stickyEl;
+        return primaryEl;
       },
 
       /**
@@ -496,7 +496,7 @@ Mixin | Description | Default
           var currentDisabled = this.disabled;
 
           this._height = this.offsetHeight;
-          this._stickyEl = this._getStickyEl();
+          this._primaryEl = this._getPrimaryEl();
           this.disabled = true;
 
           // prepare for measurement
@@ -505,12 +505,12 @@ Mixin | Description | Default
           }
 
           if (this._mayMove()) {
-            this._dHeight = this._stickyEl ? this._height - this._stickyEl.offsetHeight : 0;
+            this._dHeight = this._primaryEl ? this._height - this._primaryEl.offsetHeight : 0;
           } else {
             this._dHeight = 0;
           }
 
-          this._stickyElTop = this._stickyEl ? this._stickyEl.offsetTop : 0;
+          this._primaryElTop = this._primaryEl ? this._primaryEl.offsetTop : 0;
           this._setUpEffect();
 
           if (firstSetup) {
@@ -647,9 +647,9 @@ Mixin | Description | Default
        */
       _transformHeader: function(y) {
         this.translate3d(0, (-y) + 'px', 0);
-        if (this._stickyEl && this.condenses && y >= this._stickyElTop) {
-          this.translate3d(0, (Math.min(y, this._dHeight) - this._stickyElTop) + 'px', 0,
-              this._stickyEl);
+        if (this._primaryEl && this.condenses && y >= this._primaryElTop) {
+          this.translate3d(0, (Math.min(y, this._dHeight) - this._primaryElTop) + 'px', 0,
+              this._primaryEl);
         }
       },
 
@@ -689,8 +689,8 @@ Mixin | Description | Default
           case 'background':
             this._ensureBgContainers();
             return this._bgContainer;
-          case 'mainTitle':
-            return Polymer.dom(this).querySelector('[main-title]');
+          case 'title':
+            return Polymer.dom(this).querySelector('[title]');
           case 'condensedTitle':
             return Polymer.dom(this).querySelector('[condensed-title]');
         }
