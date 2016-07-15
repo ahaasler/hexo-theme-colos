@@ -19,5 +19,12 @@
 				};
 			}
 		</style>
+		{% if page.coverPosition %}
+			<style>
+				app-header #backgroundFrontLayer {
+					background-position: {{ page.coverPosition }} !important;
+				}
+			</style>
+		{% endif %}
 	{% endif %}
 </head>
