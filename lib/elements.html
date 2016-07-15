@@ -12512,24 +12512,22 @@ Custom property | Description | Default
 -->
 
 <dom-module id="iron-icon" assetpath="iron-icon/">
-
-  <style>
-    :host {
-      @apply(--layout-inline);
-      @apply(--layout-center-center);
-      position: relative;
-
-      vertical-align: middle;
-
-      fill: var(--iron-icon-fill-color, currentcolor);
-      stroke: var(--iron-icon-stroke-color, none);
-
-      width: var(--iron-icon-width, 24px);
-      height: var(--iron-icon-height, 24px);
-    }
-  </style>
-
   <template>
+    <style>
+      :host {
+        @apply(--layout-inline);
+        @apply(--layout-center-center);
+        position: relative;
+
+        vertical-align: middle;
+
+        fill: var(--iron-icon-fill-color, currentcolor);
+        stroke: var(--iron-icon-stroke-color, none);
+
+        width: var(--iron-icon-width, 24px);
+        height: var(--iron-icon-height, 24px);
+      }
+    </style>
   </template>
 
   <script>
@@ -15006,7 +15004,6 @@ Apply `circle` class to make the rippling effect within a circle.
   })();
 </script>
 <script>
-
   /**
    * `Polymer.PaperRippleBehavior` dynamically implements a ripple
    * when the element has focus via pointer or keyboard.
@@ -15017,7 +15014,6 @@ Apply `circle` class to make the rippling effect within a circle.
    * @polymerBehavior Polymer.PaperRippleBehavior
    */
   Polymer.PaperRippleBehavior = {
-
     properties: {
       /**
        * If true, the element will not produce a ripple effect when interacted
@@ -15118,9 +15114,7 @@ Apply `circle` class to make the rippling effect within a circle.
         this._ripple.noink = noink;
       }
     }
-
   };
-
 </script><!--
 @license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
@@ -15131,12 +15125,9 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 <script>
-
   /** @polymerBehavior Polymer.PaperButtonBehavior */
   Polymer.PaperButtonBehaviorImpl = {
-
     properties: {
-
       /**
        * The z-depth of this element, from 0-5. Setting to 0 will remove the
        * shadow, and each increasing number greater than 0 will be "deeper"
@@ -15151,7 +15142,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         reflectToAttribute: true,
         readOnly: true
       }
-
     },
 
     observers: [
@@ -15207,7 +15197,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this._ripple.uiUpAction();
       }
     }
-
   };
 
   /** @polymerBehavior */
@@ -15217,7 +15206,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer.PaperRippleBehavior,
     Polymer.PaperButtonBehaviorImpl
   ];
-
 </script><!--
 @license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
@@ -15516,10 +15504,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     /**
      * Returns false if the element is required and not checked, and true otherwise.
      * @param {*=} _value Ignored.
-     * @return {boolean} true if `required` is false, or if `required` and `checked` are both true.
+     * @return {boolean} true if `required` is false or if `checked` is true.
      */
     _getValidity: function(_value) {
-      return this.disabled || !this.required || (this.required && this.checked);
+      return this.disabled || !this.required || this.checked;
     },
 
     /**
@@ -15576,14 +15564,12 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 --><script>
-
   /**
    * `Polymer.PaperInkyFocusBehavior` implements a ripple when the element has keyboard focus.
    *
    * @polymerBehavior Polymer.PaperInkyFocusBehavior
    */
   Polymer.PaperInkyFocusBehaviorImpl = {
-
     observers: [
       '_focusedChanged(receivedFocusFromKeyboard)'
     ],
@@ -15604,7 +15590,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ripple.classList.add('circle');
       return ripple;
     }
-
   };
 
   /** @polymerBehavior Polymer.PaperInkyFocusBehavior */
@@ -15614,10 +15599,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer.PaperRippleBehavior,
     Polymer.PaperInkyFocusBehaviorImpl
   ];
-
 </script>
 <script>
-
   /**
    * Use `Polymer.PaperCheckedElementBehavior` to implement a custom element
    * that has a `checked` property similar to `Polymer.IronCheckedElementBehavior`
@@ -15625,7 +15608,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    * @polymerBehavior Polymer.PaperCheckedElementBehavior
    */
   Polymer.PaperCheckedElementBehaviorImpl = {
-
     /**
      * Synchronizes the element's checked state with its ripple effect.
      */
@@ -15652,7 +15634,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.checked = this.active;
       }
     }
-
   };
 
   /** @polymerBehavior Polymer.PaperCheckedElementBehavior */
@@ -15661,7 +15642,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer.IronCheckedElementBehavior,
     Polymer.PaperCheckedElementBehaviorImpl
   ];
-
 </script><!--
 @license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
@@ -16666,6 +16646,8 @@ Custom property | Description | Default
 `--paper-checkbox-label-color` | Label color | `--primary-text-color`
 `--paper-checkbox-label-checked-color` | Label color when the input is checked | `--paper-checkbox-label-color`
 `--paper-checkbox-label-spacing` | Spacing between the label and the checkbox | `8px`
+`--paper-checkbox-label` | Mixin applied to the label | `{}`
+`--paper-checkbox-label-checked` | Mixin applied to the label when the input is checked | `{}`
 `--paper-checkbox-error-color` | Checkbox color when invalid | `--error-color`
 `--paper-checkbox-size` | Size of the checkbox | `18px`
 `--paper-checkbox-margin` | Margin around the checkbox container | `initial`
@@ -16806,10 +16788,12 @@ In order to apply the `Roboto` font to this element, make sure you've imported `
         white-space: normal;
         line-height: normal;
         color: var(--paper-checkbox-label-color, --primary-text-color);
+        @apply(--paper-checkbox-label);
       }
 
       :host([checked]) #checkboxLabel {
         color: var(--paper-checkbox-label-checked-color, --paper-checkbox-label-color);
+        @apply(--paper-checkbox-label-checked);
       }
 
       :host-context([dir="rtl"]) #checkboxLabel {
@@ -19142,28 +19126,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    */
   Polymer.NeonAnimationRunnerBehaviorImpl = {
 
-    properties: {
-
-      /** @type {?Object} */
-      _player: {
-        type: Object
-      }
-
-    },
-
-    _configureAnimationEffects: function(allConfigs) {
-      var allAnimations = [];
-      if (allConfigs.length > 0) {
-        for (var config, index = 0; config = allConfigs[index]; index++) {
-          var animation = document.createElement(config.name);
+    _configureAnimations: function(configs) {
+      var results = [];
+      if (configs.length > 0) {
+        for (var config, index = 0; config = configs[index]; index++) {
+          var neonAnimation = document.createElement(config.name);
           // is this element actually a neon animation?
-          if (animation.isNeonAnimation) {
-            var effect = animation.configure(config);
-            if (effect) {
-              allAnimations.push({
-                animation: animation,
+          if (neonAnimation.isNeonAnimation) {
+            var result = null;
+            // configuration or play could fail if polyfills aren't loaded
+            try {
+              result = neonAnimation.configure(config);
+              // Check if we have an Effect rather than an Animation
+              if (typeof result.cancel != 'function') { 
+                result = document.timeline.play(result);
+              }
+            } catch (e) {
+              result = null;
+              console.warn('Couldnt play', '(', config.name, ').', e);
+            }
+            if (result) {
+              results.push({
+                neonAnimation: neonAnimation,
                 config: config,
-                effect: effect
+                animation: result,
               });
             }
           } else {
@@ -19171,16 +19157,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
         }
       }
-      return allAnimations;
+      return results;
     },
 
-    _runAnimationEffects: function(allEffects) {
-      return document.timeline.play(new GroupEffect(allEffects));
+    _shouldComplete: function(activeEntries) {
+      var finished = true;
+      for (var i = 0; i < activeEntries.length; i++) {
+        if (activeEntries[i].animation.playState != 'finished') {
+          finished = false;
+          break;
+        }
+      }
+      return finished;
     },
 
-    _completeAnimations: function(allAnimations) {
-      for (var animation, index = 0; animation = allAnimations[index]; index++) {
-        animation.animation.complete(animation.config);
+    _complete: function(activeEntries) {
+      for (var i = 0; i < activeEntries.length; i++) {
+        activeEntries[i].neonAnimation.complete(activeEntries[i].config);
+      }
+      for (var i = 0; i < activeEntries.length; i++) {
+        activeEntries[i].animation.cancel();
       }
     },
 
@@ -19190,43 +19186,44 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * @param {!Object=} cookie
      */
     playAnimation: function(type, cookie) {
-      var allConfigs = this.getAnimationConfig(type);
-      if (!allConfigs) {
+      var configs = this.getAnimationConfig(type);
+      if (!configs) {
         return;
       }
-      try {
-        var allAnimations = this._configureAnimationEffects(allConfigs);
-        var allEffects = allAnimations.map(function(animation) {
-          return animation.effect;
-        });
-
-        if (allEffects.length > 0) {
-          this._player = this._runAnimationEffects(allEffects);
-          this._player.onfinish = function() {
-            this._completeAnimations(allAnimations);
-
-            if (this._player) {
-              this._player.cancel();
-              this._player = null;
-            }
-
-            this.fire('neon-animation-finish', cookie, {bubbles: false});
-          }.bind(this);
-          return;
-        }
-      } catch (e) {
-        console.warn('Couldnt play', '(', type, allConfigs, ').', e);
+      this._active = this._active || {};
+      if (this._active[type]) {
+        this._complete(this._active[type]);
+        delete this._active[type];
       }
-      this.fire('neon-animation-finish', cookie, {bubbles: false});
+
+      var activeEntries = this._configureAnimations(configs);
+
+      if (activeEntries.length == 0) {
+        this.fire('neon-animation-finish', cookie, {bubbles: false});
+        return;
+      }
+
+      this._active[type] = activeEntries;
+
+      for (var i = 0; i < activeEntries.length; i++) {
+        activeEntries[i].animation.onfinish = function() {
+          if (this._shouldComplete(activeEntries)) {
+            this._complete(activeEntries);
+            delete this._active[type];
+            this.fire('neon-animation-finish', cookie, {bubbles: false});
+          }
+        }.bind(this);
+      }
     },
 
     /**
-     * Cancels the currently running animation.
+     * Cancels the currently running animations.
      */
     cancelAnimation: function() {
-      if (this._player) {
-        this._player.cancel();
+      for (var k in this._animations) {
+        this._animations[k].cancel();
       }
+      this._animations = {};
     }
   };
 
@@ -21020,15 +21017,14 @@ Note: announcements are only audible if you have a screen reader enabled.
 -->
 
 <dom-module id="iron-a11y-announcer" assetpath="iron-a11y-announcer/">
-  <style>
-    :host {
-      display: inline-block;
-      position: fixed;
-      clip: rect(0px,0px,0px,0px);
-    }
-  </style>
-
   <template>
+    <style>
+      :host {
+        display: inline-block;
+        position: fixed;
+        clip: rect(0px,0px,0px,0px);
+      }
+    </style>
     <div aria-live$="[[mode]]">[[_text]]</div>
   </template>
 
@@ -23326,20 +23322,21 @@ method is called on the element.
 -->
 
 <dom-module id="iron-dropdown" assetpath="iron-dropdown/">
-  <style>
-    :host {
-      position: fixed;
-    }
-
-    #contentWrapper ::content > * {
-      overflow: auto;
-    }
-
-    #contentWrapper.animating ::content > * {
-      overflow: hidden;
-    }
-  </style>
   <template>
+    <style>
+      :host {
+        position: fixed;
+      }
+
+      #contentWrapper ::content > * {
+        overflow: auto;
+      }
+
+      #contentWrapper.animating ::content > * {
+        overflow: hidden;
+      }
+    </style>
+
     <div id="contentWrapper">
       <content id="content" select=".dropdown-content"></content>
     </div>
@@ -27802,6 +27799,14 @@ paper-scroll-header-panel {
 `paper-scroll-header-panel` works well with `paper-toolbar` but can use any element
 that represents a header by adding a `paper-header` class to it.
 
+Note: If the class `paper-header` is used, the header must be positioned relative or absolute. e.g.
+
+```css
+.paper-header {
+  position: relative;
+}
+```
+
 ```html
 <paper-scroll-header-panel>
   <div class="paper-header">Header</div>
@@ -27818,7 +27823,8 @@ Custom property | Description | Default
 ----------------|-------------|----------
 --paper-scroll-header-panel-full-header | To change background for toolbar when it is at its full size | {}
 --paper-scroll-header-panel-condensed-header | To change the background for toolbar when it is condensed | {}
---paper-scroll-header-container | To override or add container styles | {}
+--paper-scroll-header-panel-container | To override or add container styles | {}
+--paper-scroll-header-panel-header-container | To override or add header styles | {}
 
 @group Paper Element
 @element paper-scroll-header-panel
@@ -27836,71 +27842,72 @@ Custom property | Description | Default
 -->
 
 <dom-module id="paper-scroll-header-panel" assetpath="paper-scroll-header-panel/">
-
-  <style>
-    :host {
-      display: block;
-      position: relative;
-      overflow: hidden;
-    }
-
-    #mainContainer {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-
-      -moz-box-sizing: border-box;
-      box-sizing: border-box;
-      -webkit-overflow-scrolling: touch;
-
-      overflow-x: hidden;
-      overflow-y: auto;
-
-      @apply(--paper-scroll-header-container);
-    }
-
-    #headerContainer {
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-    }
-
-    .bg-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-
-    #headerBg {
-      @apply(--paper-scroll-header-panel-full-header);
-    }
-
-    #condensedHeaderBg {
-      @apply(--paper-scroll-header-panel-condensed-header);
-    }
-
-    #headerBg, #condensedHeaderBg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center center;
-    }
-
-    #condensedHeaderBg {
-      opacity: 0;
-    }
-  </style>
   <template>
+    <style>
+      :host {
+        display: block;
+        position: relative;
+        overflow: hidden;
+      }
+
+      #mainContainer {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-overflow-scrolling: touch;
+
+        overflow-x: hidden;
+        overflow-y: auto;
+        @apply(--paper-scroll-header-container); /* deprecated due to incorrect/confusing naming */
+        @apply(--paper-scroll-header-panel-container);
+      }
+
+      #headerContainer {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        @apply(--paper-scroll-header-panel-header-container);
+      }
+
+      .bg-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      #headerBg {
+        @apply(--paper-scroll-header-panel-full-header);
+      }
+
+      #condensedHeaderBg {
+        @apply(--paper-scroll-header-panel-condensed-header);
+      }
+
+      #headerBg, #condensedHeaderBg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+      }
+
+      #condensedHeaderBg {
+        opacity: 0;
+      }
+    </style>
+
     <div id="mainContainer">
       <content id="mainContent" select=":not(paper-toolbar):not(.paper-header)"></content>
     </div>

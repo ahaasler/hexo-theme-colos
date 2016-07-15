@@ -35,6 +35,11 @@ thing! https://github.com/PolymerLabs/tedium/issues
 }
 </code></pre>
 <p><code>paper-scroll-header-panel</code> works well with <code>paper-toolbar</code> but can use any element<br>that represents a header by adding a <code>paper-header</code> class to it.</p>
+<p>Note: If the class <code>paper-header</code> is used, the header must be positioned relative or absolute. e.g.</p>
+<pre><code class="css"><span class="selector-class">.paper-header</span> {
+  <span class="attribute">position</span>: relative;
+}
+</code></pre>
 <pre><code class="html"><span class="tag">&lt;<span class="name">paper-scroll-header-panel</span>&gt;</span>
   <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"paper-header"</span>&gt;</span>Header<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
   <span class="tag">&lt;<span class="name">div</span>&gt;</span>Content goes here...<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
@@ -62,8 +67,13 @@ thing! https://github.com/PolymerLabs/tedium/issues
 <td>{}</td>
 </tr>
 <tr>
-<td>–paper-scroll-header-container</td>
+<td>–paper-scroll-header-panel-container</td>
 <td>To override or add container styles</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>–paper-scroll-header-panel-header-container</td>
+<td>To override or add header styles</td>
 <td>{}</td>
 </tr>
 </tbody>
