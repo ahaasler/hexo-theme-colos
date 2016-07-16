@@ -2,7 +2,7 @@
   "name": "hexo-theme-colos-demo",
   "private": true,
   "hexo": {
-    "version": "3.2.0"
+    "version": "3.2.2"
   },
   "dependencies": {
     "hexo": "^3.2.0",
