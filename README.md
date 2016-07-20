@@ -24,7 +24,7 @@ Live demo
 ---------
 
 There's a single language demo site in the [develop branch](https://github.com/ahaasler/hexo-theme-colos/tree/develop/test/demo "Demo site for the colos theme") \[[live demo](https://ahaasler.github.io/hexo-theme-colos "Colos")\],
-and a multilingual demo project in [hexo-theme-colos-multilingual-demo](https://github.com/ahaasler/hexo-theme-colos-multilingual-demo "Multilingual demo site for the colos theme") \[[multilingual live demo](http://colos-multi.adrianhaasler.com/ "Colos")\].
+and a multilingual demo project in [hexo-theme-colos-multilingual-demo](https://github.com/ahaasler/hexo-theme-colos-multilingual-demo "Multilingual demo site for the colos theme") \[[multilingual live demo](https://ahaasler.github.io/hexo-theme-colos-multiligual-demo/ "Colos")\].
 
 The theme is currently in alpha stages, that means that it has no style yet (looks plain and default). I'm working in migrating the multilingual features to plugins, see [\#4](https://github.com/ahaasler/hexo-theme-colos/issues/4 "Generators should be separated from theme").
 
