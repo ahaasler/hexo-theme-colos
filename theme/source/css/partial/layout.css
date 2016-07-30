@@ -59,4 +59,7 @@ app-toolbar {
       }
     }
   }
+  @nest & paper-listbox a{
+    color: var(--dark-grey);
+  }
 }
