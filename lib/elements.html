@@ -22863,6 +22863,10 @@ style this element.
       :host {
         display: block;
       }
+      
+      :host([focused]) {
+        outline: none;
+      }
 
       :host([hidden]) {
         display: none !important;
