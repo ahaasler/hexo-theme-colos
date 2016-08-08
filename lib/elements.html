@@ -9550,13 +9550,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    * size or hidden state of their children) and "resizables" (elements that need to be
    * notified when they are resized or un-hidden by their parents in order to take
    * action on their new measurements).
-   * 
+   *
    * Elements that perform measurement should add the `IronResizableBehavior` behavior to
    * their element definition and listen for the `iron-resize` event on themselves.
    * This event will be fired when they become showing after having been hidden,
    * when they are resized explicitly by another resizable, or when the window has been
    * resized.
-   * 
+   *
    * Note, the `iron-resize` event is non-bubbling.
    *
    * @polymerBehavior Polymer.IronResizableBehavior
@@ -10009,7 +10009,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        *  </x-element>
        * </div>
        *```
-       * In this case, the `scrollTarget` will point to the outer div element. 
+       * In this case, the `scrollTarget` will point to the outer div element.
        *
        * ### Document scrolling
        *
@@ -10026,7 +10026,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        *```js
        * appHeader.scrollTarget = document.querySelector('#scrollable-element');
        *```
-       * 
+       *
        * @type {HTMLElement}
        */
       scrollTarget: {
@@ -20316,6 +20316,14 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 <!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><!--
 Material design: [Navigation drawer](https://www.google.com/design/spec/patterns/navigation-drawer.html)
 
 `paper-drawer-panel` contains a drawer panel and a main panel.  The drawer
@@ -20761,7 +20769,7 @@ Custom property | Description | Default
            */
           responsiveWidth: {
             type: String,
-            value: '600px'
+            value: '768px'
           },
 
           /**
@@ -21098,7 +21106,7 @@ Custom property | Description | Default
         _getAutoFocusedNode: function() {
           var drawerContent = this._getDrawerContent();
 
-          return this.drawerFocusSelector ? 
+          return this.drawerFocusSelector ?
               Polymer.dom(drawerContent).querySelector(this.drawerFocusSelector) || drawerContent : null;
         },
 
@@ -24389,7 +24397,7 @@ Custom property | Description | Default
               }];
             }
           },
-          
+
           /**
            * By default, the dropdown will constrain scrolling on the page
            * to itself when opened.
