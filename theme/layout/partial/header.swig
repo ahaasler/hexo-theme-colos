@@ -8,7 +8,7 @@
 		<div class="flex"></div>
 		{% if config.multilingual %}{{ list_alternates({
 			prepend: '<paper-tabs class="alternate-list" selected="%currentIndex">',
-			element: '<paper-tab link class="alternate-list-item"><a class="alternate-list-link" href="%url" hreflang="%lang" title="%title">%lang</a></paper-tab>',
+			element: '<paper-tab link class="alternate-list-item"><a class="alternate-list-link" href="%url" hreflang="%lang">%lang</a></paper-tab>',
 			append: '</paper-tabs>'
 		}) }}{% endif %}
 	</app-toolbar>
