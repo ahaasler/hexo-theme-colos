@@ -2,7 +2,6 @@
 	<app-toolbar>
 		<paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
 		<a href="{{ url_for(' ') }}" id="logo" class="title">{{ config.title }}</a>
-		<div condensed-title>{{ page.title }}</div>
 		<div class="flex"></div>
 		{{ header_menu({show_count: false, show_current: true}) }}
 		<div class="flex"></div>
