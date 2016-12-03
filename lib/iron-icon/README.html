@@ -1,78 +1,18 @@
-<!---
-
-This README is automatically generated from the comments in these files:
-iron-icon.html
-
-Edit those files, and our readme bot will duplicate them over here!
-Edit this file, and the bot will squash your changes :)
-
-The bot does some handling of markdown. Please file a bug if it does the wrong
-thing! https://github.com/PolymerLabs/tedium/issues
-
--->
 <p><a href="https://travis-ci.org/PolymerElements/iron-icon"><img src="https://travis-ci.org/PolymerElements/iron-icon.svg?branch=master" alt="Build status"></a></p>
-<p><em><a href="https://elements.polymer-project.org/elements/iron-icon">Demo and API docs</a></em></p>
 <p>##&lt;iron-icon&gt;</p>
 <p>The <code>iron-icon</code> element displays an icon. By default an icon renders as a 24px square.</p>
-<p>Example using src:</p>
-<pre><code class="html"><span class="tag">&lt;<span class="name">iron-icon</span> <span class="attr">src</span>=<span class="string">"star.png"</span>&gt;</span><span class="tag">&lt;/<span class="name">iron-icon</span>&gt;</span>
+<!---
+```
+<custom-element-demo>
+  <template>
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../iron-icons/iron-icons.html">
+    <link rel="import" href="iron-icon.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
+<pre><code class="html"><span class="tag">&lt;<span class="name">iron-icon</span> <span class="attr">icon</span>=<span class="string">"menu"</span>&gt;</span><span class="tag">&lt;/<span class="name">iron-icon</span>&gt;</span>
+<span class="tag">&lt;<span class="name">iron-icon</span> <span class="attr">src</span>=<span class="string">"demo/location.png"</span>&gt;</span><span class="tag">&lt;/<span class="name">iron-icon</span>&gt;</span>
 </code></pre>
-<p>Example setting size to 32px x 32px:</p>
-<pre><code class="html"><span class="tag">&lt;<span class="name">iron-icon</span> <span class="attr">class</span>=<span class="string">"big"</span> <span class="attr">src</span>=<span class="string">"big_star.png"</span>&gt;</span><span class="tag">&lt;/<span class="name">iron-icon</span>&gt;</span>
-
-<span class="tag">&lt;<span class="name">style</span> <span class="attr">is</span>=<span class="string">"custom-style"</span>&gt;</span><span class="undefined">
-  .big {
-    --iron-icon-height: 32px;
-    --iron-icon-width: 32px;
-  }
-</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
-</code></pre>
-<p>The iron elements include several sets of icons.<br>To use the default set of icons, import <code>iron-icons.html</code> and use the <code>icon</code> attribute to specify an icon:</p>
-<pre><code class="html"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"import"</span> <span class="attr">href</span>=<span class="string">"/components/iron-icons/iron-icons.html"</span>&gt;</span>
-
-<span class="tag">&lt;<span class="name">iron-icon</span> <span class="attr">icon</span>=<span class="string">"menu"</span>&gt;</span><span class="tag">&lt;/<span class="name">iron-icon</span>&gt;</span>
-</code></pre>
-<p>To use a different built-in set of icons, import the specific <code>iron-icons/&lt;iconset&gt;-icons.html</code>, and<br>specify the icon as <code>&lt;iconset&gt;:&lt;icon&gt;</code>. For example, to use a communication icon, you would<br>use:</p>
-<pre><code class="html"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"import"</span> <span class="attr">href</span>=<span class="string">"/components/iron-icons/communication-icons.html"</span>&gt;</span>
-
-<span class="tag">&lt;<span class="name">iron-icon</span> <span class="attr">icon</span>=<span class="string">"communication:email"</span>&gt;</span><span class="tag">&lt;/<span class="name">iron-icon</span>&gt;</span>
-</code></pre>
-<p>You can also create custom icon sets of bitmap or SVG icons.</p>
-<p>Example of using an icon named <code>cherry</code> from a custom iconset with the ID <code>fruit</code>:</p>
-<pre><code class="html"><span class="tag">&lt;<span class="name">iron-icon</span> <span class="attr">icon</span>=<span class="string">"fruit:cherry"</span>&gt;</span><span class="tag">&lt;/<span class="name">iron-icon</span>&gt;</span>
-</code></pre>
-<p>See <a href="iron-iconset">iron-iconset</a> and <a href="iron-iconset-svg">iron-iconset-svg</a> for more information about<br>how to create a custom iconset.</p>
-<p>See the <a href="iron-icons?view=demo:demo/index.html">iron-icons demo</a> to see the icons available<br>in the various iconsets.</p>
-<p>To load a subset of icons from one of the default <code>iron-icons</code> sets, you can<br>use the <a href="https://poly-icon.appspot.com/">poly-icon</a> tool. It allows you<br>to select individual icons, and creates an iconset from them that you can<br>use directly in your elements.</p>
-<h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties are available for styling:</p>
-<table>
-<thead>
-<tr>
-<th>Custom property</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--iron-icon-width</code></td>
-<td>Width of the icon</td>
-<td><code>24px</code></td>
-</tr>
-<tr>
-<td><code>--iron-icon-height</code></td>
-<td>Height of the icon</td>
-<td><code>24px</code></td>
-</tr>
-<tr>
-<td><code>--iron-icon-fill-color</code></td>
-<td>Fill color of the svg icon</td>
-<td><code>currentcolor</code></td>
-</tr>
-<tr>
-<td><code>--iron-icon-stroke-color</code></td>
-<td>Stroke color of the svg icon</td>
-<td>none</td>
-</tr>
-</tbody>
-</table>

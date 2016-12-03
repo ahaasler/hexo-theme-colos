@@ -12,17 +12,17 @@
 <p>A scroll effect definition is an object with <code>setUp()</code>, <code>tearDown()</code> and <code>run()</code> functions.</p>
 <p>To register the effect, you can use <code>Polymer.AppLayout.registerEffect(effectName, effectDef)</code><br>For example, let’s define an effect that resizes the header’s logo:</p>
 <pre><code class="js">Polymer.AppLayout.registerEffect(<span class="string">'resizable-logo'</span>, {
-  setUp: <span class="function"><span class="keyword">function</span>(<span class="params">config</span>) </span>{
+  <span class="attr">setUp</span>: <span class="function"><span class="keyword">function</span>(<span class="params">config</span>) </span>{
     <span class="comment">// the effect's config is passed to the setUp.</span>
-    <span class="keyword">this</span>._fxResizeLogo = { logo: Polymer.dom(<span class="keyword">this</span>).querySelector(<span class="string">'[logo]'</span>) };
+    <span class="keyword">this</span>._fxResizeLogo = { <span class="attr">logo</span>: Polymer.dom(<span class="keyword">this</span>).querySelector(<span class="string">'[logo]'</span>) };
   },
 
-  run: <span class="function"><span class="keyword">function</span>(<span class="params">progress</span>) </span>{
+  <span class="attr">run</span>: <span class="function"><span class="keyword">function</span>(<span class="params">progress</span>) </span>{
      <span class="comment">// the progress of the effect</span>
      <span class="keyword">this</span>.transform(<span class="string">'scale3d('</span> + progress + <span class="string">', '</span>+ progress +<span class="string">', 1)'</span>,  <span class="keyword">this</span>._fxResizeLogo.logo);
   },
 
-  tearDown: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="attr">tearDown</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
      <span class="comment">// clean up and reset of states</span>
      <span class="keyword">delete</span> <span class="keyword">this</span>._fxResizeLogo;
   }

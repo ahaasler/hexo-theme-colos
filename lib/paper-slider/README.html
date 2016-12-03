@@ -1,111 +1,17 @@
-<!---
-
-This README is automatically generated from the comments in these files:
-paper-slider.html
-
-Edit those files, and our readme bot will duplicate them over here!
-Edit this file, and the bot will squash your changes :)
-
-The bot does some handling of markdown. Please file a bug if it does the wrong
-thing! https://github.com/PolymerLabs/tedium/issues
-
--->
 <p><a href="https://travis-ci.org/PolymerElements/paper-slider"><img src="https://travis-ci.org/PolymerElements/paper-slider.svg?branch=master" alt="Build status"></a></p>
-<p><em><a href="https://elements.polymer-project.org/elements/paper-slider">Demo and API docs</a></em></p>
 <p>##&lt;paper-slider&gt;</p>
 <p>Material design: <a href="https://www.google.com/design/spec/components/sliders.html">Sliders</a></p>
 <p><code>paper-slider</code> allows user to select a value from a range of values by<br>moving the slider thumb.  The interactive nature of the slider makes it a<br>great choice for settings that reflect intensity levels, such as volume,<br>brightness, or color saturation.</p>
-<p>Example:</p>
-<pre><code class="html"><span class="tag">&lt;<span class="name">paper-slider</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-slider</span>&gt;</span>
+<!---
+```
+<custom-element-demo>
+  <template>
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="paper-slider.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-slider</span> <span class="attr">value</span>=<span class="string">"50"</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-slider</span>&gt;</span>
 </code></pre>
-<p>Use <code>min</code> and <code>max</code> to specify the slider range.  Default is 0 to 100.</p>
-<p>Example:</p>
-<pre><code class="html"><span class="tag">&lt;<span class="name">paper-slider</span> <span class="attr">min</span>=<span class="string">"10"</span> <span class="attr">max</span>=<span class="string">"200"</span> <span class="attr">value</span>=<span class="string">"110"</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-slider</span>&gt;</span>
-</code></pre>
-<h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
-<table>
-<thead>
-<tr>
-<th>Custom property</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--paper-slider-container-color</code></td>
-<td>The background color of the bar</td>
-<td><code>--paper-grey-400</code></td>
-</tr>
-<tr>
-<td><code>--paper-slider-bar-color</code></td>
-<td>The background color of the slider</td>
-<td><code>transparent</code></td>
-</tr>
-<tr>
-<td><code>--paper-slider-active-color</code></td>
-<td>The progress bar color</td>
-<td><code>--google-blue-700</code></td>
-</tr>
-<tr>
-<td><code>--paper-slider-secondary-color</code></td>
-<td>The secondary progress bar color</td>
-<td><code>--google-blue-300</code></td>
-</tr>
-<tr>
-<td><code>--paper-slider-knob-color</code></td>
-<td>The knob color</td>
-<td><code>--google-blue-700</code></td>
-</tr>
-<tr>
-<td><code>--paper-slider-disabled-knob-color</code></td>
-<td>The disabled knob color</td>
-<td><code>--paper-grey-400</code></td>
-</tr>
-<tr>
-<td><code>--paper-slider-pin-color</code></td>
-<td>The pin color</td>
-<td><code>--google-blue-700</code></td>
-</tr>
-<tr>
-<td><code>--paper-slider-font-color</code></td>
-<td>The pin’s text color</td>
-<td><code>#fff</code></td>
-</tr>
-<tr>
-<td><code>--paper-slider-disabled-active-color</code></td>
-<td>The disabled progress bar color</td>
-<td><code>--paper-grey-400</code></td>
-</tr>
-<tr>
-<td><code>--paper-slider-disabled-secondary-color</code></td>
-<td>The disabled secondary progress bar color</td>
-<td><code>--paper-grey-400</code></td>
-</tr>
-<tr>
-<td><code>--paper-slider-knob-start-color</code></td>
-<td>The fill color of the knob at the far left</td>
-<td><code>transparent</code></td>
-</tr>
-<tr>
-<td><code>--paper-slider-knob-start-border-color</code></td>
-<td>The border color of the knob at the far left</td>
-<td><code>--paper-grey-400</code></td>
-</tr>
-<tr>
-<td><code>--paper-slider-pin-start-color</code></td>
-<td>The color of the pin at the far left</td>
-<td><code>--paper-grey-400</code></td>
-</tr>
-<tr>
-<td><code>--paper-slider-height</code></td>
-<td>Height of the progress bar</td>
-<td><code>2px</code></td>
-</tr>
-<tr>
-<td><code>--paper-slider-input</code></td>
-<td>Mixin applied to the input in editable mode</td>
-<td><code>{}</code></td>
-</tr>
-</tbody>
-</table>

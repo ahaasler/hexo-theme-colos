@@ -20,30 +20,30 @@
 <p><a name="basic"></a></p>
 <h2 id="A-basic-animatable-element"><a href="#A-basic-animatable-element" class="headerlink" title="A basic animatable element"></a>A basic animatable element</h2><p>Elements that can be animated should implement the <code>Polymer.NeonAnimatableBehavior</code> behavior, or <code>Polymer.NeonAnimationRunnerBehavior</code> if they’re also responsible for running an animation.</p>
 <pre><code class="js">Polymer({
-  is: <span class="string">'my-animatable'</span>,
-  behaviors: [
+  <span class="attr">is</span>: <span class="string">'my-animatable'</span>,
+  <span class="attr">behaviors</span>: [
     Polymer.NeonAnimationRunnerBehavior
   ],
-  properties: {
-    animationConfig: {
-      value: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="attr">properties</span>: {
+    <span class="attr">animationConfig</span>: {
+      <span class="attr">value</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
         <span class="keyword">return</span> {
           <span class="comment">// provided by neon-animation/animations/scale-down-animation.html</span>
           name: <span class="string">'scale-down-animation'</span>,
-          node: <span class="keyword">this</span>
+          <span class="attr">node</span>: <span class="keyword">this</span>
         }
       }
     }
   },
-  listeners: {
+  <span class="attr">listeners</span>: {
     <span class="comment">// this event is fired when the animation finishes</span>
     <span class="string">'neon-animation-finish'</span>: <span class="string">'_onNeonAnimationFinish'</span>
   },
-  animate: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="attr">animate</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
     <span class="comment">// run scale-down-animation</span>
     <span class="keyword">this</span>.playAnimation();
   },
-  _onNeonAnimationFinish: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="attr">_onNeonAnimationFinish</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
     <span class="built_in">console</span>.log(<span class="string">'animation done!'</span>);
   }
 });
@@ -53,46 +53,46 @@
 <h2 id="Animation-configuration"><a href="#Animation-configuration" class="headerlink" title="Animation configuration"></a>Animation configuration</h2><p><a name="configuration-types"></a></p>
 <h3 id="Animation-types"><a href="#Animation-types" class="headerlink" title="Animation types"></a>Animation types</h3><p>An element might run different animations, for example it might do something different when it enters the view and when it exits from view. You can set the <code>animationConfig</code> property to a map from an animation type to configuration.</p>
 <pre><code class="js">Polymer({
-  is: <span class="string">'my-dialog'</span>,
-  behaviors: [
+  <span class="attr">is</span>: <span class="string">'my-dialog'</span>,
+  <span class="attr">behaviors</span>: [
     Polymer.NeonAnimationRunnerBehavior
   ],
-  properties: {
-    opened: {
-      type: <span class="built_in">Boolean</span>
+  <span class="attr">properties</span>: {
+    <span class="attr">opened</span>: {
+      <span class="attr">type</span>: <span class="built_in">Boolean</span>
     },
-    animationConfig: {
-      value: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+    <span class="attr">animationConfig</span>: {
+      <span class="attr">value</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
         <span class="keyword">return</span> {
           <span class="string">'entry'</span>: {
             <span class="comment">// provided by neon-animation/animations/scale-up-animation.html</span>
             name: <span class="string">'scale-up-animation'</span>,
-            node: <span class="keyword">this</span>
+            <span class="attr">node</span>: <span class="keyword">this</span>
           },
           <span class="string">'exit'</span>: {
             <span class="comment">// provided by neon-animation/animations/fade-out-animation.html</span>
             name: <span class="string">'fade-out-animation'</span>,
-            node: <span class="keyword">this</span>
+            <span class="attr">node</span>: <span class="keyword">this</span>
           }
         }
       }
     }
   },
-  listeners: {
+  <span class="attr">listeners</span>: {
     <span class="string">'neon-animation-finish'</span>: <span class="string">'_onNeonAnimationFinish'</span>
   },
-  show: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="attr">show</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
     <span class="keyword">this</span>.opened = <span class="literal">true</span>;
     <span class="keyword">this</span>.style.display = <span class="string">'inline-block'</span>;
     <span class="comment">// run scale-up-animation</span>
     <span class="keyword">this</span>.playAnimation(<span class="string">'entry'</span>);
   },
-  hide: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="attr">hide</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
     <span class="keyword">this</span>.opened = <span class="literal">false</span>;
     <span class="comment">// run fade-out-animation</span>
     <span class="keyword">this</span>.playAnimation(<span class="string">'exit'</span>);
   },
-  _onNeonAnimationFinish: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="attr">_onNeonAnimationFinish</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
     <span class="keyword">if</span> (!<span class="keyword">this</span>.opened) {
       <span class="keyword">this</span>.style.display = <span class="string">'none'</span>;
     }
@@ -102,11 +102,11 @@
 <p><a href="http://morethanreal.github.io/neon-animation-demo/bower_components/neon-animation/demo/doc/types.html">Live demo</a></p>
 <p>You can also use the convenience properties <code>entryAnimation</code> and <code>exitAnimation</code> to set <code>entry</code> and <code>exit</code> animations:</p>
 <pre><code class="js">properties: {
-  entryAnimation: {
-    value: <span class="string">'scale-up-animation'</span>
+  <span class="attr">entryAnimation</span>: {
+    <span class="attr">value</span>: <span class="string">'scale-up-animation'</span>
   },
-  exitAnimation: {
-    value: <span class="string">'fade-out-animation'</span>
+  <span class="attr">exitAnimation</span>: {
+    <span class="attr">value</span>: <span class="string">'fade-out-animation'</span>
   }
 }
 </code></pre>
@@ -126,16 +126,16 @@
 <p><a name="configuration-multiple"></a></p>
 <h3 id="Using-multiple-animations"><a href="#Using-multiple-animations" class="headerlink" title="Using multiple animations"></a>Using multiple animations</h3><p>Set the animation configuration to an array to combine animations, like this:</p>
 <pre><code class="js">animationConfig: {
-  value: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="attr">value</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
     <span class="keyword">return</span> {
       <span class="comment">// fade-in-animation is run with a 50ms delay from slide-down-animation</span>
       <span class="string">'entry'</span>: [{
-        name: <span class="string">'slide-down-animation'</span>,
-        node: <span class="keyword">this</span>
+        <span class="attr">name</span>: <span class="string">'slide-down-animation'</span>,
+        <span class="attr">node</span>: <span class="keyword">this</span>
       }, {
-        name: <span class="string">'fade-in-animation'</span>,
-        node: <span class="keyword">this</span>,
-        timing: {delay: <span class="number">50</span>}
+        <span class="attr">name</span>: <span class="string">'fade-in-animation'</span>,
+        <span class="attr">node</span>: <span class="keyword">this</span>,
+        <span class="attr">timing</span>: {<span class="attr">delay</span>: <span class="number">50</span>}
       }]
     }
   }
@@ -144,12 +144,12 @@
 <p><a name="configuration-encapsulation"></a></p>
 <h3 id="Running-animations-encapsulated-in-children-nodes"><a href="#Running-animations-encapsulated-in-children-nodes" class="headerlink" title="Running animations encapsulated in children nodes"></a>Running animations encapsulated in children nodes</h3><p>You can include animations in the configuration that are encapsulated in a child element that implement <code>Polymer.NeonAnimatableBehavior</code> with the <code>animatable</code> property.</p>
 <pre><code class="js">animationConfig: {
-  value: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="attr">value</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
     <span class="keyword">return</span> {
       <span class="comment">// run fade-in-animation on this, and the entry animation on this.$.myAnimatable</span>
       <span class="string">'entry'</span>: [
-        {name: <span class="string">'fade-in-animation'</span>, node: <span class="keyword">this</span>},
-        {animatable: <span class="keyword">this</span>.$.myAnimatable, type: <span class="string">'entry'</span>}
+        {<span class="attr">name</span>: <span class="string">'fade-in-animation'</span>, <span class="attr">node</span>: <span class="keyword">this</span>},
+        {<span class="attr">animatable</span>: <span class="keyword">this</span>.$.myAnimatable, <span class="attr">type</span>: <span class="string">'entry'</span>}
       ]
     }
   }
@@ -162,20 +162,20 @@
 <h3 id="Shared-element-animations"><a href="#Shared-element-animations" class="headerlink" title="Shared element animations"></a>Shared element animations</h3><p>Shared element animations work on multiple nodes. For example, a “hero” animation is used during a page transition to make two elements from separate pages appear to animate as a single element. Shared element animation configurations have an <code>id</code> property that identify they belong in the same animation. Elements containing shared elements also have a <code>sharedElements</code> property defines a map from <code>id</code> to element, the element involved with the animation.</p>
 <p>In the incoming page:</p>
 <pre><code class="js">properties: {
-  animationConfig: {
-    value: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="attr">animationConfig</span>: {
+    <span class="attr">value</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
       <span class="keyword">return</span> {
         <span class="comment">// the incoming page defines the 'entry' animation</span>
         <span class="string">'entry'</span>: {
-          name: <span class="string">'hero-animation'</span>,
-          id: <span class="string">'hero'</span>,
-          toPage: <span class="keyword">this</span>
+          <span class="attr">name</span>: <span class="string">'hero-animation'</span>,
+          <span class="attr">id</span>: <span class="string">'hero'</span>,
+          <span class="attr">toPage</span>: <span class="keyword">this</span>
         }
       }
     }
   },
-  sharedElements: {
-    value: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="attr">sharedElements</span>: {
+    <span class="attr">value</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
       <span class="keyword">return</span> {
         <span class="string">'hero'</span>: <span class="keyword">this</span>.$.hero
       }
@@ -185,20 +185,20 @@
 </code></pre>
 <p>In the outgoing page:</p>
 <pre><code class="js">properties: {
-  animationConfig: {
-    value: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="attr">animationConfig</span>: {
+    <span class="attr">value</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
       <span class="keyword">return</span> {
         <span class="comment">// the outgoing page defines the 'exit' animation</span>
         <span class="string">'exit'</span>: {
-          name: <span class="string">'hero-animation'</span>,
-          id: <span class="string">'hero'</span>,
-          fromPage: <span class="keyword">this</span>
+          <span class="attr">name</span>: <span class="string">'hero-animation'</span>,
+          <span class="attr">id</span>: <span class="string">'hero'</span>,
+          <span class="attr">fromPage</span>: <span class="keyword">this</span>
         }
       }
     }
   },
-  sharedElements: {
-    value: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="attr">sharedElements</span>: {
+    <span class="attr">value</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
       <span class="keyword">return</span> {
         <span class="string">'hero'</span>: <span class="keyword">this</span>.$.otherHero
       }

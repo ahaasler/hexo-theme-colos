@@ -1,93 +1,26 @@
-<!---
-
-This README is automatically generated from the comments in these files:
-paper-toggle-button.html
-
-Edit those files, and our readme bot will duplicate them over here!
-Edit this file, and the bot will squash your changes :)
-
-The bot does some handling of markdown. Please file a bug if it does the wrong
-thing! https://github.com/PolymerLabs/tedium/issues
-
--->
 <p><a href="https://travis-ci.org/PolymerElements/paper-toggle-button"><img src="https://travis-ci.org/PolymerElements/paper-toggle-button.svg?branch=master" alt="Build status"></a></p>
-<p><em><a href="https://elements.polymer-project.org/elements/paper-toggle-button">Demo and API docs</a></em></p>
 <p>##&lt;paper-toggle-button&gt;</p>
 <p>Material design: <a href="https://www.google.com/design/spec/components/selection-controls.html#selection-controls-switch">Switch</a></p>
 <p><code>paper-toggle-button</code> provides a ON/OFF switch that user can toggle the state<br>by tapping or by dragging the switch.</p>
-<p>Example:</p>
-<pre><code class="html"><span class="tag">&lt;<span class="name">paper-toggle-button</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-toggle-button</span>&gt;</span>
+<!---
+```
+<custom-element-demo>
+  <template>
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="paper-toggle-button.html">
+    <style is="custom-style">
+      #container {
+        padding: 16px;
+        display: flex;
+      }
+    </style>
+    <div id="container">
+      <next-code-block></next-code-block>
+    </div>
+  </template>
+</custom-element-demo>
+```
+-->
+<pre><code class="html"><span class="tag">&lt;<span class="name">paper-toggle-button</span> <span class="attr">checked</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-toggle-button</span>&gt;</span>
+<span class="tag">&lt;<span class="name">paper-toggle-button</span> <span class="attr">disabled</span>&gt;</span><span class="tag">&lt;/<span class="name">paper-toggle-button</span>&gt;</span>
 </code></pre>
-<h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><p>The following custom properties and mixins are available for styling:</p>
-<table>
-<thead>
-<tr>
-<th>Custom property</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--paper-toggle-button-unchecked-bar-color</code></td>
-<td>Slider color when the input is not checked</td>
-<td><code>#000000</code></td>
-</tr>
-<tr>
-<td><code>--paper-toggle-button-unchecked-button-color</code></td>
-<td>Button color when the input is not checked</td>
-<td><code>--paper-grey-50</code></td>
-</tr>
-<tr>
-<td><code>--paper-toggle-button-unchecked-ink-color</code></td>
-<td>Selected/focus ripple color when the input is not checked</td>
-<td><code>--dark-primary-color</code></td>
-</tr>
-<tr>
-<td><code>--paper-toggle-button-checked-bar-color</code></td>
-<td>Slider button color when the input is checked</td>
-<td><code>--primary-color</code></td>
-</tr>
-<tr>
-<td><code>--paper-toggle-button-checked-button-color</code></td>
-<td>Button color when the input is checked</td>
-<td><code>--primary-color</code></td>
-</tr>
-<tr>
-<td><code>--paper-toggle-button-checked-ink-color</code></td>
-<td>Selected/focus ripple color when the input is checked</td>
-<td><code>--primary-color</code></td>
-</tr>
-<tr>
-<td><code>--paper-toggle-button-unchecked-bar</code></td>
-<td>Mixin applied to the slider when the input is not checked</td>
-<td><code>{}</code></td>
-</tr>
-<tr>
-<td><code>--paper-toggle-button-unchecked-button</code></td>
-<td>Mixin applied to the slider button when the input is not checked</td>
-<td><code>{}</code></td>
-</tr>
-<tr>
-<td><code>--paper-toggle-button-checked-bar</code></td>
-<td>Mixin applied to the slider when the input is checked</td>
-<td><code>{}</code></td>
-</tr>
-<tr>
-<td><code>--paper-toggle-button-checked-button</code></td>
-<td>Mixin applied to the slider button when the input is checked</td>
-<td><code>{}</code></td>
-</tr>
-<tr>
-<td><code>--paper-toggle-button-label-color</code></td>
-<td>Label color</td>
-<td><code>--primary-text-color</code></td>
-</tr>
-<tr>
-<td><code>--paper-toggle-button-label-spacing</code></td>
-<td>Spacing between the label and the button</td>
-<td><code>8px</code></td>
-</tr>
-</tbody>
-</table>
-<p>This element applies the mixin <code>--paper-font-common-base</code> but does not import <code>paper-styles/typography.html</code>.<br>In order to apply the <code>Roboto</code> font to this element, make sure you’ve imported <code>paper-styles/typography.html</code>.</p>
