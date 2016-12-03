@@ -45,6 +45,12 @@ bowerFiles = [
   '.bowerrc'
   'bower.json'
 ]
+# Unnecessary lib files
+unnecessaryLibFiles = [
+  "#{dir.dist.theme}/source/lib/*"
+  "!#{dir.dist.theme}/source/lib/elements.html"
+  "!#{dir.dist.theme}/source/lib/webcomponentsjs"
+]
 # Theme files
 themeFiles = [
   "#{dir.theme}/**/*"
@@ -75,6 +81,10 @@ server = undefined
 # Clean distribution folder
 gulp.task 'clean:dist', (callback) ->
   del dir.dist.base, callback
+
+# Clean lib folder
+gulp.task 'clean:lib', (callback) ->
+  del unnecessaryLibFiles, callback
 
 # Clean project
 gulp.task 'clean', [ 'clean:dist' ]
@@ -119,7 +129,7 @@ gulp.task 'copy', [
 
 # Build project
 gulp.task 'build', (callback) ->
-  sequence 'clean', ['copy', 'postcss', 'bower', 'vulcanize'], 'demo:generate', callback
+  sequence 'clean', ['copy', 'postcss', 'bower', 'vulcanize'], 'clean:lib', 'demo:generate', callback
 
 # Generate demo site
 gulp.task 'demo:generate', (callback) ->
