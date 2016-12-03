@@ -1,6 +1,6 @@
 gulp = require 'gulp'
 path = require 'path'
-rimraf = require 'rimraf'
+del = require 'del'
 inquirer = require 'inquirer'
 cssnext = require 'cssnext'
 postcssImport = require 'postcss-import'
@@ -74,7 +74,7 @@ server = undefined
 
 # Clean distribution folder
 gulp.task 'clean:dist', (callback) ->
-  rimraf dir.dist.base, callback
+  del dir.dist.base, callback
 
 # Clean project
 gulp.task 'clean', [ 'clean:dist' ]
