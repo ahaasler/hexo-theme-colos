@@ -47,8 +47,7 @@ app-toolbar {
     font-weight: 300;
   }
   @nest & [condensed-title] {
-    margin-left: 1.2em;
-    font-weight: 300;
+    max-width: 0px;
   }
   @nest & paper-tabs {
     height: 100%!important;
