@@ -82,6 +82,7 @@ settings.useNativeShadow = settings.useShadow && settings.nativeShadow;
 settings.usePolyfillProto = !settings.useNativeCustomElements && !Object.__proto__;
 settings.hasNativeCSSProperties = !navigator.userAgent.match('AppleWebKit/601') && window.CSS && CSS.supports && CSS.supports('box-shadow', '0 0 0 var(--foo)');
 settings.useNativeCSSProperties = settings.hasNativeCSSProperties && settings.lazyRegister && settings.useNativeCSSProperties;
+settings.isIE = navigator.userAgent.match('Trident');
 return settings;
 }()
 };(function () {
@@ -135,7 +136,7 @@ this.registrations.forEach(this._regLog);
 enumerable: true,
 configurable: true,
 get: function () {
-return (document._currentScript || document.currentScript).ownerDocument;
+return (document._currentScript || document.currentScript || {}).ownerDocument;
 }
 });Polymer.RenderStatus = {
 _ready: false,
@@ -738,7 +739,7 @@ default:
 return value != null ? value : undefined;
 }
 }
-});Polymer.version = "1.7.0";Polymer.Base._addFeature({
+});Polymer.version = "1.7.1";Polymer.Base._addFeature({
 _registerFeatures: function () {
 this._prepIs();
 this._prepBehaviors();
@@ -754,7 +755,19 @@ _initFeatures: function () {
 this._marshalHostAttributes();
 this._marshalBehaviors();
 }
-});</script><script>Polymer.Base._addFeature({
+});</script>
+
+
+
+
+
+
+
+
+
+
+
+<script>Polymer.Base._addFeature({
 _prepTemplate: function () {
 if (this._template === undefined) {
 this._template = Polymer.DomModule.import(this.is, 'template');
@@ -3048,8 +3061,9 @@ var attr = attrs[i];
 content.setAttribute(attr.name, attr.value);
 }
 var name = slot.getAttribute('name');
-var select = name ? '[slot=\'' + name + '\']' : ':not([slot])';
-content.setAttribute('select', select);
+if (name) {
+content.setAttribute('select', '[slot=\'' + name + '\']');
+}
 slot.parentNode.replaceChild(content, slot);
 return content;
 },
@@ -3167,7 +3181,7 @@ tempDocBase.href = baseUri;
 return resolve(url, tempDoc);
 }
 function getUrlResolver(ownerDocument) {
-return ownerDocument.__urlResolver || (ownerDocument.__urlResolver = ownerDocument.createElement('a'));
+return ownerDocument.body.__urlResolver || (ownerDocument.body.__urlResolver = ownerDocument.createElement('a'));
 }
 var CSS_URL_RX = /(url\()([^)]*)(\))/g;
 var URL_ATTRS = {
@@ -3410,7 +3424,9 @@ hbl = host.__boundListeners = new WeakMap();
 var bl = hbl.get(target);
 if (!bl) {
 bl = {};
+if (!Polymer.Settings.isIE || target != window) {
 hbl.set(target, bl);
+}
 }
 var key = this._boundListenerKey(eventName, methodName);
 bl[key] = handler;
@@ -3483,6 +3499,19 @@ return new MouseEvent('test', { buttons: 1 }).buttons === 1;
 return false;
 }
 }();
+var SUPPORTS_PASSIVE = false;
+(function () {
+try {
+var opts = Object.defineProperty({}, 'passive', {
+get: function () {
+SUPPORTS_PASSIVE = true;
+}
+});
+window.addEventListener('test', null, opts);
+window.removeEventListener('test', null, opts);
+} catch (e) {
+}
+}());
 var IS_TOUCH_ONLY = navigator.userAgent.match(/iP(?:[oa]d|hone)|Android/);
 var mouseCanceller = function (mouseEvent) {
 var sc = mouseEvent.sourceCapabilities;
@@ -3512,7 +3541,7 @@ document.removeEventListener(en, mouseCanceller, true);
 }
 }
 }
-function ignoreMouse() {
+function ignoreMouse(ev) {
 if (!POINTERSTATE.mouse.mouseIgnoreJob) {
 setupTeardownMouseCanceller(true);
 }
@@ -3521,6 +3550,7 @@ setupTeardownMouseCanceller();
 POINTERSTATE.mouse.target = null;
 POINTERSTATE.mouse.mouseIgnoreJob = null;
 };
+POINTERSTATE.mouse.target = Polymer.dom(ev).rootTarget;
 POINTERSTATE.mouse.mouseIgnoreJob = Polymer.Debounce(POINTERSTATE.mouse.mouseIgnoreJob, unset, MOUSE_TIMEOUT);
 }
 function hasLeftMouseButton(ev) {
@@ -3587,6 +3617,7 @@ document.removeEventListener('mouseup', stateObj.upfn);
 stateObj.movefn = null;
 stateObj.upfn = null;
 }
+document.addEventListener('touchend', ignoreMouse, SUPPORTS_PASSIVE ? { passive: true } : false);
 var Gestures = {
 gestures: {},
 recognizers: [],
@@ -3635,10 +3666,6 @@ if (!HAS_NATIVE_TA) {
 if (type === 'touchstart' || type === 'touchmove') {
 Gestures.handleTouchAction(ev);
 }
-}
-if (type === 'touchend') {
-POINTERSTATE.mouse.target = Polymer.dom(ev).rootTarget;
-ignoreMouse();
 }
 }
 }
@@ -4255,20 +4282,22 @@ var list = Polymer.Base.importHref.imported = Polymer.Base.importHref.imported |
 var cached = list[link.href];
 var imprt = cached || link;
 var self = this;
-if (onload) {
 var loadListener = function (e) {
 e.target.__firedLoad = true;
 e.target.removeEventListener('load', loadListener);
+e.target.removeEventListener('error', errorListener);
 return onload.call(self, e);
 };
-imprt.addEventListener('load', loadListener);
-}
-if (onerror) {
 var errorListener = function (e) {
 e.target.__firedError = true;
+e.target.removeEventListener('load', loadListener);
 e.target.removeEventListener('error', errorListener);
 return onerror.call(self, e);
 };
+if (onload) {
+imprt.addEventListener('load', loadListener);
+}
+if (onerror) {
 imprt.addEventListener('error', errorListener);
 }
 if (cached) {
@@ -4329,7 +4358,7 @@ event = event || Polymer.CaseMap.camelToDashCase(source) + '-changed';
 this.fire(event, { value: value }, {
 bubbles: false,
 cancelable: false,
-_useCache: true
+_useCache: Polymer.Settings.eventDataCache || !Polymer.Settings.isIE
 });
 },
 _propertySetter: function (property, value, effects, fromAbove) {
@@ -5178,7 +5207,7 @@ path: path,
 value: value
 }, {
 bubbles: false,
-_useCache: true
+_useCache: Polymer.Settings.eventDataCache || !Polymer.Settings.isIE
 });
 },
 _EVENT_CHANGED: '-changed',
@@ -6759,6 +6788,9 @@ this._ownStylePropertyNames = this._styles && this._styles.length ? propertyUtil
 },
 customStyle: null,
 getComputedStyleValue: function (property) {
+if (!nativeVariables && !this._styleProperties) {
+this._computeStyleProperties();
+}
 return !nativeVariables && this._styleProperties && this._styleProperties[property] || getComputedStyle(this).getPropertyValue(property);
 },
 _setupStyleProperties: function () {
@@ -7915,6 +7947,7 @@ return inst;
 },
 _showHideChildren: function (hidden) {
 for (var i = 0; i < this._instances.length; i++) {
+if (!this._instances[i].isPlaceholder)
 this._instances[i]._showHideChildren(hidden);
 }
 },
@@ -8340,7 +8373,7 @@ this.fire('dom-change');
             scrollTo(scrollLeft, scrollTop);
           }
         }).bind(this);
-        
+
         updateFrame();
       }
 
@@ -8467,9 +8500,7 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
   [hidden] {
     display: none !important;
   }
-</style>
-
-<style is="custom-style">
+</style><style is="custom-style">
   :root {
 
     --layout: {
@@ -8812,8 +8843,7 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
 
   }
 
-</style>
-<dom-module id="app-drawer" assetpath="app-layout/app-drawer/">
+</style><dom-module id="app-drawer" assetpath="app-layout/app-drawer/">
   <template>
     <style>
       :host {
@@ -8825,7 +8855,7 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
 
         visibility: hidden;
 
-        transition: visibility 0.2s ease;
+        transition-property: visibility;
       }
 
       :host([opened]) {
@@ -8853,7 +8883,6 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
         width: var(--app-drawer-width, 256px);
         padding: 120px 0;
 
-        transition: 0.2s ease;
         transition-property: -webkit-transform;
         transition-property: transform;
         -webkit-transform: translate3d(-100%, 0, 0);
@@ -8902,7 +8931,7 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
         bottom: 0;
         left: 0;
 
-        transition: opacity 0.2s ease;
+        transition-property: opacity;
         -webkit-transform: translateZ(0);
         transform:  translateZ(0);
 
@@ -8958,6 +8987,14 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
         },
 
         /**
+         * The transition duration of the drawer in milliseconds.
+         */
+        transitionDuration: {
+          type: Number,
+          value: 200
+        },
+
+        /**
          * The alignment of the drawer on the screen ('left', 'right', 'start' or 'end').
          * 'start' computes to left and 'end' to right in LTR layout and vice versa in RTL
          * layout.
@@ -8973,7 +9010,6 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
         position: {
           type: String,
           readOnly: true,
-          value: 'left',
           reflectToAttribute: true
         },
 
@@ -8992,12 +9028,22 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
         noFocusTrap: {
           type: Boolean,
           value: false
+        },
+
+        /**
+         * Disables swiping on the drawer.
+         */
+        disableSwipe: {
+          type: Boolean,
+          value: false
         }
       },
 
       observers: [
-        'resetLayout(position)',
-        '_resetPosition(align, isAttached)'
+        'resetLayout(position, isAttached)',
+        '_resetPosition(align, isAttached)',
+        '_styleTransitionDuration(transitionDuration)',
+        '_openedPersistentChanged(opened, persistent)'
       ],
 
       _translateOffset: 0,
@@ -9012,27 +9058,29 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
 
       _lastTabStop: null,
 
-      ready: function() {
-        // Set the scroll direction so you can vertically scroll inside the drawer.
-        this.setScrollDirection('y');
-
-        // Only transition the drawer after its first render (e.g. app-drawer-layout
-        // may need to set the initial opened state which should not be transitioned).
-        this._setTransitionDuration('0s');
-      },
-
       attached: function() {
         // Only transition the drawer after its first render (e.g. app-drawer-layout
         // may need to set the initial opened state which should not be transitioned).
+        this._styleTransitionDuration(0);
         Polymer.RenderStatus.afterNextRender(this, function() {
-          this._setTransitionDuration('');
+          this._styleTransitionDuration(this.transitionDuration);
           this._boundEscKeydownHandler = this._escKeydownHandler.bind(this);
           this._resetDrawerState();
 
-          this.listen(this, 'track', '_track');
-          this.addEventListener('transitionend', this._transitionend.bind(this));
+          // contentContainer will transition on opened state changed, and scrim will
+          // transition on persistent state changed when opened - these are the
+          // transitions we are interested in.
+          this.$.scrim.addEventListener('transitionend', this._transitionend.bind(this));
+          this.$.contentContainer.addEventListener('transitionend', this._transitionend.bind(this));
+
           this.addEventListener('keydown', this._tabKeydownHandler.bind(this))
+
+          // Only listen for horizontal track so you can vertically scroll inside the drawer.
+          this.listen(this, 'track', '_track');
+          this.setScrollDirection('y');
         });
+
+        this.fire('app-drawer-attached');
       },
 
       detached: function() {
@@ -9070,16 +9118,13 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
       },
 
       /**
-       * Resets the layout. If you changed the size of app-header via CSS
-       * you can notify the changes by either firing the `iron-resize` event
-       * or calling `resetLayout` directly.
+       * Resets the layout. The event fired is used by app-drawer-layout to position the
+       * content.
        *
        * @method resetLayout
        */
       resetLayout: function() {
-        this.debounce('_resetLayout', function() {
-          this.fire('app-drawer-reset-layout');
-        }, 1);
+        this.fire('app-drawer-reset-layout');
       },
 
       _isRTL: function() {
@@ -9108,7 +9153,7 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
       },
 
       _track: function(event) {
-        if (this.persistent) {
+        if (this.persistent || this.disableSwipe) {
           return;
         }
 
@@ -9132,7 +9177,7 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
         this._drawerState = this._DRAWER_STATE.TRACKING;
 
         // Disable transitions since style attributes will reflect user track events.
-        this._setTransitionDuration('0s');
+        this._styleTransitionDuration(0);
         this.style.visibility = 'visible';
 
         var rect = this.$.contentContainer.getBoundingClientRect();
@@ -9183,12 +9228,12 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
           this.opened = this.position === 'left';
         }
 
-        // Trigger app-drawer-transitioned now since there will be no transitionend event.
         if (isInEndState) {
+          // Reset drawer state now since there will be no transitionend event.
           this._resetDrawerState();
         }
 
-        this._setTransitionDuration('');
+        this._styleTransitionDuration(this.transitionDuration);
         this._resetDrawerTranslate();
         this.style.visibility = '';
       },
@@ -9257,36 +9302,30 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
 
         // Calculate the amount of time needed to finish the transition based on the
         // initial slope of the timing function.
-        this._setTransitionDuration((this._FLING_INITIAL_SLOPE * dx / velocity) + 'ms');
-        this._setTransitionTimingFunction(this._FLING_TIMING_FUNCTION);
+        this._styleTransitionDuration(this._FLING_INITIAL_SLOPE * dx / velocity);
+        this._styleTransitionTimingFunction(this._FLING_TIMING_FUNCTION);
 
         this._resetDrawerTranslate();
       },
 
-      _transitionend: function(event) {
-        // contentContainer will transition on opened state changed, and scrim will
-        // transition on persistent state changed when opened - these are the
-        // transitions we are interested in.
-        var target = Polymer.dom(event).rootTarget;
-        if (target === this.$.contentContainer || target === this.$.scrim) {
-
-          // If the drawer was flinging, we need to reset the style attributes.
-          if (this._drawerState === this._DRAWER_STATE.FLINGING) {
-            this._setTransitionDuration('');
-            this._setTransitionTimingFunction('');
-            this.style.visibility = '';
-          }
-
-          this._resetDrawerState();
+      _transitionend: function() {
+        // If the drawer was flinging, we need to reset the style attributes.
+        if (this._drawerState === this._DRAWER_STATE.FLINGING) {
+          this._styleTransitionDuration(this.transitionDuration);
+          this._styleTransitionTimingFunction('');
+          this.style.visibility = '';
         }
+
+        this._resetDrawerState();
       },
 
-      _setTransitionDuration: function(duration) {
-        this.$.contentContainer.style.transitionDuration = duration;
-        this.$.scrim.style.transitionDuration = duration;
+      _styleTransitionDuration: function(duration) {
+        this.style.transitionDuration = duration + 'ms';
+        this.$.contentContainer.style.transitionDuration = duration + 'ms';
+        this.$.scrim.style.transitionDuration = duration + 'ms';
       },
 
-      _setTransitionTimingFunction: function(timingFunction) {
+      _styleTransitionTimingFunction: function(timingFunction) {
         this.$.contentContainer.style.transitionTimingFunction = timingFunction;
         this.$.scrim.style.transitionTimingFunction = timingFunction;
       },
@@ -9397,6 +9436,13 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
         }
       },
 
+      _openedPersistentChanged: function() {
+        if (this.transitionDuration === 0) {
+          // Reset drawer state now since there will be no transitionend event.
+          this._resetDrawerState();
+        }
+      },
+
       _MIN_FLING_THRESHOLD: 0.2,
 
       _MIN_TRANSITION_VELOCITY: 1.2,
@@ -9413,6 +9459,12 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
         TRACKING: 4,
         FLINGING: 5
       }
+
+      /**
+       * Fired when the layout of app-drawer is attached.
+       *
+       * @event app-drawer-attached
+       */
 
       /**
        * Fired when the layout of app-drawer has changed.
@@ -9478,7 +9530,7 @@ With an app-header-layout:
   <app-header-layout>
     <app-header>
       <app-toolbar>
-        <div title>App name</div>
+        <div main-title>App name</div>
       </app-toolbar>
     </app-header>
 
@@ -9499,7 +9551,7 @@ Add the `drawer-toggle` attribute to elements inside `app-drawer-layout` that to
     <app-header>
       <app-toolbar>
         <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-        <div title>App name</div>
+        <div main-title>App name</div>
       </app-toolbar>
     </app-header>
 
@@ -9899,16 +9951,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Boolean,
           readOnly: true,
           notify: true
+        },
+
+        /**
+         * If true, the drawer will initially be opened when in narrow layout mode.
+         */
+        openedWhenNarrow: {
+          type: Boolean,
+          value: false
         }
       },
 
       listeners: {
         'tap': '_tapHandler',
-        'app-drawer-reset-layout': 'resetLayout'
+        'app-drawer-attached': '_resetDrawerState',
+        'app-drawer-reset-layout': 'resetLayout',
+        'iron-resize': 'resetLayout'
       },
 
       observers: [
-        'resetLayout(narrow, isAttached)'
+        'resetLayout(narrow, isAttached)',
+        '_narrowChanged(narrow, isAttached)'
       ],
 
       /**
@@ -9923,30 +9986,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _tapHandler: function(e) {
         var target = Polymer.dom(e).localTarget;
         if (target && target.hasAttribute('drawer-toggle')) {
-          this.drawer.toggle();
+          var drawer = this.drawer;
+          if (drawer && !drawer.persistent) {
+            drawer.toggle();
+          }
         }
       },
 
       resetLayout: function() {
         this.debounce('_resetLayout', function() {
-          if (!this.isAttached) {
-            return;
-          }
-
           var drawer = this.drawer;
-          var drawerWidth = this.drawer.getWidth();
           var contentContainer = this.$.contentContainer;
 
-          if (this.narrow) {
-            drawer.opened = drawer.persistent = false;
-            contentContainer.classList.add('narrow');
-
+          if (this.narrow || !drawer) {
             contentContainer.style.marginLeft = '';
             contentContainer.style.marginRight = '';
           } else {
-            drawer.opened = drawer.persistent = true;
-            contentContainer.classList.remove('narrow');
-
+            var drawerWidth = drawer.getWidth();
             if (drawer.position == 'right') {
               contentContainer.style.marginLeft = '';
               contentContainer.style.marginRight = drawerWidth + 'px';
@@ -9955,9 +10011,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               contentContainer.style.marginRight = '';
             }
           }
-
-          this.notifyResize();
         });
+      },
+
+      _resetDrawerState: function() {
+        this.debounce('_resetDrawerState', function() {
+          var drawer = this.drawer;
+          if (!drawer) {
+            return;
+          }
+
+          if (this.narrow) {
+            drawer.opened = this.openedWhenNarrow;
+            drawer.persistent = false;
+          } else {
+            drawer.opened = drawer.persistent = true;
+          }
+        });
+      },
+
+      _narrowChanged: function(narrow) {
+        this.toggleClass('narrow', narrow, this.$.contentContainer);
+        this._resetDrawerState();
+        this.notifyResize();
       },
 
       _onQueryMatchesChanged: function(event) {
@@ -9969,6 +10045,198 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     });
   </script>
+</dom-module>
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><!--
+app-grid is a helper class useful for creating responsive, fluid grid layouts using custom properties.
+Because custom properties can be defined inside a `@media` rule, you can customize the grid layout
+for different responsive breakpoints.
+
+Example:
+
+Import `app-grid-style.html` and include `app-grid-style` in the style of an element's definition.
+Then, add the class `app-grid` to a container such as `ul` or `div`:
+
+```html
+<template>
+  <style include="app-grid-style">
+    :host {
+      --app-grid-columns: 3;
+      --app-grid-item-height: 100px;
+    }
+
+    ul {
+      padding: 0;
+      list-style: none;
+    }
+
+    .item {
+      background-color: white;
+    }
+  </style>
+  <ul class="app-grid">
+    <li class="item">1</li>
+    <li class="item">2</li>
+    <li class="item">3</li>
+  </ul>
+</template>
+```
+In the example above, the grid  will take 3 columns per row.
+
+### Expandible items
+
+In many cases, it's useful to expand an item more than 1 column. To achieve this type of layout,
+you can specify the number of columns the item should expand to by setting the custom property
+`--app-grid-expandible-item-columns`. To indicate which item should expand, apply the mixin
+`--app-grid-expandible-item` to a rule with a selector to the item. For example:
+
+<pre><code>
+&lt;template>
+  &lt;style include="app-grid-style">
+    :host {
+      --app-grid-columns: 3;
+      --app-grid-item-height: 100px;
+      --app-grid-expandible-item-columns: 3;
+    }
+
+    /* Only the first item should expand */
+    .item:first-child {
+      &#64;apply(--app-grid-expandible-item);
+    }
+  &lt;/style>
+&lt;/template>
+</code></pre>
+
+### Preserving the aspect ratio
+
+When the size of a grid item should preserve the aspect ratio, you can add the `has-aspect-ratio`
+attribute to the element with the class `.app-grid`. Now, every item element becomes a wrapper around
+the item content. For example:
+
+```html
+<template>
+  <style include="app-grid-style">
+    :host {
+      --app-grid-columns: 3;
+      /* 50% the width of the item is equivalent to 2:1 aspect ratio*/
+      --app-grid-item-height: 50%;
+    }
+
+    .item {
+      background-color: white;
+    }
+  </style>
+  <ul class="app-grid" has-aspect-ratio>
+    <li class="item">
+      <div>item 1</div>
+    </li>
+    <li class="item">
+      <div>item 2</div>
+    </li>
+    <li class="item">
+      <div>item 3</div>
+    </li>
+  </ul>
+</template>
+```
+
+### Styling
+
+Custom property                               | Description                                                | Default
+----------------------------------------------|------------------------------------------------------------|------------------
+`--app-grid-columns`                          | The number of columns per row.                             | 1
+`--app-grid-gutter`                           | The space between two items.                               | 0px
+`--app-grid-item-height`                      | The height of the items.                                   | auto
+`--app-grid-expandible-item-columns`          | The number of columns an expandible item should expand to. | 1
+
+@group App Elements
+@pseudoElement app-grid
+@demo app-grid/demo/index.html
+-->
+
+<dom-module id="app-grid-style" assetpath="app-layout/app-grid/">
+  <template>
+    <style>
+
+      :host {
+        /**
+         * The width for the expandible item is:
+         * ((100% - subPixelAdjustment) / columns * itemColumns - gutter
+         *
+         * - subPixelAdjustment: 0.1px (Required for IE 11)
+         * - gutter: var(--app-grid-gutter)
+         * - columns: var(--app-grid-columns)
+         * - itemColumn: var(--app-grid-expandible-item-columns)
+         */
+        --app-grid-expandible-item: {
+          -webkit-flex-basis: calc((100% - 0.1px) / var(--app-grid-columns, 1) * var(--app-grid-expandible-item-columns, 1) - var(--app-grid-gutter, 0px)) !important;
+          flex-basis: calc((100% - 0.1px) / var(--app-grid-columns, 1) * var(--app-grid-expandible-item-columns, 1) - var(--app-grid-gutter, 0px)) !important;
+          max-width: calc((100% - 0.1px) / var(--app-grid-columns, 1) * var(--app-grid-expandible-item-columns, 1) - var(--app-grid-gutter, 0px)) !important;
+        };
+      }
+
+      .app-grid {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+
+        -ms-flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+
+        padding-top: var(--app-grid-gutter, 0px);
+        padding-left: var(--app-grid-gutter, 0px);
+        box-sizing: border-box;
+      }
+
+      .app-grid > * {
+        /* Required for IE 10 */
+        -ms-flex: 1 1 100%;
+        -webkit-flex: 1;
+        flex: 1;
+
+        /* The width for an item is: (100% - subPixelAdjustment - gutter * columns) / columns */
+        -webkit-flex-basis: calc((100% - 0.1px - (var(--app-grid-gutter, 0px) * var(--app-grid-columns, 1))) / var(--app-grid-columns, 1));
+        flex-basis: calc((100% - 0.1px - (var(--app-grid-gutter, 0px) * var(--app-grid-columns, 1))) / var(--app-grid-columns, 1));
+
+        max-width: calc((100% - 0.1px - (var(--app-grid-gutter, 0px) * var(--app-grid-columns, 1))) / var(--app-grid-columns, 1));
+        margin-bottom: var(--app-grid-gutter, 0px);
+        margin-right: var(--app-grid-gutter, 0px);
+        height: var(--app-grid-item-height);
+        box-sizing: border-box;
+      }
+
+      .app-grid[has-aspect-ratio] > * {
+        position: relative;
+      }
+
+      .app-grid[has-aspect-ratio] > *::before {
+        display: block;
+        content: "";
+        padding-top: var(--app-grid-item-height, 100%);
+      }
+
+      .app-grid[has-aspect-ratio] > * > * {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+    </style>
+  </template>
 </dom-module>
 <!--
 @license
@@ -9986,18 +10254,18 @@ if using `reveals`, the header slides back when scrolling back up. For example:
 ```html
 <app-header reveals>
   <app-toolbar>
-    <div title>App name</div>
+    <div main-title>App name</div>
   </app-toolbar>
 </app-header>
 ```
 
 app-header can also condense when scrolling down. To achieve this behavior, the header
-must have a larger height than the `primary` element in the light DOM. For example:
+must have a larger height than the `sticky` element in the light DOM. For example:
 
 ```html
 <app-header style="height: 96px;" condenses fixed>
   <app-toolbar style="height: 64px;">
-    <div title>App name</div>
+    <div main-title>App name</div>
   </app-toolbar>
 </app-header>
 ```
@@ -10005,27 +10273,27 @@ must have a larger height than the `primary` element in the light DOM. For examp
 In this case the header is initially `96px` tall, and it shrinks to `64px` when scrolling down.
 That is what is meant by "condensing".
 
-### Primary element
+### Sticky element
 
-As the header condenses, the immediate children of app-header are stacked up.
-In this case, the primary element is the immediate child that would always stayed above
-the others as the header condenses. By default, the `primary` element is the first app-toolbar
-that is an immediate children of app-header.
+The element that is positioned fixed to top of the header's `scrollTarget` when a threshold
+is reached, similar to `position: sticky` in CSS. This element **must** be an immediate
+child of app-header. By default, the `sticky` element is the first `app-toolbar that
+is an immediate child of app-header.
 
 ```html
 <app-header condenses>
-  <app-toolbar> Primary element </app-toolbar>
+  <app-toolbar> Sticky element </app-toolbar>
 </app-header>
 ```
+
+#### Customizing the sticky element
 
 ```html
 <app-header condenses>
   <app-toolbar></app-toolbar>
-  <app-toolbar primary> Primary element </app-toolbar>
+  <app-toolbar sticky> Sticky element </app-toolbar>
 </app-header>
 ```
-
-The primary element must be a direct child of app-header.
 
 ### Scroll target
 
@@ -10117,7 +10385,7 @@ This value can be assigned via the `scalar` config value and it is typically a v
 between 0 and 1 inclusive. If `scalar=0`, the background doesn't move away from the header.
 
 * **resize-title**
-Progressively interpolates the size of the title from the element with the `title` attribute
+Progressively interpolates the size of the title from the element with the `main-title` attribute
 to the element with the `condensed-title` attribute as the header condenses. For example:
 
 ```html
@@ -10126,14 +10394,14 @@ to the element with the `condensed-title` attribute as the header condenses. For
       <h4 condensed-title>App name</h4>
   </app-toolbar>
   <app-toolbar>
-      <h1 title>App name</h1>
+      <h1 main-title>App name</h1>
   </app-toolbar>
 </app-header>
 ```
 
 * **resize-snapped-title**
 Upon scrolling past a threshold, this effect fades in/out the titles using opacity transitions.
-Similarly to `resize-title`, the `title` and `condensed-title` elements must be placed in the
+Similarly to `resize-title`, the `main-title` and `condensed-title` elements must be placed in the
 light DOM.
 
 * **waterfall**
@@ -10152,7 +10420,7 @@ app-header {
 ```html
 <app-header condenses reveals effects="waterfall">
   <app-toolbar>
-      <h1 title>App name</h1>
+      <h1 main-title>App name</h1>
   </app-toolbar>
 </app-header>
 ```
@@ -10164,7 +10432,7 @@ Installs the waterfall, resize-title, blend-background and parallax-background e
 
 Attribute | Description         | Default
 ----------|---------------------|----------------------------------------
-`primary` | Element that remains at the top when the header condenses. | The first app-toolbar in the light DOM.
+`sticky` | Element that remains at the top when the header condenses. | The first app-toolbar in the light DOM.
 
 
 ## Styling
@@ -10185,7 +10453,8 @@ Mixin | Description | Default
 @demo app-header/demo/music.html Reveals Demo
 @demo app-header/demo/no-effects.html Condenses and Reveals Demo
 @demo app-header/demo/notes.html Fixed with Dynamic Shadow Demo
-@demo app-header/demo/custom-primary-element.html Custom Primary Element Demo
+@demo app-header/demo/custom-sticky-element-1.html Custom Sticky Element Demo 1
+@demo app-header/demo/custom-sticky-element-2.html Custom Sticky Element Demo 2
 -->
 
 <!--
@@ -10253,10 +10522,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        * appHeader.scrollTarget = document.querySelector('#scrollable-element');
        *```
        *
-       * @type {HTMLElement}
+       * @type {Element}
        */
       scrollTarget: {
-        type: HTMLElement,
+        type: Object,
         value: function() {
           return this._defaultScrollTarget;
         }
@@ -10485,7 +10754,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    * based on the scroll position.
    *
    * A scroll effect definition is an object with `setUp()`, `tearDown()` and `run()` functions.
-   * 
+   *
    * To register the effect, you can use `Polymer.AppLayout.registerEffect(effectName, effectDef)`
    * For example, let's define an effect that resizes the header's logo:
    *
@@ -10583,6 +10852,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         type: Boolean,
         reflectToAttribute: true,
         value: false
+      },
+
+      /**
+       * Allows to set a `scrollTop` threshold. When greater than 0, `thresholdTriggered`
+       * is true only when the scroll target's `scrollTop` has reached this value.
+       *
+       * For example, if `threshold = 100`, `thresholdTriggered` is true when the `scrollTop`
+       * is at least `100`.
+       */
+      threshold: {
+        type: Number,
+        value: 0
+      },
+
+      /**
+       * True if the `scrollTop` threshold (set in `scrollTopThreshold`) has
+       * been reached.
+       */
+      thresholdTriggered: {
+        type: Boolean,
+        notify: true,
+        readOnly: true,
+        reflectToAttribute: true
       }
     },
 
@@ -10693,7 +10985,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           if ((effectDef = Polymer.AppLayout._scrollEffects[effectName])) {
             this._effects.push(this._boundEffect(effectDef, effectsConfig[effectName]));
           } else {
-            this._warn(this._logf('_effectsChanged', this._getUndefinedMsg(effectName)));
+            console.warn(this._getUndefinedMsg(effectName));
           }
         }
       }, this);
@@ -10719,7 +11011,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var startsAt = parseFloat(effectsConfig.startsAt || 0);
       var endsAt = parseFloat(effectsConfig.endsAt || 1);
       var deltaS = endsAt - startsAt;
-      var noop = Function();
+      var noop = function() {};
       // fast path if possible
       var runFn = (startsAt === 0 && endsAt === 1) ? effectDef.run :
         function(progress, y) {
@@ -10780,10 +11072,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      */
     _scrollHandler: function() {
       if (!this.disabled) {
-        this._updateScrollState(this._clampedScrollTop);
+        var scrollTop = this._clampedScrollTop;
+        this._updateScrollState(scrollTop);
+        if (this.threshold > 0) {
+          this._setThresholdTriggered(scrollTop >= this.threshold);
+        }
       }
     },
-    
+
     /**
      * Override this method to return a reference to a node in the local DOM.
      * The node is consumed by a scroll effect.
@@ -10791,7 +11087,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * @param {string} id The id for the node.
      */
     _getDOMRef: function(id) {
-      this._warn(this._logf('_getDOMRef', '`'+ id +'` is undefined'));
+      console.warn('_getDOMRef', '`'+ id +'` is undefined');
     },
 
     _getUndefinedMsg: function(effectName) {
@@ -10832,17 +11128,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         opacity: 1;
       }
 
-      #contentContainer > ::content [condensed-title] {
+      ::content [main-title],
+      ::content [condensed-title] {
         -webkit-transform-origin: left top;
         transform-origin: left top;
         white-space: nowrap;
-        opacity: 0;
       }
 
-      #contentContainer > ::content [title] {
-        -webkit-transform-origin: left top;
-        transform-origin: left top;
-        white-space: nowrap;
+      ::content [condensed-title] {
+        opacity: 0;
       }
 
       #background {
@@ -10878,14 +11172,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host([disabled]) #backgroundFrontLayer,
       :host([disabled]) #backgroundRearLayer,
       :host([disabled]) ::content > app-toolbar:first-of-type,
-      :host([disabled]) ::content > [primary],
+      :host([disabled]) ::content > [sticky],
       /* Silent scrolling should not run CSS transitions */
       :host-context(.app-layout-silent-scroll),
       :host-context(.app-layout-silent-scroll)::after,
       :host-context(.app-layout-silent-scroll) #backgroundFrontLayer,
       :host-context(.app-layout-silent-scroll) #backgroundRearLayer,
       :host-context(.app-layout-silent-scroll) ::content > app-toolbar:first-of-type,
-      :host-context(.app-layout-silent-scroll) ::content > [primary] {
+      :host-context(.app-layout-silent-scroll) ::content > [sticky] {
         transition: none !important;
       }
     </style>
@@ -10906,10 +11200,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       properties: {
         /**
          * If true, the header will automatically collapse when scrolling down.
-         * That is, the `primary` element remains visible when the header is fully condensed
-         * whereas the rest of the elements will collapse below `primary` element.
+         * That is, the `sticky` element remains visible when the header is fully condensed
+         * whereas the rest of the elements will collapse below `sticky` element.
          *
-         * By default, the `primary` element is the first toolbar in the light DOM:
+         * By default, the `sticky` element is the first toolbar in the light DOM:
          *
          *```html
          * <app-header condenses>
@@ -10920,18 +11214,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          * ```
          *
          * Additionally, you can specify which toolbar or element remains visible in condensed mode
-         * by adding the `primary` attribute to that element. For example: if we want the last
-         * toolbar to remain visible, we can add the `primary` attribute to it.
+         * by adding the `sticky` attribute to that element. For example: if we want the last
+         * toolbar to remain visible, we can add the `sticky` attribute to it.
          *
          *```html
          * <app-header condenses>
          *   <app-toolbar></app-toolbar>
          *   <app-toolbar></app-toolbar>
-         *   <app-toolbar primary>This toolbar remains on top</app-toolbar>
+         *   <app-toolbar sticky>This toolbar remains on top</app-toolbar>
          * </app-header>
          * ```
          *
-         * Note the `primary` element must be a child of `app-header`.
+         * Note the `sticky` element must be a direct child of `app-header`.
          */
         condenses: {
           type: Boolean,
@@ -10987,18 +11281,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _dHeight: 0,
 
       /**
-       * The offsetTop of `_primaryEl`
+       * The offsetTop of `_stickyEl`
        *
        * @type {number}
        */
-      _primaryElTop: 0,
+      _stickyElTop: 0,
 
       /**
        * The element that remains visible when the header condenses.
        *
        * @type {HTMLElement}
        */
-      _primaryEl: null,
+      _stickyEl: null,
 
       /**
        * The header's top value used for the `transformY`
@@ -11030,27 +11324,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       /**
-       * Returns a reference to the element that remains visible when the header condenses.
+       * Returns a reference to the sticky element.
        *
        * @return {HTMLElement}?
        */
-      _getPrimaryEl: function() {
+      _getStickyEl: function() {
         /** @type {HTMLElement} */
-        var primaryEl;
+        var stickyEl;
         var nodes = Polymer.dom(this.$.content).getDistributedNodes();
 
         for (var i = 0; i < nodes.length; i++) {
           if (nodes[i].nodeType === Node.ELEMENT_NODE) {
             var node = /** @type {HTMLElement} */ (nodes[i]);
-            if (node.hasAttribute('primary')) {
-              primaryEl = node;
+            if (node.hasAttribute('sticky')) {
+              stickyEl = node;
               break;
-            } else if (!primaryEl) {
-              primaryEl = node;
+            } else if (!stickyEl) {
+              stickyEl = node;
             }
           }
         }
-        return primaryEl;
+        return stickyEl;
       },
 
       /**
@@ -11061,8 +11355,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        * @method resetLayout
        */
       resetLayout: function() {
-        this.fire('app-header-reset-layout');
-
         this.debounce('_resetLayout', function() {
           // noop if the header isn't visible
           if (this.offsetWidth === 0 && this.offsetHeight === 0) {
@@ -11074,21 +11366,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var currentDisabled = this.disabled;
 
           this._height = this.offsetHeight;
-          this._primaryEl = this._getPrimaryEl();
+          this._stickyEl = this._getStickyEl();
           this.disabled = true;
 
           // prepare for measurement
           if  (!firstSetup) {
             this._updateScrollState(0, true);
           }
-
           if (this._mayMove()) {
-            this._dHeight = this._primaryEl ? this._height - this._primaryEl.offsetHeight : 0;
+            this._dHeight = this._stickyEl ? this._height - this._stickyEl.offsetHeight : 0;
           } else {
             this._dHeight = 0;
           }
 
-          this._primaryElTop = this._primaryEl ? this._primaryEl.offsetTop : 0;
+          this._stickyElTop = this._stickyEl ? this._stickyEl.offsetTop : 0;
           this._setUpEffect();
 
           if (firstSetup) {
@@ -11099,6 +11390,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
           // restore no transition
           this.disabled = currentDisabled;
+          this.fire('app-header-reset-layout');
         });
       },
 
@@ -11225,9 +11517,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        */
       _transformHeader: function(y) {
         this.translate3d(0, (-y) + 'px', 0);
-        if (this._primaryEl && this.condenses && y >= this._primaryElTop) {
-          this.translate3d(0, (Math.min(y, this._dHeight) - this._primaryElTop) + 'px', 0,
-              this._primaryEl);
+        if (this._stickyEl) {
+          this.translate3d(0, this.condenses && y >= this._stickyElTop ?
+              (Math.min(y, this._dHeight) - this._stickyElTop) + 'px' : 0,  0, this._stickyEl);
         }
       },
 
@@ -11267,8 +11559,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           case 'background':
             this._ensureBgContainers();
             return this._bgContainer;
-          case 'title':
-            return Polymer.dom(this).querySelector('[title]');
+          case 'mainTitle':
+            return Polymer.dom(this).querySelector('[main-title]');
           case 'condensedTitle':
             return Polymer.dom(this).querySelector('[condensed-title]');
         }
@@ -11312,7 +11604,7 @@ Using the document scroll:
 <app-header-layout>
   <app-header fixed condenses effects="waterfall">
     <app-toolbar>
-      <div title>App name</div>
+      <div main-title>App name</div>
     </app-toolbar>
   </app-header>
   <div>
@@ -11327,7 +11619,7 @@ Using an own scrolling region:
 <app-header-layout has-scrolling-region style="width: 300px; height: 400px;">
   <app-header fixed condenses effects="waterfall">
     <app-toolbar>
-      <div title>App name</div>
+      <div main-title>App name</div>
     </app-toolbar>
   </app-header>
   <div>
@@ -11336,11 +11628,20 @@ Using an own scrolling region:
 </app-header-layout>
 ```
 
+Add the `fullbleed` attribute to app-header-layout to make it fit the size of its container:
+
+```html
+<app-header-layout fullbleed>
+ ...
+</app-header-layout>
+```
+
 @group App Elements
 @element app-header-layout
 @demo app-header-layout/demo/simple.html Simple Demo
 @demo app-header-layout/demo/scrolling-region.html Scrolling Region
 @demo app-header-layout/demo/music.html Music Demo
+@demo app-header-layout/demo/footer.html Footer Demo
 -->
 
 <dom-module id="app-header-layout" assetpath="app-layout/app-header-layout/">
@@ -11348,7 +11649,6 @@ Using an own scrolling region:
     <style>
       :host {
         display: block;
-
         /**
          * Force app-header-layout to have its own stacking context so that its parent can
          * control the stacking of it relative to other elements (e.g. app-drawer-layout).
@@ -11359,18 +11659,33 @@ Using an own scrolling region:
         z-index: 0;
       }
 
+      :host > ::content > app-header {
+        @apply(--layout-fixed-top);
+        z-index: 1;
+      }
+
       :host([has-scrolling-region]) {
         height: 100%;
       }
 
-      :host > ::content > app-header {
-        @apply(--layout-fixed-top);
-
-        z-index: 1;
-      }
-
       :host([has-scrolling-region]) > ::content > app-header {
         position: absolute;
+      }
+
+      :host([has-scrolling-region]) > #contentContainer {
+        @apply(--layout-fit);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      :host([fullbleed]) {
+        @apply(--layout-vertical);
+        @apply(--layout-fit);
+      }
+
+      :host([fullbleed]) > #contentContainer {
+        @apply(--layout-vertical);
+        @apply(--layout-flex);
       }
 
       #contentContainer {
@@ -11379,12 +11694,6 @@ Using an own scrolling region:
         z-index: 0;
       }
 
-      :host([has-scrolling-region]) > #contentContainer {
-        @apply(--layout-fit);
-
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-      }
     </style>
 
     <content id="header" select="app-header"></content>
@@ -11417,7 +11726,7 @@ Using an own scrolling region:
 
       listeners: {
         'iron-resize': '_resizeHandler',
-        'app-header-reset-layout': 'resetLayout'
+        'app-header-reset-layout': '_resetLayoutHandler'
       },
 
       observers: [
@@ -11449,11 +11758,9 @@ Using an own scrolling region:
         if (!this.isAttached || !header) {
           return;
         }
-
         // Get header height here so that style reads are batched together before style writes
         // (i.e. getBoundingClientRect() below).
         var headerHeight = header.offsetHeight;
-
         // Update the header position.
         if (!this.hasScrollingRegion) {
           var rect = this.getBoundingClientRect();
@@ -11464,7 +11771,6 @@ Using an own scrolling region:
           header.style.left = '';
           header.style.right = '';
         }
-
         // Update the content container position.
         var containerStyle = this.$.contentContainer.style;
         if (header.fixed && !header.willCondense() && this.hasScrollingRegion) {
@@ -11492,7 +11798,13 @@ Using an own scrolling region:
 
       _resizeHandler: function() {
         this.resetLayout();
+      },
+
+      _resetLayoutHandler: function(e) {
+        this.resetLayout();
+        e.stopPropagation();
       }
+
     });
   </script>
 </dom-module>
@@ -11549,6 +11861,10 @@ Example:
     Polymer({
       is: 'app-scrollpos-control',
 
+      behaviors: [
+        Polymer.IronScrollTargetBehavior
+      ],
+
       properties: {
         /**
          * The selected page.
@@ -11577,7 +11893,7 @@ Example:
 
       _selectedChanged: function(selected, old) {
         if (old != null) {
-          this._scrollposMap[old] = {x: window.pageXOffset, y: window.pageYOffset};
+          this._scrollposMap[old] = {x: this._scrollLeft, y: this._scrollTop};
         }
       },
 
@@ -11585,18 +11901,10 @@ Example:
         this.debounce('_updateScrollPos', function() {
           var pos = this._scrollposMap[this.selected];
           if (pos != null && !this.reset) {
-            this._scrollTo(pos.x, pos.y);
+            this.scroll(pos.x, pos.y);
           } else {
-            this._scrollTo(0, 0);
+            this.scroll(0, 0);
           }
-        });
-      },
-
-      _scrollTo: function(x, y) {
-        Polymer.AppLayout.scroll({
-          left: x,
-          top: y,
-          behavior: 'silent'
         });
       }
     });
@@ -11620,7 +11928,7 @@ Add a title to the toolbar.
 
 ```html
 <app-toolbar>
-  <div title>App name</div>
+  <div main-title>App name</div>
 </app-toolbar>
 ```
 
@@ -11629,7 +11937,7 @@ Add a button to the left and right side of the toolbar.
 ```html
 <app-toolbar>
   <paper-icon-button icon="menu"></paper-icon-button>
-  <div title>App name</div>
+  <div main-title>App name</div>
   <paper-icon-button icon="search"></paper-icon-button>
 </app-toolbar>
 ```
@@ -11639,9 +11947,9 @@ to the top or bottom of the toolbar respectively.
 
 ### Content attributes
 
-Attribute            | Description 
+Attribute            | Description
 ---------------------|---------------------------------------------------------
-`title`              | The main title element.
+`main-title`         | The main title element.
 `condensed-title`    | The title element if used inside a condensed app-header.
 `spacer`             | Adds a left margin of `64px`.
 `bottom-item`        | Sticks the element to the bottom of the toolbar.
@@ -11662,49 +11970,45 @@ Custom property              | Description                  | Default
   <template>
     <style>
       :host {
-        position: relative;
-
         @apply(--layout-horizontal);
         @apply(--layout-center);
-
+        position: relative;
         height: 64px;
         padding: 0 16px;
-
         pointer-events: none;
-
         font-size: var(--app-toolbar-font-size, 20px);
       }
 
-      :host > ::content > * {
+      ::content > * {
         pointer-events: auto;
       }
 
-      :host > ::content > paper-icon-button {
+      ::content > paper-icon-button {
         /* paper-icon-button/issues/33 */
         font-size: 0;
       }
 
-      :host > ::content > [title],
-      :host > ::content > [condensed-title] {
+      ::content > [main-title],
+      ::content > [condensed-title] {
         pointer-events: none;
         @apply(--layout-flex);
       }
 
-      :host > ::content > [bottom-item] {
+      ::content > [bottom-item] {
         position: absolute;
         right: 0;
         bottom: 0;
         left: 0;
       }
 
-      :host > ::content > [top-item] {
+      ::content > [top-item] {
         position: absolute;
         top: 0;
         right: 0;
         left: 0;
       }
 
-      :host > ::content > [spacer] {
+      ::content > [spacer] {
         margin-left: 64px;
       }
     </style>
@@ -11737,9 +12041,10 @@ rate than the foreground.
 </app-box>
 ```
 
-Notice the `background` attribute in the `img` element; this attribute specifies that that image is used as the background.
-By adding the background to the light dom, you can compose backgrounds that can change dynamically.
-Alternatively, the mixin `--app-box-background-front-layer` allows to style the background. For example:
+Notice the `background` attribute in the `img` element; this attribute specifies that that
+image is used as the background. By adding the background to the light dom, you can compose
+backgrounds that can change dynamically. Alternatively, the mixin `--app-box-background-front-layer`
+allows to style the background. For example:
 
 ```css
   .parallaxAppBox {
@@ -11757,11 +12062,36 @@ Finally, app-box can have content inside. For example:
 </app-box>
 ```
 
-## Scroll effects
+#### Importing the effects
 
-Effect name | Description
-----------------|-------------
-`parallax-background` | A parallax effect
+To use the scroll effects, you must explicitly import them in addition to `app-box`:
+
+```html
+<link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+```
+
+#### List of effects
+
+* **parallax-background**
+A simple parallax effect that vertically translates the backgrounds based on a fraction
+of the scroll position. For example:
+
+```css
+app-header {
+  --app-header-background-front-layer: {
+    background-image: url(...);
+  };
+}
+```
+```html
+<app-header style="height: 300px;" effects="parallax-background">
+  <app-toolbar>App name</app-toolbar>
+</app-header>
+```
+
+The fraction determines how far the background moves relative to the scroll position.
+This value can be assigned via the `scalar` config value and it is typically a value
+between 0 and 1 inclusive. If `scalar=0`, the background doesn't move away from the header.
 
 ## Styling
 
@@ -11780,31 +12110,24 @@ Mixin | Description | Default
     <style>
       :host {
         position: relative;
-
         display: block;
       }
 
       #background {
         @apply(--layout-fit);
-
         overflow: hidden;
-
         height: 100%;
       }
 
       #backgroundFrontLayer {
         min-height: 100%;
-
         pointer-events: none;
-
         background-size: cover;
-
         @apply(--app-box-background-front-layer);
       }
 
       #contentContainer {
         position: relative;
-
         width: 100%;
         height: 100%;
       }
@@ -12048,7 +12371,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     /**
      *  @this Polymer.AppLayout.ElementWithBackground
      */
-    run: function run(p, y) {
+    run: function run() {
       this.shadow = this.isOnScreen() && this.isContentBelow();
     }
   });
@@ -12075,15 +12398,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer.AppLayout.registerEffect('resize-title', {
       /** @this Polymer.AppLayout.ElementWithBackground */
       setUp: function setUp() {
-        var title = this._getDOMRef('title');
+        var title = this._getDOMRef('mainTitle');
         var condensedTitle = this._getDOMRef('condensedTitle');
 
         if (!condensedTitle) {
-          this._warn(this._logf('effects[resize-title]', 'undefined `condensed-title`'));
+          console.warn('Scroll effect `resize-title`: undefined `condensed-title`');
           return false;
         }
         if (!title) {
-          this._warn(this._logf('effects[resize-title]', 'undefined `title`'));
+          console.warn('Scroll effect `resize-title`: undefined `main-title`');
           return false;
         }
 
@@ -12213,17 +12536,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * @this Polymer.AppLayout.ElementWithBackground
      */
     setUp: function setUp(config) {
-      var title = this._getDOMRef('title');
+      var title = this._getDOMRef('mainTitle');
       var condensedTitle = this._getDOMRef('condensedTitle');
       var duration = config.duration || '0.2s';
       var fx = {};
 
       if (!condensedTitle) {
-        this._warn(this._logf('effects[resize-snapped-title]', 'undefined `condensed-title`'));
+        console.warn('Scroll effect `resize-snapped-title`: undefined `condensed-title`');
         return false;
       }
       if (!title) {
-        this._warn(this._logf('effects[resize-snapped-title]', 'undefined `title`'));
+        console.warn('Scroll effect `resize-snapped-title`: undefined `main-title`');
         return false;
       }
 
@@ -12853,63 +13176,6 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 --><!-- Taken from https://www.google.com/design/spec/style/color.html#color-ui-color-application -->
 
-<style is="custom-style">
-
-  :root {
-    /*
-     * You can use these generic variables in your elements for easy theming.
-     * For example, if all your elements use `--primary-text-color` as its main
-     * color, then switching from a light to a dark theme is just a matter of
-     * changing the value of `--primary-text-color` in your application.
-     */
-    --primary-text-color: var(--light-theme-text-color);
-    --primary-background-color: var(--light-theme-background-color);
-    --secondary-text-color: var(--light-theme-secondary-color);
-    --disabled-text-color: var(--light-theme-disabled-color);
-    --divider-color: var(--light-theme-divider-color);
-    --error-color: var(--paper-deep-orange-a700);
-
-    /*
-     * Primary and accent colors. Also see color.html for more colors.
-     */
-    --primary-color: var(--paper-indigo-500);
-    --light-primary-color: var(--paper-indigo-100);
-    --dark-primary-color: var(--paper-indigo-700);
-
-    --accent-color: var(--paper-pink-a200);
-    --light-accent-color: var(--paper-pink-a100);
-    --dark-accent-color: var(--paper-pink-a400);
-
-
-    /*
-     * Material Design Light background theme
-     */
-    --light-theme-background-color: #ffffff;
-    --light-theme-base-color: #000000;
-    --light-theme-text-color: var(--paper-grey-900);
-    --light-theme-secondary-color: #737373;  /* for secondary text and icons */
-    --light-theme-disabled-color: #9b9b9b;  /* disabled/hint text */
-    --light-theme-divider-color: #dbdbdb;
-
-    /*
-     * Material Design Dark background theme
-     */
-    --dark-theme-background-color: var(--paper-grey-900);
-    --dark-theme-base-color: #ffffff;
-    --dark-theme-text-color: #ffffff;
-    --dark-theme-secondary-color: #bcbcbc;  /* for secondary text and icons */
-    --dark-theme-disabled-color: #646464;  /* disabled/hint text */
-    --dark-theme-divider-color: #3c3c3c;
-
-    /*
-     * Deprecated values because of their confusing names.
-     */
-    --text-primary-color: var(--dark-theme-text-color);
-    --default-primary-color: var(--primary-color);
-
-  }
-
-</style>
 <!--
 @license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
@@ -13238,8 +13504,63 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   }
 
-</style>
-<!--
+</style><style is="custom-style">
+
+  :root {
+    /*
+     * You can use these generic variables in your elements for easy theming.
+     * For example, if all your elements use `--primary-text-color` as its main
+     * color, then switching from a light to a dark theme is just a matter of
+     * changing the value of `--primary-text-color` in your application.
+     */
+    --primary-text-color: var(--light-theme-text-color);
+    --primary-background-color: var(--light-theme-background-color);
+    --secondary-text-color: var(--light-theme-secondary-color);
+    --disabled-text-color: var(--light-theme-disabled-color);
+    --divider-color: var(--light-theme-divider-color);
+    --error-color: var(--paper-deep-orange-a700);
+
+    /*
+     * Primary and accent colors. Also see color.html for more colors.
+     */
+    --primary-color: var(--paper-indigo-500);
+    --light-primary-color: var(--paper-indigo-100);
+    --dark-primary-color: var(--paper-indigo-700);
+
+    --accent-color: var(--paper-pink-a200);
+    --light-accent-color: var(--paper-pink-a100);
+    --dark-accent-color: var(--paper-pink-a400);
+
+
+    /*
+     * Material Design Light background theme
+     */
+    --light-theme-background-color: #ffffff;
+    --light-theme-base-color: #000000;
+    --light-theme-text-color: var(--paper-grey-900);
+    --light-theme-secondary-color: #737373;  /* for secondary text and icons */
+    --light-theme-disabled-color: #9b9b9b;  /* disabled/hint text */
+    --light-theme-divider-color: #dbdbdb;
+
+    /*
+     * Material Design Dark background theme
+     */
+    --dark-theme-background-color: var(--paper-grey-900);
+    --dark-theme-base-color: #ffffff;
+    --dark-theme-text-color: #ffffff;
+    --dark-theme-secondary-color: #bcbcbc;  /* for secondary text and icons */
+    --dark-theme-disabled-color: #646464;  /* disabled/hint text */
+    --dark-theme-divider-color: #3c3c3c;
+
+    /*
+     * Deprecated values because of their confusing names.
+     */
+    --text-primary-color: var(--dark-theme-text-color);
+    --default-primary-color: var(--primary-color);
+
+  }
+
+</style><!--
 @license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -13247,7 +13568,17 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><style is="custom-style">
+--><!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+--><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700">
+<style is="custom-style">
 
   :root {
 
@@ -13402,16 +13733,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   }
 
-</style>
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700"><dom-module id="paper-badge" assetpath="paper-badge/">
+</style><dom-module id="paper-badge" assetpath="paper-badge/">
   <template>
     <style>
       :host {
@@ -15956,8 +16278,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     };
   }
 
-</style>
-<dom-module id="paper-material-shared-styles" assetpath="paper-material/">
+</style><dom-module id="paper-material-shared-styles" assetpath="paper-material/">
   <template>
     <style>
       :host {
@@ -23569,7 +23890,8 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><script src="web-animations-js/web-animations-next-lite.min.js"></script><script>
+--><script src="web-animations-js/web-animations-next-lite.min.js"></script>
+<script>
 
   Polymer({
 
@@ -23611,7 +23933,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       pageX: 0,
       pageY: 0
     };
-    // Used to avoid computing event.path and filter scrollable nodes (better perf).
+    /**
+     * Used to avoid computing event.path and filter scrollable nodes (better perf).
+     * @type {?EventTarget}
+     */
     var ROOT_TARGET = null;
     var SCROLLABLE_NODES = [];
 
@@ -23848,11 +24173,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var lockingIndex = nodes.indexOf(this.currentLockingElement);
         // Loop from root target to locking element (included).
         for (var i = 0; i <= lockingIndex; i++) {
-          var node = nodes[i];
-          // Skip document fragments.
-          if (node.nodeType === 11) {
+          // Skip non-Element nodes.
+          if (nodes[i].nodeType !== Node.ELEMENT_NODE) {
             continue;
           }
+          var node = /** @type {!Element} */ (nodes[i]);
           // Check inline style before checking computed style.
           var style = node.style;
           if (style.overflow !== 'scroll' && style.overflow !== 'auto') {
@@ -24000,7 +24325,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           /**
            * An animation config. If provided, this will be used to animate the
-           * opening of the dropdown.
+           * opening of the dropdown. Pass an Array for multiple animations.
+           * See `neon-animation` documentation for more animation configuration
+           * details.
            */
           openAnimationConfig: {
             type: Object
@@ -24008,7 +24335,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           /**
            * An animation config. If provided, this will be used to animate the
-           * closing of the dropdown.
+           * closing of the dropdown. Pass an Array for multiple animations.
+           * See `neon-animation` documentation for more animation configuration
+           * details.
            */
           closeAnimationConfig: {
             type: Object
@@ -24206,9 +24535,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          * to configure specific parts of the opening and closing animations.
          */
         _updateAnimationConfig: function() {
-          var animations = (this.openAnimationConfig || []).concat(this.closeAnimationConfig || []);
+          // Update the animation node to be the containedElement.
+          var animationNode = this.containedElement;
+          var animations = [].concat(this.openAnimationConfig || []).concat(this.closeAnimationConfig || []);
           for (var i = 0; i < animations.length; i++) {
-            animations[i].node = this.containedElement;
+            animations[i].node = animationNode;
           }
           this.animationConfig = {
             open: this.openAnimationConfig,
@@ -30353,302 +30684,7 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><style>
-
-  /*******************************
-            Flex Layout
-  *******************************/
-
-  .layout.horizontal,
-  .layout.horizontal-reverse,
-  .layout.vertical,
-  .layout.vertical-reverse {
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-  }
-
-  .layout.inline {
-    display: -ms-inline-flexbox;
-    display: -webkit-inline-flex;
-    display: inline-flex;
-  }
-
-  .layout.horizontal {
-    -ms-flex-direction: row;
-    -webkit-flex-direction: row;
-    flex-direction: row;
-  }
-
-  .layout.horizontal-reverse {
-    -ms-flex-direction: row-reverse;
-    -webkit-flex-direction: row-reverse;
-    flex-direction: row-reverse;
-  }
-
-  .layout.vertical {
-    -ms-flex-direction: column;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-  }
-
-  .layout.vertical-reverse {
-    -ms-flex-direction: column-reverse;
-    -webkit-flex-direction: column-reverse;
-    flex-direction: column-reverse;
-  }
-
-  .layout.wrap {
-    -ms-flex-wrap: wrap;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
-  }
-
-  .layout.wrap-reverse {
-    -ms-flex-wrap: wrap-reverse;
-    -webkit-flex-wrap: wrap-reverse;
-    flex-wrap: wrap-reverse;
-  }
-
-  .flex-auto {
-    -ms-flex: 1 1 auto;
-    -webkit-flex: 1 1 auto;
-    flex: 1 1 auto;
-  }
-
-  .flex-none {
-    -ms-flex: none;
-    -webkit-flex: none;
-    flex: none;
-  }
-
-  .flex,
-  .flex-1 {
-    -ms-flex: 1;
-    -webkit-flex: 1;
-    flex: 1;
-  }
-
-  .flex-2 {
-    -ms-flex: 2;
-    -webkit-flex: 2;
-    flex: 2;
-  }
-
-  .flex-3 {
-    -ms-flex: 3;
-    -webkit-flex: 3;
-    flex: 3;
-  }
-
-  .flex-4 {
-    -ms-flex: 4;
-    -webkit-flex: 4;
-    flex: 4;
-  }
-
-  .flex-5 {
-    -ms-flex: 5;
-    -webkit-flex: 5;
-    flex: 5;
-  }
-
-  .flex-6 {
-    -ms-flex: 6;
-    -webkit-flex: 6;
-    flex: 6;
-  }
-
-  .flex-7 {
-    -ms-flex: 7;
-    -webkit-flex: 7;
-    flex: 7;
-  }
-
-  .flex-8 {
-    -ms-flex: 8;
-    -webkit-flex: 8;
-    flex: 8;
-  }
-
-  .flex-9 {
-    -ms-flex: 9;
-    -webkit-flex: 9;
-    flex: 9;
-  }
-
-  .flex-10 {
-    -ms-flex: 10;
-    -webkit-flex: 10;
-    flex: 10;
-  }
-
-  .flex-11 {
-    -ms-flex: 11;
-    -webkit-flex: 11;
-    flex: 11;
-  }
-
-  .flex-12 {
-    -ms-flex: 12;
-    -webkit-flex: 12;
-    flex: 12;
-  }
-
-  /* alignment in cross axis */
-
-  .layout.start {
-    -ms-flex-align: start;
-    -webkit-align-items: flex-start;
-    align-items: flex-start;
-  }
-
-  .layout.center,
-  .layout.center-center {
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-  }
-
-  .layout.end {
-    -ms-flex-align: end;
-    -webkit-align-items: flex-end;
-    align-items: flex-end;
-  }
-
-  /* alignment in main axis */
-
-  .layout.start-justified {
-    -ms-flex-pack: start;
-    -webkit-justify-content: flex-start;
-    justify-content: flex-start;
-  }
-
-  .layout.center-justified,
-  .layout.center-center {
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-  }
-
-  .layout.end-justified {
-    -ms-flex-pack: end;
-    -webkit-justify-content: flex-end;
-    justify-content: flex-end;
-  }
-
-  .layout.around-justified {
-    -ms-flex-pack: around;
-    -webkit-justify-content: space-around;
-    justify-content: space-around;
-  }
-
-  .layout.justified {
-    -ms-flex-pack: justify;
-    -webkit-justify-content: space-between;
-    justify-content: space-between;
-  }
-
-  /* self alignment */
-
-  .self-start {
-    -ms-align-self: flex-start;
-    -webkit-align-self: flex-start;
-    align-self: flex-start;
-  }
-
-  .self-center {
-    -ms-align-self: center;
-    -webkit-align-self: center;
-    align-self: center;
-  }
-
-  .self-end {
-    -ms-align-self: flex-end;
-    -webkit-align-self: flex-end;
-    align-self: flex-end;
-  }
-
-  .self-stretch {
-    -ms-align-self: stretch;
-    -webkit-align-self: stretch;
-    align-self: stretch;
-  }
-
-  /*******************************
-            Other Layout
-  *******************************/
-
-  .block {
-    display: block;
-  }
-
-  /* IE 10 support for HTML5 hidden attr */
-  [hidden] {
-    display: none !important;
-  }
-
-  .invisible {
-    visibility: hidden !important;
-  }
-
-  .relative {
-    position: relative;
-  }
-
-  .fit {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-
-  body.fullbleed {
-    margin: 0;
-    height: 100vh;
-  }
-
-  .scroll {
-    -webkit-overflow-scrolling: touch;
-    overflow: auto;
-  }
-
-  /* fixed position */
-
-  .fixed-bottom,
-  .fixed-left,
-  .fixed-right,
-  .fixed-top {
-    position: fixed;
-  }
-
-  .fixed-top {
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-
-  .fixed-right {
-    top: 0;
-    right: 0;
-    bottom: 0;
-  }
-
-  .fixed-bottom {
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-
-  .fixed-left {
-    top: 0;
-    bottom: 0;
-    left: 0;
-  }
-
-</style>
-<!--
+--><!--
 @license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -30656,7 +30692,11 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
---><style>
+--><script>
+  console.warn('This file is deprecated. Please use `iron-flex-layout/iron-flex-layout-classes.html`, and one of the specific dom-modules instead');
+</script>
+
+<style>
 
   /*******************************
             Flex Layout
@@ -30951,9 +30991,301 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </style>
 <script>
   console.warn('This file is deprecated. Please use `iron-flex-layout/iron-flex-layout-classes.html`, and one of the specific dom-modules instead');
-</script><script>
-  console.warn('This file is deprecated. Please use `iron-flex-layout/iron-flex-layout-classes.html`, and one of the specific dom-modules instead');
-</script><!--
+</script><style>
+
+  /*******************************
+            Flex Layout
+  *******************************/
+
+  .layout.horizontal,
+  .layout.horizontal-reverse,
+  .layout.vertical,
+  .layout.vertical-reverse {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+  }
+
+  .layout.inline {
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+  }
+
+  .layout.horizontal {
+    -ms-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+  }
+
+  .layout.horizontal-reverse {
+    -ms-flex-direction: row-reverse;
+    -webkit-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+  }
+
+  .layout.vertical {
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+
+  .layout.vertical-reverse {
+    -ms-flex-direction: column-reverse;
+    -webkit-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+  }
+
+  .layout.wrap {
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+
+  .layout.wrap-reverse {
+    -ms-flex-wrap: wrap-reverse;
+    -webkit-flex-wrap: wrap-reverse;
+    flex-wrap: wrap-reverse;
+  }
+
+  .flex-auto {
+    -ms-flex: 1 1 auto;
+    -webkit-flex: 1 1 auto;
+    flex: 1 1 auto;
+  }
+
+  .flex-none {
+    -ms-flex: none;
+    -webkit-flex: none;
+    flex: none;
+  }
+
+  .flex,
+  .flex-1 {
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+  }
+
+  .flex-2 {
+    -ms-flex: 2;
+    -webkit-flex: 2;
+    flex: 2;
+  }
+
+  .flex-3 {
+    -ms-flex: 3;
+    -webkit-flex: 3;
+    flex: 3;
+  }
+
+  .flex-4 {
+    -ms-flex: 4;
+    -webkit-flex: 4;
+    flex: 4;
+  }
+
+  .flex-5 {
+    -ms-flex: 5;
+    -webkit-flex: 5;
+    flex: 5;
+  }
+
+  .flex-6 {
+    -ms-flex: 6;
+    -webkit-flex: 6;
+    flex: 6;
+  }
+
+  .flex-7 {
+    -ms-flex: 7;
+    -webkit-flex: 7;
+    flex: 7;
+  }
+
+  .flex-8 {
+    -ms-flex: 8;
+    -webkit-flex: 8;
+    flex: 8;
+  }
+
+  .flex-9 {
+    -ms-flex: 9;
+    -webkit-flex: 9;
+    flex: 9;
+  }
+
+  .flex-10 {
+    -ms-flex: 10;
+    -webkit-flex: 10;
+    flex: 10;
+  }
+
+  .flex-11 {
+    -ms-flex: 11;
+    -webkit-flex: 11;
+    flex: 11;
+  }
+
+  .flex-12 {
+    -ms-flex: 12;
+    -webkit-flex: 12;
+    flex: 12;
+  }
+
+  /* alignment in cross axis */
+
+  .layout.start {
+    -ms-flex-align: start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+  }
+
+  .layout.center,
+  .layout.center-center {
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+
+  .layout.end {
+    -ms-flex-align: end;
+    -webkit-align-items: flex-end;
+    align-items: flex-end;
+  }
+
+  /* alignment in main axis */
+
+  .layout.start-justified {
+    -ms-flex-pack: start;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+  }
+
+  .layout.center-justified,
+  .layout.center-center {
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+
+  .layout.end-justified {
+    -ms-flex-pack: end;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+  }
+
+  .layout.around-justified {
+    -ms-flex-pack: around;
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+  }
+
+  .layout.justified {
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+  }
+
+  /* self alignment */
+
+  .self-start {
+    -ms-align-self: flex-start;
+    -webkit-align-self: flex-start;
+    align-self: flex-start;
+  }
+
+  .self-center {
+    -ms-align-self: center;
+    -webkit-align-self: center;
+    align-self: center;
+  }
+
+  .self-end {
+    -ms-align-self: flex-end;
+    -webkit-align-self: flex-end;
+    align-self: flex-end;
+  }
+
+  .self-stretch {
+    -ms-align-self: stretch;
+    -webkit-align-self: stretch;
+    align-self: stretch;
+  }
+
+  /*******************************
+            Other Layout
+  *******************************/
+
+  .block {
+    display: block;
+  }
+
+  /* IE 10 support for HTML5 hidden attr */
+  [hidden] {
+    display: none !important;
+  }
+
+  .invisible {
+    visibility: hidden !important;
+  }
+
+  .relative {
+    position: relative;
+  }
+
+  .fit {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  body.fullbleed {
+    margin: 0;
+    height: 100vh;
+  }
+
+  .scroll {
+    -webkit-overflow-scrolling: touch;
+    overflow: auto;
+  }
+
+  /* fixed position */
+
+  .fixed-bottom,
+  .fixed-left,
+  .fixed-right,
+  .fixed-top {
+    position: fixed;
+  }
+
+  .fixed-top {
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .fixed-right {
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .fixed-bottom {
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .fixed-left {
+    top: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+</style><!--
 @license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
