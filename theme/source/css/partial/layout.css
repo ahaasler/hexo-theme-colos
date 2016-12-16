@@ -40,7 +40,7 @@ app-toolbar {
     color: white;
     text-decoration: none;
   }
-  @nest & [title] {
+  @nest & [main-title] {
     position: absolute;
     margin-left: 2em;
     font-size: 1.6em;
