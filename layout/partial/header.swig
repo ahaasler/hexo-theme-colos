@@ -16,6 +16,6 @@
 	</app-toolbar>
 	<app-toolbar class="middle"></app-toolbar>
 	<app-toolbar class="bottom">
-		<div title>{{ page.title }}</div>
+		<div main-title>{{ page.title }}</div>
 	</app-toolbar>
 </app-header>
