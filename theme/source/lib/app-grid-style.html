@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 Modifications: Adrian Haasler <dev@adrianhaasler.com>
 - Change polymer path for colos file hierarchy.
+- Add content support to styles.
 -->
 
 <link rel="import" href="polymer/polymer.html">
@@ -124,7 +125,7 @@ Custom property                               | Description                     
   <template>
     <style>
 
-      :host {
+      :host ::content {
         /**
          * The width for the expandible item is:
          * ((100% - subPixelAdjustment) / columns * itemColumns - gutter
@@ -141,7 +142,7 @@ Custom property                               | Description                     
         };
       }
 
-      .app-grid {
+      :host ::content .app-grid {
         display: -ms-flexbox;
         display: -webkit-flex;
         display: flex;
@@ -159,7 +160,7 @@ Custom property                               | Description                     
         box-sizing: border-box;
       }
 
-      .app-grid > * {
+      :host ::content .app-grid > * {
         /* Required for IE 10 */
         -ms-flex: 1 1 100%;
         -webkit-flex: 1;
@@ -176,17 +177,17 @@ Custom property                               | Description                     
         box-sizing: border-box;
       }
 
-      .app-grid[has-aspect-ratio] > * {
+      :host ::content .app-grid[has-aspect-ratio] > * {
         position: relative;
       }
 
-      .app-grid[has-aspect-ratio] > *::before {
+      :host ::content .app-grid[has-aspect-ratio] > *::before {
         display: block;
         content: "";
         padding-top: var(--app-grid-item-height, 100%);
       }
 
-      .app-grid[has-aspect-ratio] > * > * {
+      :host ::content .app-grid[has-aspect-ratio] > * > * {
         position: absolute;
         top: 0;
         right: 0;
