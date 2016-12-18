@@ -1,0 +1,56 @@
+<!--
+@license
+Copyright (c) 2016 Adrian Haasler García. All rights reserved.
+This code may only be used under the MIT license found at https://github.com/ahaasler/hexo-theme-colos/blob/master/LICENSE
+Based on app-grid polymer examples: Copyright (c) 2016 The Polymer Project Authors. All rights reserved. License: http://polymer.github.io/LICENSE.txt
+-->
+
+<link rel="import" href="app-grid-style.html">
+
+<!--
+colos-grid is an element that uses app-grid-style polymer helper class for creating responsive, fluid grid layouts using custom properties.
+-->
+
+<dom-module id="colos-grid">
+  <template>
+    <style include="colos-app-grid-style">
+
+      :host ::content {
+        display: block;
+        --app-grid-columns: 2;
+        --app-grid-gutter: 0px;
+        --app-grid-expandible-item-columns: 2;
+      }
+
+      :host ::content .expandible-item {
+          @apply(--app-grid-expandible-item);
+      }
+
+      @media (max-width: 799px) {
+        :host ::content {
+          --app-grid-columns: 1;
+          --app-grid-gutter: 0px;
+          --app-grid-expandible-item-columns: 1;
+        }
+      }
+
+    </style>
+    <content></content>
+  </template>
+  <script>
+    HTMLImports.whenReady(function() {
+      Polymer({
+        is: 'colos-grid',
+        attached: function() {
+          this._updateGridStyles = this._updateGridStyles || function() {
+            this.updateStyles();
+          }.bind(this);
+          window.addEventListener('resize', this._updateGridStyles);
+        },
+        detached: function() {
+          window.removeEventListener('resize', this._updateGridStyles);
+        }
+      });
+    });
+  </script>
+</dom-module>
