@@ -22,6 +22,22 @@ colos-grid is an element that uses app-grid-style polymer helper class for creat
         --app-grid-expandible-item-columns: 2;
       }
 
+      :host.three-cols ::content {
+        --app-grid-columns: 3;
+      }
+
+      :host.three-exp ::content {
+        --app-grid-expandible-item-columns: 3;
+      }
+
+      :host.four-cols ::content {
+        --app-grid-columns: 4;
+      }
+
+      :host.four-exp ::content {
+        --app-grid-expandible-item-columns: 4;
+      }
+
       :host ::content .expandible-item {
           @apply(--app-grid-expandible-item);
       }
