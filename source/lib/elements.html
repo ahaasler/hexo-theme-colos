@@ -8487,6 +8487,22 @@ this.fire('dom-change');
         --app-grid-expandible-item-columns: 2;
       }
 
+      :host.three-cols ::content {
+        --app-grid-columns: 3;
+      }
+
+      :host.three-exp ::content {
+        --app-grid-expandible-item-columns: 3;
+      }
+
+      :host.four-cols ::content {
+        --app-grid-columns: 4;
+      }
+
+      :host.four-exp ::content {
+        --app-grid-expandible-item-columns: 4;
+      }
+
       :host ::content .expandible-item {
           @apply(--app-grid-expandible-item);
       }
@@ -21262,7 +21278,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply(--paper-drawer-panel-drawer-container);
       }
 
-      .transition > #drawer {
+      .transition-drawer {
         transition: -webkit-transform ease-in-out 0.3s, width ease-in-out 0.3s, visibility 0.3s;
         transition: transform ease-in-out 0.3s, width ease-in-out 0.3s, visibility 0.3s;
       }
@@ -21670,7 +21686,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          * @method openDrawer
          */
         openDrawer: function() {
-          this.selected = 'drawer';
+          requestAnimationFrame(function() {
+            this.toggleClass("transition-drawer", true, this.$.drawer);
+            this.selected = 'drawer';
+          }.bind(this));
+          
         },
 
         /**
@@ -21679,7 +21699,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          * @method closeDrawer
          */
         closeDrawer: function() {
-          this.selected = 'main';
+          requestAnimationFrame(function() {
+            this.toggleClass("transition-drawer", true, this.$.drawer);
+            this.selected = 'main';
+          }.bind(this));
         },
 
         _onTransitionEnd: function (e) {
@@ -21691,9 +21714,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           if (e.propertyName === 'left' || e.propertyName === 'right') {
             this.notifyResize();
           }
-          if (e.propertyName === 'transform' && this.selected === 'drawer') {
-            var focusedChild = this._getAutoFocusedNode();
-            focusedChild && focusedChild.focus();
+          if (e.propertyName === 'transform') {
+            requestAnimationFrame(function() {
+              this.toggleClass("transition-drawer", false, this.$.drawer);
+            }.bind(this));
+            if (this.selected === 'drawer') {
+              var focusedChild = this._getAutoFocusedNode();
+              focusedChild && focusedChild.focus();
+            }
           }
         },
 
