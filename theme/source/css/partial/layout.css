@@ -59,3 +59,8 @@ app-toolbar {
     }
   }
 }
+
+.page-content .wrapper > * {
+  max-width: 960px;
+  margin: 0 auto;
+}
