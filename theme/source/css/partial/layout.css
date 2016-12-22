@@ -60,7 +60,7 @@ app-toolbar {
   }
 }
 
-.page-content .wrapper > * {
+.page-content .wrapper > *:not(colos-grid) {
   max-width: 960px;
   margin: 0 auto;
 }
