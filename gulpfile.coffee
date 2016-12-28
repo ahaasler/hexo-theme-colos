@@ -100,6 +100,7 @@ gulp.task 'postcss', (callback) ->
     cssnext(
       'browers': [ 'last 2 version' ]
       'customProperties': true
+      'applyRule': true
       'colorFunction': true
       'customSelectors': true
       'sourcemap': true
