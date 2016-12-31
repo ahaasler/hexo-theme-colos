@@ -29,6 +29,7 @@
     "browser-sync": "^2.10.0",
     "casperjs": "^1.1.0-beta3",
     "coffee-script": "^1.10.0",
+    "cssnano": "^3.9.1",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-casperjs": "0.0.5",

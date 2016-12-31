@@ -2,6 +2,7 @@ gulp = require 'gulp'
 path = require 'path'
 del = require 'del'
 inquirer = require 'inquirer'
+cssnano = require 'cssnano'
 cssnext = require 'postcss-cssnext'
 postcssImport = require 'postcss-import'
 postcssNesting = require 'postcss-nesting'
@@ -102,10 +103,8 @@ gulp.task 'postcss', (callback) ->
       'customProperties': true
       'applyRule': true
       'colorFunction': true
-      'customSelectors': true
-      'sourcemap': true
-      'compress': true
-      'import': true)
+      'customSelectors': true)
+    cssnano autoprefixer: false
   ]
   gulp.src(cssFiles, base: dir.theme).pipe(postcss(processors)).pipe gulp.dest(dir.dist.theme)
 
