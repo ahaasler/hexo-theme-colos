@@ -11,3 +11,10 @@ body {
     margin-bottom: 1em;
   }
 }
+
+pre,
+.highlight {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.93em;
+  line-height: 1.2em;
+}

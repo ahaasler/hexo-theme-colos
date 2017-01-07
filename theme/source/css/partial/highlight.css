@@ -1,9 +1,6 @@
 pre,
 .highlight {
   color: var(--white);
-  font-family: 'Roboto Mono', monospace;
-  font-size: 0.93em;
-  line-height: 1.2em;
   @nest & .string {
     color: var(--yellow);
   }
