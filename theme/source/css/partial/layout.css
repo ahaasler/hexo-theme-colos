@@ -64,3 +64,8 @@ app-toolbar {
   max-width: 960px;
   margin: 0 auto;
 }
+
+pre,
+.highlight {
+  padding: .4em 0;
+}
