@@ -1,3 +1,8 @@
+:root {
+  --highlight-font-size: 0.93em;
+  --highlight-line-height: 1.2em;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
 }
@@ -15,6 +20,9 @@ body {
 pre,
 .highlight {
   font-family: 'Roboto Mono', monospace;
-  font-size: 0.93em;
-  line-height: 1.2em;
+  font-size: var(--highlight-font-size);
+  line-height: var(--highlight-line-height);
+  @nest & .line {
+    height: calc(var(--highlight-line-height) * var(--highlight-font-size));
+  }
 }
