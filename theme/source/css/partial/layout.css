@@ -68,7 +68,13 @@ app-toolbar {
   margin: 0 auto;
 }
 
-pre,
 .highlight {
   padding: .4em 0;
+  @nest & .gutter {
+    width: 1.3em;
+    text-align: right;
+  }
+  @nest & .code {
+    padding-left: 1.4em;
+  }
 }
