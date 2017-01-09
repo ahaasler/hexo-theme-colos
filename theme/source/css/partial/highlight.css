@@ -1,6 +1,6 @@
 pre,
 .highlight {
-  color: var(--white);
+  color: var(--primary-text);
   @nest & .string {
     color: var(--yellow);
   }

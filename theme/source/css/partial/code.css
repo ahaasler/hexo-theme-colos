@@ -1,4 +1,5 @@
-pre,
 .highlight {
-  background: var(--dark-grey);
+  background: var(--grey-50);
+  border: solid var(--grey-300);
+  border-width: 1px 0;
 }
