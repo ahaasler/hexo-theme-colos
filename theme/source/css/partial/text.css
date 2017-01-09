@@ -1,5 +1,5 @@
 :root {
-  --highlight-font-size: 0.93em;
+  --highlight-font-size: 0.75em;
   --highlight-line-height: 1.2em;
 }
 
@@ -23,6 +23,6 @@ pre,
   font-size: var(--highlight-font-size);
   line-height: var(--highlight-line-height);
   @nest & .line {
-    height: calc(var(--highlight-line-height) * var(--highlight-font-size));
+    height: var(--highlight-line-height);
   }
 }
