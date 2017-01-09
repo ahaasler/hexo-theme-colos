@@ -2,19 +2,19 @@ pre,
 .highlight {
   color: var(--primary-text);
   @nest & .string {
-    color: var(--yellow);
+    color: var(--yellow-800);
   }
   @nest & .comment {
     color: var(--grey);
   }
   @nest & .keyword {
-    color: var(--pink);
+    color: var(--pink-800);
   }
   @nest & .built_in {
-    color: var(--cyan);
+    color: var(--cyan-800);
   }
   @nest & .number, .literal {
-    color: var(--deep-purple);
+    color: var(--deep-purple-800);
   }
   @nest &.bash {
     @nest & .shebang {
@@ -24,7 +24,7 @@ pre,
       color: var(--light-grey);
     }
     @nest & .title {
-      color: var(--light-green);
+      color: var(--light-green-800);
     }
   }
 }
