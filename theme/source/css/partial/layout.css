@@ -78,3 +78,12 @@ app-toolbar {
     padding-left: 1.4em;
   }
 }
+
+.archives-wrap {
+  @nest &:nth-child(3n+0) {
+    background-color: var(--deep-purple-50);
+  }
+  @nest &:nth-child(3n+2) {
+    background-color: var(--deep-purple-100);
+  }
+}
