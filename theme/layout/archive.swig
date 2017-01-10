@@ -13,7 +13,9 @@
 			{% set last = year %}
 			<section class="archives-wrap">
 				<div class="archive-year-wrap">
-					<a href="{{ url_for(config.archive_dir + '/' + year) }}" class="archive-year">{{ year }}</a>
+					<h1>
+						<a href="{{ url_for(config.archive_dir + '/' + year) }}" class="archive-year">{{ year }}</a>
+					</h1>
 				</div>
 				<div class="archives">
 		{% endif %}
