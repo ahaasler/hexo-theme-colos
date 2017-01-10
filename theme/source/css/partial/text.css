@@ -3,6 +3,8 @@
   --highlight-line-height: 1.2em;
 }
 
+@custom-selector :--selected :hover, :focus, :active;
+
 body {
   font-family: 'Roboto', sans-serif;
 }
@@ -39,6 +41,14 @@ h5 {
 
 h6 {
   font-size: 1.2em;
+}
+
+.archives-wrap .archive-year {
+  text-decoration: none;
+  color: var(--primary-text);
+  @nest &:--selected {
+    color: var(--secondary-text);
+  }
 }
 
 pre,
