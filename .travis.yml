@@ -17,7 +17,11 @@ env:
   - GIT_USER='Adrian Haasler García'
   - GIT_EMAIL=dev@adrianhaasler.com
   - GIT_REPO=github.com/ahaasler/hexo-theme-colos.git
-cache: yarn
+cache:
+  yarn: true
+  directories:
+    - node_modules
+    - $HOME/.cache/yarn
 deploy:
   provider: releases
   api_key:
