@@ -13,7 +13,7 @@
 		{% if is_post() %}
 			{{ post.content }}
 		{% else %}
-			{{ post.excerpt || post.content | replace('<figure class="highlight.*?\/figure>', '', "gm") | striptags | truncate(140) }}
+			{{ post.excerpt || post.content | replace('<figure class="highlight.*?\/figure>', '', "gm") | replace('<h[1-6].*?\/h[1-6]>', '', "gm") | striptags | truncate(140) }}
 		{% endif %}
 	</div>
 </article>
