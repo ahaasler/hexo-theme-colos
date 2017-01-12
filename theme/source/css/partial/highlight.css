@@ -20,6 +20,9 @@ pre,
     @nest & .shebang {
       color: var(--grey);
     }
+    @nest & .meta {
+      color: var(--grey);
+    }
     @nest & .variable {
       color: var(--light-grey);
     }
