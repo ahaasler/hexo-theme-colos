@@ -1,8 +1,6 @@
 <article class="post">
 	<header class="post-header">
-		{% if is_post() %}
-			<h1 class="post-title">{{ post.title }}</h1>
-		{% else %}
+		{% if not is_post() %}
 			<h1>
 				<a href="{{ url_for(post.path) }}" class="post-title">{{ post.title }}</a>
 			</h1>
