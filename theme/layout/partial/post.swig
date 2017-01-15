@@ -1,17 +1,16 @@
 <article class="post">
-	<header class="post-header">
-		{% if not is_post() %}
-			<h1>
-				<a href="{{ url_for(post.path) }}" class="post-title">{{ post.title }}</a>
-			</h1>
-		{% endif %}
-		<span class="post-date">{{ time_tag(post.date, config.post_date_format) }}</span>
-	</header>
-	<div class="post-content">
-		{% if is_post() %}
+	{% if is_post() %}
+		<header class="post-header">
+			<span class="post-date">{{ time_tag(post.date, config.post_date_format) }}</span>
+		</header>
+		<div class="post-content">
 			{{ post.content }}
-		{% else %}
-			{{ post.excerpt || post.content | replace('<figure class="highlight.*?\/figure>', '', "gm") | replace('<h[1-6].*?\/h[1-6]>', '', "gm") | striptags | truncate(140) }}
-		{% endif %}
-	</div>
+		</div>
+	{% else %}
+		<paper-card heading="{{ post.title }}" image="http://placehold.it/350x150/FFC107/000000" alt="{{ post.title }}">
+			<div class="card-content">
+				{{ post.excerpt || post.content | replace('<figure class="highlight.*?\/figure>', '', "gm") | replace('<h[1-6].*?\/h[1-6]>', '', "gm") | striptags | truncate(140) }}
+			</div>
+		</paper-card>
+	{% endif %}
 </article>
