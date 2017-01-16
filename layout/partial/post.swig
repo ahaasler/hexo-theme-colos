@@ -7,7 +7,10 @@
 			{{ post.content }}
 		</div>
 	{% else %}
-		<paper-card heading="{{ post.title }}" image="http://placehold.it/350x150/FFC107/000000" alt="{{ post.title }}">
+		<paper-card
+				heading="{{ post.title }}"
+				{% if post.cover %}image="{{ url_for(post.cover) }}"{% endif %}
+				alt="{{ post.title }}">
 			<div class="card-content">
 				{{ post.excerpt || post.content | replace('<figure class="highlight.*?\/figure>', '', "gm") | replace('<h[1-6].*?\/h[1-6]>', '', "gm") | striptags | truncate(140) }}
 			</div>
