@@ -60,7 +60,7 @@ app-toolbar {
   }
 }
 
-@custom-selector :--narrow-elements p, table, header, h1, h2, h3, h4, h5, h6;
+@custom-selector :--narrow-elements p, table, header, h1, h2, h3, h4, h5, h6, .narrow-element;
 
 .page-content .wrapper :--narrow-elements {
   max-width: 960px;

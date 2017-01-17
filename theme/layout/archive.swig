@@ -18,7 +18,7 @@
 					</h1>
 				</div>
 				<div class="archives">
-					<colos-grid class="three-cols three-exp">
+					<colos-grid class="three-cols three-exp narrow-element">
 		{% endif %}
 		<div class="item">{{ partial('partial/post', {post: post}) }}</div>
 	{% endfor %}
