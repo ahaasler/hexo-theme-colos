@@ -8,7 +8,7 @@
 		{% set year = post.date.year() %}
 		{% if last != year %}
 			{% if last != null %}
-				</div></section>
+				</colos-grid></div></section>
 			{% endif %}
 			{% set last = year %}
 			<section class="archives-wrap">
@@ -18,8 +18,9 @@
 					</h1>
 				</div>
 				<div class="archives">
+					<colos-grid class="three-cols three-exp">
 		{% endif %}
-		{{ partial('partial/post', {post: post}) }}
+		<div class="item">{{ partial('partial/post', {post: post}) }}</div>
 	{% endfor %}
 	{% if (page.posts.length) %}
 		</div></section>
