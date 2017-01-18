@@ -51,7 +51,7 @@ h6 {
   }
 }
 
-paper-card .header .title-text {
+paper-card .header .title-text.over-image {
   color: white!important;
 }
 
