@@ -1,3 +1,16 @@
+:root {
+  --darken-image: {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(25,25,25,.5);
+  };
+}
+
 app-drawer-layout > #contentContainer:not(.narrow) {
   margin-left: 0 !important;
   @nest & + app-drawer {
@@ -17,14 +30,7 @@ app-header {
   @nest & #backgroundFrontLayer {
     background-position: center center;
     @nest &:before {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(25,25,25,.5);
+      @apply --darken-image;
     }
   }
 }
@@ -89,4 +95,8 @@ app-toolbar {
   @nest & h1 {
     text-align: center;
   }
+}
+
+paper-card iron-image:before {
+  @apply --darken-image;
 }
