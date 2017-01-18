@@ -51,6 +51,10 @@ h6 {
   }
 }
 
+paper-card .header .title-text {
+  color: white!important;
+}
+
 pre,
 .highlight {
   font-family: 'Roboto Mono', monospace;
