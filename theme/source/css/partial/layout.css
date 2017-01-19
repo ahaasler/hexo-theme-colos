@@ -97,6 +97,9 @@ app-toolbar {
   }
 }
 
-paper-card iron-image:before {
-  @apply --darken-image;
+paper-card {
+  margin: .7em;
+  @nest & iron-image:before {
+    @apply --darken-image;
+  }
 }
