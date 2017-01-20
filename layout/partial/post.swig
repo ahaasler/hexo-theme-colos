@@ -14,6 +14,9 @@
 			<div class="card-content">
 				{{ post.excerpt || post.content | replace('<figure class="highlight.*?\/figure>', '', "gm") | replace('<h[1-6].*?\/h[1-6]>', '', "gm") | striptags | truncate(140) }}
 			</div>
+			<div class="card-actions">
+				<paper-button>{{ theme.excerpt_link }}</paper-button>
+			</div>
 		</paper-card>
 	{% endif %}
 </article>
