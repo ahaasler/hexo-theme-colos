@@ -30356,6 +30356,7 @@ Custom property | Description | Default
             this.increment();
           }
           this.fire('change');
+          event.preventDefault();
         }
       },
 
@@ -30367,6 +30368,7 @@ Custom property | Description | Default
             this.decrement();
           }
           this.fire('change');
+          event.preventDefault();
         }
       },
 
