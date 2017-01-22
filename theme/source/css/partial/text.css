@@ -43,6 +43,14 @@ h6 {
   font-size: 1.2em;
 }
 
+a {
+  color: var(--deep-purple);
+  text-decoration: none;
+  @nest &:--selected {
+    color: var(--deep-purple-800);
+  }
+}
+
 .archives-wrap .archive-year {
   text-decoration: none;
   color: var(--primary-text);
