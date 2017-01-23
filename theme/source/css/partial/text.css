@@ -43,6 +43,10 @@ h6 {
   font-size: 1.2em;
 }
 
+app-toolbar a:--selected {
+  color: var(--deep-purple-100);
+}
+
 a {
   color: var(--deep-purple);
   text-decoration: none;
