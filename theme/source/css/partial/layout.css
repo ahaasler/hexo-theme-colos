@@ -86,6 +86,7 @@ app-toolbar {
 }
 
 .archives-wrap {
+  padding: 6em 0;
   @nest &:nth-child(3n+0) {
     background-color: var(--deep-purple-50);
   }
