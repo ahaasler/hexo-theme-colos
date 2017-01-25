@@ -95,6 +95,7 @@ app-toolbar {
   }
   @nest & h1 {
     text-align: center;
+    padding-bottom: .8em;
   }
 }
 
