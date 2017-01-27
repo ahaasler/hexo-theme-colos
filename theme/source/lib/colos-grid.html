@@ -51,13 +51,29 @@ colos-grid is an element that uses app-grid-style polymer helper class for creat
       }
 
     </style>
-    <div class="app-grid"><content></content></div>
+    <template is="dom-if" if="{{collapsible}}">
+      <div class="app-grid">
+        <content select=".item:nth-child(-n+3)"></content>
+      </div>
+      <div class="app-grid">
+        <content select=".item:not(:nth-child(-n+3))"></content>
+      </div>
+    </template>
+    <template is="dom-if" if="{{!collapsible}}">
+      <div class="app-grid">
+        <content select=".item"></content>
+      </div>
+    </template>
   </template>
   <script>
     HTMLImports.whenReady(function() {
       Polymer({
         is: 'colos-grid',
+        count: 0,
+        collapsible: false,
         attached: function() {
+          this.count = Polymer.dom(this).children.length;
+          this.collapsible = this.count > 3;
           this._updateGridStyles = this._updateGridStyles || function() {
             this.updateStyles();
           }.bind(this);
