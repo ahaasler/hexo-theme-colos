@@ -8516,29 +8516,13 @@ this.fire('dom-change');
       }
 
     </style>
-    <template is="dom-if" if="{{collapsible}}">
-      <div class="app-grid">
-        <content select=".item:nth-child(-n+3)"></content>
-      </div>
-      <div class="app-grid">
-        <content select=".item:not(:nth-child(-n+3))"></content>
-      </div>
-    </template>
-    <template is="dom-if" if="{{!collapsible}}">
-      <div class="app-grid">
-        <content select=".item"></content>
-      </div>
-    </template>
+    <div class="app-grid"><content></content></div>
   </template>
   <script>
     HTMLImports.whenReady(function() {
       Polymer({
         is: 'colos-grid',
-        count: 0,
-        collapsible: false,
         attached: function() {
-          this.count = Polymer.dom(this).children.length;
-          this.collapsible = this.count > 3;
           this._updateGridStyles = this._updateGridStyles || function() {
             this.updateStyles();
           }.bind(this);
@@ -25786,7 +25770,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <!-- this div fulfills an a11y requirement for combobox, do not remove -->
     <span role="button"></span>
-    <paper-menu-button id="menuButton" vertical-align="[[verticalAlign]]" horizontal-align="[[horizontalAlign]]" dynamic-align="[[dynamicAlign]]" vertical-offset="[[_computeMenuVerticalOffset(noLabelFloat)]]" disabled="[[disabled]]" no-animations="[[noAnimations]]" on-iron-select="_onIronSelect" on-iron-deselect="_onIronDeselect" opened="{{opened}}" close-on-activate="" allow-outside-scroll="[[allowOutsideScroll]]">
+    <paper-menu-button id="menuButton" vertical-align="[[verticalAlign]]" horizontal-align="[[horizontalAlign]]" dynamic-align="[[dynamicAlign]]" vertical-offset="[[_computeMenuVerticalOffset(noLabelFloat)]]" disabled="[[disabled]]" no-animations="[[noAnimations]]" on-iron-select="_onIronSelect" on-iron-deselect="_onIronDeselect" opened="{{opened}}" close-on-activate="" allow-outside-scroll="[[allowOutsideScroll]]" restore-focus-on-close="[[restoreFocusOnClose]]">
       <div class="dropdown-trigger">
         <paper-ripple></paper-ripple>
         <!-- paper-input has type="text" for a11y, do not remove -->
@@ -25944,6 +25928,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            */
           dynamicAlign: {
             type: Boolean
+          },
+            
+          /**
+           * Whether focus should be restored to the dropdown when the menu closes.
+           */
+          restoreFocusOnClose: {
+            type: Boolean,
+            value: true
           },
         },
 
