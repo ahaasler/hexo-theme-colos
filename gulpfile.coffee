@@ -29,6 +29,7 @@ gitPush = (callback) ->
 # Common directories
 dir =
   theme: 'theme'
+  bower: 'bower_components'
   dist:
     base: 'dist'
     theme: 'dist/theme'
@@ -43,19 +44,17 @@ docs = [
 ]
 # Bower files
 bowerFiles = [
-  '.bowerrc'
   'bower.json'
 ]
-# Unnecessary lib files
-unnecessaryLibFiles = [
-  "#{dir.dist.theme}/source/lib/*"
-  "!#{dir.dist.theme}/source/lib/elements.html"
-  "!#{dir.dist.theme}/source/lib/webcomponentsjs"
+# Lib files
+libFiles = [
+  "#{dir.bower}/webcomponentsjs/*"
 ]
 # Theme files
 themeFiles = [
   "#{dir.theme}/**/*"
   "!#{dir.theme}/**/*.css"
+  "!#{dir.theme}/source/lib/*"
 ]
 # CSS files
 cssFiles = [
@@ -83,16 +82,16 @@ server = undefined
 gulp.task 'clean:dist', (callback) ->
   del dir.dist.base, callback
 
-# Clean lib folder
-gulp.task 'clean:lib', (callback) ->
-  del unnecessaryLibFiles, callback
-
 # Clean project
 gulp.task 'clean', [ 'clean:dist' ]
 
 # Copy theme
 gulp.task 'copy:theme', (callback) ->
   gulp.src(themeFiles, base: dir.theme).pipe(newer(dir.dist.theme)).pipe gulp.dest(dir.dist.theme)
+
+# Copy libs
+gulp.task 'copy:lib', (callback) ->
+  gulp.src(libFiles, base: "#{dir.bower}").pipe(newer("#{dir.dist.theme}/source/lib")).pipe gulp.dest("#{dir.dist.theme}/source/lib")
 
 gulp.task 'postcss', (callback) ->
   processors = [
@@ -111,8 +110,8 @@ gulp.task 'postcss', (callback) ->
 gulp.task 'bower', (callback) ->
   execCommand 'bower install', callback
 
-gulp.task 'vulcanize', ['bower', 'copy'], (callback) ->
-  gulp.src("#{dir.dist.theme}/source/lib/elements.html").pipe(vulcanize(
+gulp.task 'vulcanize', ['bower'], (callback) ->
+  gulp.src("#{dir.theme}/source/lib/elements.html").pipe(vulcanize(
     abspath: ''
     excludes: []
     stripExcludes: false)).pipe gulp.dest("#{dir.dist.theme}/source/lib")
@@ -124,12 +123,13 @@ gulp.task 'copy:docs', (callback) ->
 # Copy files to distribution folder
 gulp.task 'copy', [
   'copy:docs'
+  'copy:lib'
   'copy:theme'
 ]
 
 # Build project
 gulp.task 'build', (callback) ->
-  sequence 'clean', ['copy', 'postcss', 'bower', 'vulcanize'], 'clean:lib', 'demo:generate', callback
+  sequence 'clean', ['copy', 'postcss', 'bower', 'vulcanize'], 'demo:generate', callback
 
 # Generate demo site
 gulp.task 'demo:generate', (callback) ->
