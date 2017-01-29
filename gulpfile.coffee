@@ -50,6 +50,11 @@ bowerFiles = [
 libFiles = [
   "#{dir.bower}/webcomponentsjs/*"
 ]
+# Vulcanize files
+vulcanizeFiles = [
+  "#{dir.theme}/source/lib/**/*"
+  "#{dir.bower}/**/*"
+]
 # Theme files
 themeFiles = [
   "#{dir.theme}/**/*"
@@ -205,6 +210,10 @@ gulp.task 'watch:theme', (callback) ->
 gulp.task 'watch:postcss', (callback) ->
   gulp.watch cssFiles[0], [ 'postcss' ]
 
+# Watch vulcanize
+gulp.task 'watch:vulcanize', (callback) ->
+  gulp.watch vulcanizeFiles, [ 'vulcanize' ]
+
 # Watch demo
 gulp.task 'watch:demo', (callback) ->
   gulp.watch demoFiles, [ 'demo:reload' ]
@@ -214,6 +223,7 @@ gulp.task 'watch', [
   'watch:bower'
   'watch:theme'
   'watch:postcss'
+  'watch:vulcanize'
   'watch:demo'
 ]
 
