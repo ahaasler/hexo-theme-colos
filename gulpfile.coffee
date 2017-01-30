@@ -30,6 +30,7 @@ gitPush = (callback) ->
 dir =
   theme: 'theme'
   bower: 'bower_components'
+  vulcanize: 'vulcanize_tmp'
   dist:
     base: 'dist'
     theme: 'dist/theme'
@@ -115,8 +116,16 @@ gulp.task 'postcss', (callback) ->
 gulp.task 'bower', (callback) ->
   execCommand 'bower install', callback
 
-gulp.task 'vulcanize', ['bower'], (callback) ->
-  gulp.src("#{dir.theme}/source/lib/elements.html").pipe(vulcanize(
+# Copy bower components to vulcanize tmp dir
+gulp.task 'vulcanize:bower', ['bower'], (callback) ->
+  gulp.src(vulcanizeFiles[1], base: dir.bower).pipe(newer(dir.vulcanize)).pipe gulp.dest(dir.vulcanize)
+
+# Copy theme elements to vulcanize tmp dir
+gulp.task 'vulcanize:theme', (callback) ->
+  gulp.src(vulcanizeFiles[0], base: "#{dir.theme}/source/lib").pipe(newer(dir.vulcanize)).pipe gulp.dest(dir.vulcanize)
+
+gulp.task 'vulcanize', ['vulcanize:bower', 'vulcanize:theme'], (callback) ->
+  gulp.src("#{dir.vulcanize}/elements.html").pipe(vulcanize(
     abspath: ''
     excludes: []
     stripExcludes: false)).pipe gulp.dest("#{dir.dist.theme}/source/lib")
