@@ -96,7 +96,7 @@ gulp.task 'copy:theme', (callback) ->
   gulp.src(themeFiles, base: dir.theme).pipe(newer(dir.dist.theme)).pipe gulp.dest(dir.dist.theme)
 
 # Copy libs
-gulp.task 'copy:lib', (callback) ->
+gulp.task 'copy:lib', ['bower'], (callback) ->
   gulp.src(libFiles, base: "#{dir.bower}").pipe(newer("#{dir.dist.theme}/source/lib")).pipe gulp.dest("#{dir.dist.theme}/source/lib")
 
 gulp.task 'postcss', (callback) ->
