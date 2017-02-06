@@ -49,6 +49,7 @@ bowerFiles = [
 ]
 # Lib files
 libFiles = [
+  "#{dir.bower}/web-animations-js/*"
   "#{dir.bower}/webcomponentsjs/*"
 ]
 # Vulcanize files
