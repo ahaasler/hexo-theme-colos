@@ -39,7 +39,11 @@ colos-grid is an element that uses app-grid-style polymer helper class for creat
       }
 
       :host ::content .expandible-item {
-          @apply(--app-grid-expandible-item);
+        @apply(--app-grid-expandible-item);
+      }
+      
+      :host ::content .item:only-child {
+        @apply(--app-grid-expandible-item);
       }
 
       @media (max-width: 640px) {
