@@ -99,8 +99,12 @@ app-toolbar {
   }
 }
 
+colos-grid .post {
+  padding: .7em;
+}
+
 paper-card {
-  margin: .7em;
+  width: 100%;
   @nest & iron-image:before {
     @apply --darken-image;
   }
