@@ -9462,14 +9462,6 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
         Polymer.RenderStatus.afterNextRender(this, function() {
           this._styleTransitionDuration(this.transitionDuration);
           this._boundEscKeydownHandler = this._escKeydownHandler.bind(this);
-          this._resetDrawerState();
-
-          // contentContainer will transition on opened state changed, and scrim will
-          // transition on persistent state changed when opened - these are the
-          // transitions we are interested in.
-          this.$.scrim.addEventListener('transitionend', this._transitionend.bind(this));
-          this.$.contentContainer.addEventListener('transitionend', this._transitionend.bind(this));
-
           this.addEventListener('keydown', this._tabKeydownHandler.bind(this))
 
           // Only listen for horizontal track so you can vertically scroll inside the drawer.
@@ -9626,8 +9618,9 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
         }
 
         if (isInEndState) {
-          // Reset drawer state now since there will be no transitionend event.
-          this._resetDrawerState();
+          this.debounce('_resetDrawerState', this._resetDrawerState);
+        } else {
+          this.debounce('_resetDrawerState', this._resetDrawerState, this.transitionDuration);
         }
 
         this._styleTransitionDuration(this.transitionDuration);
@@ -9699,21 +9692,12 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
 
         // Calculate the amount of time needed to finish the transition based on the
         // initial slope of the timing function.
-        this._styleTransitionDuration(this._FLING_INITIAL_SLOPE * dx / velocity);
+        var t = this._FLING_INITIAL_SLOPE * dx / velocity
+        this._styleTransitionDuration(t);
         this._styleTransitionTimingFunction(this._FLING_TIMING_FUNCTION);
 
         this._resetDrawerTranslate();
-      },
-
-      _transitionend: function() {
-        // If the drawer was flinging, we need to reset the style attributes.
-        if (this._drawerState === this._DRAWER_STATE.FLINGING) {
-          this._styleTransitionDuration(this.transitionDuration);
-          this._styleTransitionTimingFunction('');
-          this.style.visibility = '';
-        }
-
-        this._resetDrawerState();
+        this.debounce('_resetDrawerState', this._resetDrawerState, t);
       },
 
       _styleTransitionDuration: function(duration) {
@@ -9748,6 +9732,14 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
 
       _resetDrawerState: function() {
         var oldState = this._drawerState;
+
+        // If the drawer was flinging, we need to reset the style attributes.
+        if (oldState === this._DRAWER_STATE.FLINGING) {
+          this._styleTransitionDuration(this.transitionDuration);
+          this._styleTransitionTimingFunction('');
+          this.style.visibility = '';
+        }
+
         if (this.opened) {
           this._drawerState = this.persistent ?
             this._DRAWER_STATE.OPENED_PERSISTENT : this._DRAWER_STATE.OPENED;
@@ -9834,10 +9826,9 @@ A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `
       },
 
       _openedPersistentChanged: function() {
-        if (this.transitionDuration === 0) {
-          // Reset drawer state now since there will be no transitionend event.
-          this._resetDrawerState();
-        }
+        // Use a debounce timer instead of transitionend since transitionend won't fire when
+        // app-drawer is display: none.
+        this.debounce('_resetDrawerState', this._resetDrawerState, this.transitionDuration);
       },
 
       _MIN_FLING_THRESHOLD: 0.2,
@@ -10562,7 +10553,8 @@ Custom property                               | Description                     
   <template>
     <style>
 
-      :host {
+      :host,
+      :host ::content {
         /**
          * The width for the expandible item is:
          * ((100% - subPixelAdjustment) / columns * itemColumns - gutter
@@ -10579,7 +10571,8 @@ Custom property                               | Description                     
         };
       }
 
-      .app-grid {
+      .app-grid,
+      :host ::content .app-grid {
         display: -ms-flexbox;
         display: -webkit-flex;
         display: flex;
@@ -10597,7 +10590,8 @@ Custom property                               | Description                     
         box-sizing: border-box;
       }
 
-      .app-grid > * {
+      .app-grid > *,
+      :host ::content .app-grid > * {
         /* Required for IE 10 */
         -ms-flex: 1 1 100%;
         -webkit-flex: 1;
@@ -10614,17 +10608,20 @@ Custom property                               | Description                     
         box-sizing: border-box;
       }
 
-      .app-grid[has-aspect-ratio] > * {
+      .app-grid[has-aspect-ratio] > *,
+      :host ::content .app-grid[has-aspect-ratio] > * {
         position: relative;
       }
 
-      .app-grid[has-aspect-ratio] > *::before {
+      .app-grid[has-aspect-ratio] > *::before,
+      :host ::content .app-grid[has-aspect-ratio] > *::before {
         display: block;
         content: "";
         padding-top: var(--app-grid-item-height, 100%);
       }
 
-      .app-grid[has-aspect-ratio] > * > * {
+      .app-grid[has-aspect-ratio] > * > *,
+      :host ::content .app-grid[has-aspect-ratio] > * > * {
         position: absolute;
         top: 0;
         right: 0;
@@ -11505,7 +11502,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         transition-property: transform;
       }
 
-      :host::after {
+      :host::before {
         position: absolute;
         right: 0px;
         bottom: -5px;
@@ -11521,7 +11518,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply(--app-header-shadow);
       }
 
-      :host([shadow])::after {
+      :host([shadow])::before {
         opacity: 1;
       }
 
@@ -11810,7 +11807,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var dScrollTop = scrollTop - this._lastScrollTop;
         var absDScrollTop = Math.abs(dScrollTop);
         var isScrollingDown = scrollTop > this._lastScrollTop;
-        var now = Date.now();
+        var now = performance.now();
 
         if (this._mayMove()) {
           top = this._clamp(this.reveals ? lastTop + dScrollTop : scrollTop, 0, maxHeaderTop);
