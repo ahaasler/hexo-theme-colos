@@ -12,6 +12,7 @@
 				{% if post.cover %}image="{{ url_for(post.cover) }}"{% endif %}
 				alt="{{ post.title }}">
 			<div class="card-content">
+				<span class="post-date">{{ time_tag(post.date, config.post_date_format) }}</span>
 				{{ post.excerpt || post.content | replace('<figure class="highlight.*?\/figure>', '', "gm") | replace('<h[1-6].*?\/h[1-6]>', '', "gm") | striptags | truncate(140) }}
 			</div>
 			<div class="card-actions">
