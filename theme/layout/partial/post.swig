@@ -12,8 +12,10 @@
 				{% if post.cover %}image="{{ url_for(post.cover) }}"{% endif %}
 				alt="{{ post.title }}">
 			<div class="card-content">
-				<span class="post-date">{{ time_tag(post.date, config.post_date_format) }}</span>
-				<div class="meta">{{ list_categories(post.categories, {show_count: 0, style: 'none'}) }}</div>
+				<div class="meta">
+					<span class="post-category">{{ list_categories(post.categories, {show_count: 0, style: 'none'}) }}</span>
+					<span class="post-date">{{ time_tag(post.date, config.post_date_format) }}</span>
+				</div>
 				{{ post.excerpt || post.content | replace('<figure class="highlight.*?\/figure>', '', "gm") | replace('<h[1-6].*?\/h[1-6]>', '', "gm") | striptags | truncate(140) }}
 			</div>
 			<div class="card-actions">
