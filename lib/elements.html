@@ -362,6 +362,7 @@ createdCallback: function () {
 if (settings.disableUpgradeEnabled) {
 if (this.hasAttribute('disable-upgrade')) {
 this._propertySetter = disableUpgradePropertySetter;
+this._configValue = null;
 this.__data__ = {};
 return;
 } else {
@@ -541,6 +542,7 @@ Polymer.Base.attributeChangedCallback = function (name, oldValue, newValue) {
 if (!this.__hasInitialized && name === 'disable-upgrade') {
 this.__hasInitialized = true;
 this._propertySetter = Polymer.Bind._modelApi._propertySetter;
+this._configValue = Polymer.Base._configValue;
 this.__initialize();
 }
 origAttributeChangedCallback.call(this, name, oldValue, newValue);
@@ -943,7 +945,7 @@ default:
 return value != null ? value : undefined;
 }
 }
-});Polymer.version = "1.8.0";Polymer.Base._addFeature({
+});Polymer.version = "1.8.1";Polymer.Base._addFeature({
 _registerFeatures: function () {
 this._prepIs();
 this._prepBehaviors();
@@ -5116,6 +5118,7 @@ this._effectEffects('__static__', null, this._propertyEffects.__static__);
 }
 });(function () {
 var usePolyfillProto = Polymer.Settings.usePolyfillProto;
+var avoidInstanceProperties = Boolean(Object.getOwnPropertyDescriptor(document.documentElement, 'properties'));
 Polymer.Base._addFeature({
 _setupConfigure: function (initialConfig) {
 this._config = {};
@@ -5153,7 +5156,7 @@ var config = {};
 for (var i = 0; i < this.behaviors.length; i++) {
 this._configureProperties(this.behaviors[i].properties, config);
 }
-this._configureProperties(this.properties, config);
+this._configureProperties(avoidInstanceProperties ? this.__proto__.properties : this.properties, config);
 this.mixin(config, this._aboveConfig);
 this._config = config;
 if (this._clients && this._clients.length) {
@@ -5850,6 +5853,37 @@ cssText += this.resolveCss(e.import.body.textContent, e.import);
 }
 return cssText;
 },
+styleIncludesToTemplate: function (targetTemplate) {
+var styles = targetTemplate.content.querySelectorAll('style[include]');
+for (var i = 0, s; i < styles.length; i++) {
+s = styles[i];
+s.parentNode.insertBefore(this._includesToFragment(s.getAttribute('include')), s);
+}
+},
+_includesToFragment: function (styleIncludes) {
+var includeArray = styleIncludes.trim().split(' ');
+var frag = document.createDocumentFragment();
+for (var i = 0; i < includeArray.length; i++) {
+var t = Polymer.DomModule.import(includeArray[i], 'template');
+if (t) {
+this._addStylesToFragment(frag, t.content);
+}
+}
+return frag;
+},
+_addStylesToFragment: function (frag, source) {
+var s$ = source.querySelectorAll('style');
+for (var i = 0, s; i < s$.length; i++) {
+s = s$[i];
+var include = s.getAttribute('include');
+if (include) {
+frag.appendChild(this._includesToFragment(include));
+}
+if (s.textContent) {
+frag.appendChild(s.cloneNode(true));
+}
+}
+},
 isTargetedBuild: function (buildType) {
 return settings.useNativeShadow ? buildType === 'shadow' : buildType === 'shady';
 },
@@ -6434,6 +6468,9 @@ _prepShimStyles: function () {
 if (this._template) {
 var hasTargetedCssBuild = styleUtil.isTargetedBuild(this.__cssBuild);
 if (settings.useNativeCSSProperties && this.__cssBuild === 'shadow' && hasTargetedCssBuild) {
+if (settings.preserveStyleIncludes) {
+styleUtil.styleIncludesToTemplate(this._template);
+}
 return;
 }
 this._styles = this._styles || this._collectStyles();
