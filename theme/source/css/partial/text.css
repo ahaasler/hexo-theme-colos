@@ -63,8 +63,14 @@ a {
   }
 }
 
-paper-card .header .title-text.over-image {
-  color: white!important;
+paper-card {
+  @nest & h1 {
+    font-size: 1.6em;
+    padding-top: .2em;
+    @nest & a {
+      color: var(--primary-text);
+    }
+  }
 }
 
 pre,

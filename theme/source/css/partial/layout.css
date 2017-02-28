@@ -108,6 +108,9 @@ colos-grid .post {
 
 paper-card {
   width: 100%;
+  @nest & h1 {
+    text-align: left!important;
+  }
   @nest & iron-image:before {
     @apply --darken-image;
   }
