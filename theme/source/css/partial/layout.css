@@ -111,7 +111,4 @@ paper-card {
   @nest & h1 {
     text-align: left!important;
   }
-  @nest & iron-image:before {
-    @apply --darken-image;
-  }
 }
