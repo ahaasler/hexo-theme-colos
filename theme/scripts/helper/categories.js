@@ -54,7 +54,7 @@ function getMenu(self) {
         });
         break;
       case 'categories':
-        var categories = getCategories(self, {show_count: false, show_current: true});
+        var categories = getCategories(self, {show_count: false, show_current: true, depth: 1});
         if (categories.current > -1) {
           result.current = categories.current + index;
         }
