@@ -114,4 +114,7 @@ paper-card {
   @nest & h1 {
     text-align: left!important;
   }
+  @nest & .post-date {
+    margin-left: .6em;
+  }
 }

@@ -75,6 +75,9 @@ paper-card {
       color: var(--primary-text);
     }
   }
+  @nest & .post-date {
+    color: var(--secondary-text);
+  }
 }
 
 pre,
