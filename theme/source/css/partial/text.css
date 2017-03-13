@@ -67,6 +67,10 @@ a {
   text-transform: capitalize;
 }
 
+.post-date {
+  color: var(--secondary-text);
+}
+
 paper-card {
   @nest & h1 {
     font-size: 1.6em;
@@ -74,9 +78,6 @@ paper-card {
     @nest & a {
       color: var(--primary-text);
     }
-  }
-  @nest & .post-date {
-    color: var(--secondary-text);
   }
 }
 
