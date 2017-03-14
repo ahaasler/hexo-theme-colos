@@ -1,4 +1,4 @@
-<nav>
+<nav class="narrow-element extra">
 	{% if is_post() %}
 		{% if page.prev %}
 			<a href="{{ url_for(page.prev.path) }}">{{ __('pagination.page.previous') }}</a>
