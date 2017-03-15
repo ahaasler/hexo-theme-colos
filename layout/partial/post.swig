@@ -1,6 +1,7 @@
 <article class="post">
 	{% if is_post() %}
 		<header class="post-header">
+			<span class="post-category">{{ list_categories(post.categories, {show_count: 0, style: 'none'}) }}</span>
 			<span class="post-date">{{ time_tag(post.date, config.post_date_format) }}</span>
 		</header>
 		<div class="post-content">
