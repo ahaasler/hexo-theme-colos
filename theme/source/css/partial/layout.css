@@ -118,3 +118,12 @@ paper-card {
     margin-left: .6em;
   }
 }
+
+.pagination a {
+  @nest &:first-child {
+    float: left;
+  }
+  @nest &:last-child {
+    float: right;
+  }
+}
