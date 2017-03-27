@@ -129,7 +129,10 @@ gulp.task 'vulcanize', ['vulcanize:bower', 'vulcanize:theme'], (callback) ->
   gulp.src("#{dir.vulcanize}/elements.html").pipe(vulcanize(
     abspath: ''
     excludes: []
-    stripExcludes: ["#{dir.vulcanize}/font-roboto/roboto.html"])).pipe gulp.dest("#{dir.dist.theme}/source/lib")
+    stripExcludes: [
+      "#{dir.vulcanize}/font-roboto/roboto.html"
+      "#{dir.vulcanize}/app-layout/app-header/app-header.html"
+    ])).pipe gulp.dest("#{dir.dist.theme}/source/lib")
 
 # Copy documentation files
 gulp.task 'copy:docs', (callback) ->
