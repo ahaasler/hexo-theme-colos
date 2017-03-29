@@ -13,6 +13,10 @@ The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+
+Modifications: Adrian Haasler <dev@adrianhaasler.com>
+- Change import paths for colos file hierarchy.
+- Add function to change image
 --><!--
 app-header is container element for app-toolbars at the top of the screen that can have scroll
 effects. By default, an app-header moves away from the viewport when scrolling down and
@@ -10460,6 +10464,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           Polymer.dom(this.root).insertBefore(this._bgContainer, this.$.contentContainer);
         }
+      },
+
+      _changeBgImage: function(url) {
+        this._getDOMRef('backgroundFrontLayer').style.backgroundImage = 'url(' + url + ')';
       },
 
       _getDOMRef: function(id) {
