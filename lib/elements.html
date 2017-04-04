@@ -14,6 +14,9 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 
+Carousel code inspired by dsc-polymer-carousel under the MIT license found at
+https://github.com/discovery-tecnologia/dsc-polymer-carousel/blob/master/LICENSE.txt
+
 Modifications: Adrian Haasler <dev@adrianhaasler.com>
 - Change import paths for colos file hierarchy.
 - Add function to change image
@@ -10174,6 +10177,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Boolean,
           reflectToAttribute: true,
           value: false
+        },
+
+        /**
+         * Time in seconds to change slide.
+         */
+        interval: {
+          type: Number,
+          value: 5
         }
       },
 
@@ -10232,6 +10243,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _initTimestamp: 0,
       _lastTimestamp: 0,
       _lastScrollTop: 0,
+
+      /**
+       * The slides
+       *
+       * @type {array}
+       */
+      _slides: [],
+
+      /**
+       * The current selected slide.
+       *
+       * @type {number}
+       */
+      _currentSlide: 0,
+
+      ready: function() {
+        this._slides = Polymer.dom(this).querySelectorAll('[slide]');
+        if (this._slides.length > 0) {
+          this._showSlide(0);
+          this._initTimer();
+        }
+      },
 
       /**
        * The distance the header is allowed to move away.
@@ -10488,6 +10521,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             return Polymer.dom(this).querySelector('[condensed-title]');
         }
         return null;
+      },
+
+      _initTimer: function() {
+        var self = this;
+        this.carouselTimer = setInterval(function() {
+          self._nextSlide();
+        }, this.interval * 1000);
+      },
+
+      /**
+       * Change to next slide.
+       */
+      _nextSlide: function() {
+        this._showSlide((this._currentSlide + 1) % this._slides.length);
+      },
+
+      /**
+       * Show slide for the diven index.
+       */
+      _showSlide: function(index) {
+        this._currentSlide = parseInt(index);
+        for (var i = 0; i < this._slides.length; i++) {
+          this._slides[i].style.display = i !== this._currentSlide ? 'none' : 'inherit';
+        }
       },
 
       /**
@@ -27686,14 +27743,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        */
       attrForItemTitle: {
         type: String
-      }
+      },
+
+      disabled: {
+        type: Boolean,
+        value: false,
+        observer: '_disabledChanged',
+      },
     },
 
     _SEARCH_RESET_TIMEOUT_MS: 1000,
 
+    _previousTabIndex: 0,
+
     hostAttributes: {
       'role': 'menu',
-      'tabindex': '0'
     },
 
     observers: [
@@ -27882,7 +27946,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      */
     _focusedItemChanged: function(focusedItem, old) {
       old && old.setAttribute('tabindex', '-1');
-      if (focusedItem) {
+      if (focusedItem && !focusedItem.hasAttribute('disabled') && !this.disabled) {
         focusedItem.setAttribute('tabindex', '0');
         focusedItem.focus();
       }
@@ -28006,6 +28070,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     _activateHandler: function(event) {
       Polymer.IronSelectableBehavior._activateHandler.call(this, event);
       event.stopPropagation();
+    },
+
+    /**
+     * Updates this element's tab index when it's enabled/disabled.
+     * @param {boolean} disabled
+     */
+    _disabledChanged: function(disabled) {
+      if (disabled) {
+        this._previousTabIndex = this.hasAttribute('tabindex') ? this.tabIndex : 0;
+        this.removeAttribute('tabindex');  // No tabindex means not tab-able or select-able.
+      } else if (!this.hasAttribute('tabindex')) {
+        this.setAttribute('tabindex', this._previousTabIndex);
+      }
     }
   };
 
