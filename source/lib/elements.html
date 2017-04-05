@@ -10501,7 +10501,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       _changeBgImage: function(url) {
-        this._getDOMRef('backgroundFrontLayer').style.backgroundImage = 'url(' + url + ')';
+        this._getDOMRef('backgroundFrontLayer').style.backgroundImage = url === undefined ? 'none' : 'url(' + url + ')';
       },
 
       _getDOMRef: function(id) {
@@ -10545,6 +10545,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         for (var i = 0; i < this._slides.length; i++) {
           this._slides[i].style.display = i !== this._currentSlide ? 'none' : 'inherit';
         }
+        this._changeBgImage(this._slides[index].getAttribute('bg'))
       },
 
       /**
