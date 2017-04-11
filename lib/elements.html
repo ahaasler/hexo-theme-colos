@@ -28768,6 +28768,7 @@ Custom property | Description | Default
 `--paper-radio-button-ink-size` | Size of the ripple | `48px`
 `--paper-radio-button-label-color` | Label color | `--primary-text-color`
 `--paper-radio-button-label-spacing` | Spacing between the label and the button | `10px`
+`--paper-radio-button-radio-container` | A mixin applied to the internal radio container | `{}`
 
 This element applies the mixin `--paper-font-common-base` but does not import `paper-styles/typography.html`.
 In order to apply the `Roboto` font to this element, make sure you've imported `paper-styles/typography.html`.
@@ -28803,6 +28804,8 @@ In order to apply the `Roboto` font to this element, make sure you've imported `
         width: var(--calculated-paper-radio-button-size);
         height: var(--calculated-paper-radio-button-size);
         vertical-align: middle;
+        
+        @apply(--paper-radio-button-radio-container);
       }
 
       #ink {
@@ -29876,6 +29879,11 @@ Custom property | Description | Default
       :host(:focus) {
         outline: none;
       }
+        
+      :host-context([dir="rtl"]) #sliderContainer {
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+      }
 
       #sliderContainer {
         position: relative;
@@ -30230,8 +30238,10 @@ Custom property | Description | Default
       },
 
       keyBindings: {
-        'left down pagedown home': '_decrementKey',
-        'right up pageup end': '_incrementKey'
+        'left': '_leftKey',
+        'right': '_rightKey',
+        'down pagedown home': '_decrementKey',
+        'up pageup end': '_incrementKey'
       },
 
       /**
@@ -30329,7 +30339,9 @@ Custom property | Description | Default
           this._trackStart(event);
         }
 
-        var dx = Math.min(this._maxx, Math.max(this._minx, event.detail.dx));
+        var direction = this._isRTL ? -1 : 1;
+        var dx = Math.min(
+            this._maxx, Math.max(this._minx, event.detail.dx * direction));
         this._x = this._startx + dx;
 
         var immediateValue = this._calcStep(this._calcKnobPosition(this._x / this._w));
@@ -30367,6 +30379,9 @@ Custom property | Description | Default
         this._w = this.$.sliderBar.offsetWidth;
         var rect = this.$.sliderBar.getBoundingClientRect();
         var ratio = (event.detail.x - rect.left) / this._w;
+        if (this._isRTL) {
+          ratio = 1 - ratio;
+        }
         var prevRatio = this.ratio;
 
         this._setTransiting(true);
@@ -30432,6 +30447,27 @@ Custom property | Description | Default
           transiting: this.transiting,
           editable: this.editable
         });
+      },
+
+      get _isRTL() {
+        if (this.__isRTL === undefined) {
+          this.__isRTL = window.getComputedStyle(this)['direction'] === 'rtl';
+        }
+        return this.__isRTL;
+      },
+
+      _leftKey: function(event) {
+        if (this._isRTL)
+          this._incrementKey(event);
+        else
+          this._decrementKey(event);
+      },
+
+      _rightKey: function(event) {
+        if (this._isRTL)
+          this._decrementKey(event);
+        else
+          this._incrementKey(event);
       },
 
       _incrementKey: function(event) {
@@ -33922,7 +33958,7 @@ Style                                 | Description
 				display: block;
 				padding: 16px 16px 0 16px;
 				background: var(--paper-drawer-title-background-color, black);
-				@apply(--paper-drawer-title);
+				@apply --paper-drawer-title;
 				cursor: pointer;
 			}
 
@@ -33937,10 +33973,10 @@ Style                                 | Description
 				color: var(--paper-drawer-title-color, white);
 				min-height: 56px;
 				height: 56px;
-				@apply(--layout-vertical);
-				@apply(--layout-center-justified);
-				@apply(--layout-flex);
-				@apply(--paper-font-body1);
+				@apply --layout-vertical;
+				@apply --layout-center-justified;
+				@apply --layout-flex;
+				@apply --paper-font-body1;
 			}
 
 			.name,.email {
@@ -34002,9 +34038,9 @@ Adds a subheader to the drawer
 				padding: 0 16px;
 				font-size: 14px!important;
 				color: var(--secondary-text-color);
-				@apply(--paper-font-subhead);
-				@apply(--layout-horizontal);
-				@apply(--layout-center);
+				@apply --paper-font-subhead;
+				@apply --layout-horizontal;
+				@apply --layout-center;
 				cursor: default;
 			}
 		</style>
@@ -34034,19 +34070,15 @@ Item in the drawer without an icon
 	<template>
 
 		<style>
-			:host {
-				@apply(--layout-vertical);
-			}
-			
 			.item {
 				color: var(--primary-text-color);
-				@apply(--paper-font-body1);
+				@apply --paper-font-body1;
 				position: relative;
 				cursor: pointer;
 			}
 
 			.item:hover {
-				background-color: var(--divider-color);
+				background-color: var(--hover-background-color, --divider-color);
 			}
 		</style>
 
@@ -34155,13 +34187,13 @@ Custom property               | Description                                    |
 		<style>
 			.item {
 				color: var(--primary-text-color);
-				@apply(--paper-font-body1);
+				@apply --paper-font-body1;
 				position: relative;
 				cursor: pointer;
 			}
 
 			.item:hover {
-				background-color: var(--divider-color);
+				background-color: var(--hover-background-color, --divider-color);
 			}
 
 			.icon {
@@ -34206,8 +34238,7 @@ Adds divider line in the drawer
 		<style>
 			:host {
 				display: block;
-				border-top: 1px solid #000;
-				opacity: var(--dark-divider-opacity);
+				border-top: 1px solid var(--divider-color);
 				height: 0;
 				margin: 8px 0;
 			}
