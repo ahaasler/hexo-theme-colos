@@ -15,7 +15,17 @@
 		}) }}{% endif %}
 	</app-toolbar>
 	<app-toolbar class="middle"></app-toolbar>
-	<app-toolbar class="bottom">
-		<div main-title>{{ page.title }}</div>
-	</app-toolbar>
+	{% if is_home() %}
+		<app-toolbar class="bottom">
+			<div main-title>
+				{% for post in page.posts %}
+					<span slide{% if post.cover %} bg="{{ post.cover }}"{% endif %}>{{ post.title }}</span>
+				{% endfor %}
+			</div>
+		</app-toolbar>
+	{% else %}
+		<app-toolbar class="bottom">
+			<div main-title>{{ page.title }}</div>
+		</app-toolbar>
+	{% endif %}
 </app-header>
