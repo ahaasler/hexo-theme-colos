@@ -10262,6 +10262,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this._slides = Polymer.dom(this).querySelectorAll('[slide]');
         if (this._slides.length > 0) {
           this._showSlide(0);
+        }
+        if (this._slides.length > 1) {
           this._initTimer();
         }
       },
