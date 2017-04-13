@@ -18,7 +18,7 @@
 	{% if is_home() %}
 		<app-toolbar class="bottom">
 			<div main-title>
-				{% for post in page.posts %}
+				{% for post in sticky_posts() %}
 					<span slide{% if post.cover %} bg="{{ post.cover }}"{% endif %}>{{ post.title }}</span>
 				{% endfor %}
 			</div>
