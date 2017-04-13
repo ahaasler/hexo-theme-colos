@@ -1,153 +1,50 @@
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><p>To provide native Chrome Web Animation features (<code>Element.animate</code> and Playback<br>Control) in other browsers, use <code>web-animations.min.js</code>. To explore all of the<br>proposed Web Animations API, use <code>web-animations-next.min.js</code>.</p>
-<h2 id="What-is-Web-Animations"><a href="#What-is-Web-Animations" class="headerlink" title="What is Web Animations?"></a>What is Web Animations?</h2><p>Web Animations is a new JavaScript API for driving animated content on the web.<br>By unifying the animation features of SVG and CSS, Web Animations unlocks<br>features previously only usable declaratively, and exposes powerful,<br>high-performance animation capabilities to developers.</p>
-<p>For more details see the<br><a href="http://w3c.github.io/web-animations/">W3C specification</a>.</p>
-<h2 id="What-is-the-polyfill"><a href="#What-is-the-polyfill" class="headerlink" title="What is the polyfill?"></a>What is the polyfill?</h2><p>The polyfill is a JavaScript implementation of the Web Animations API. It is<br>supported on modern versions of all major browsers, including:</p>
-<ul>
-<li>Chrome</li>
-<li>Firefox 27+</li>
-<li>IE10+ (including Edge)</li>
-<li>Safari (iOS) 7.1+</li>
-<li>Safari (Mac) 9+</li>
-</ul>
-<h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><p>Here’s a simple example of an animation that scales and changes the opacity of<br>a <code>&lt;div&gt;</code> over 0.5 seconds. The animation alternates producing a pulsing<br>effect.</p>
-<pre><code class="html"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"web-animations.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
-<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"pulse"</span> <span class="attr">style</span>=<span class="string">"width:150px;"</span>&gt;</span>Hello world!<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<h2 id="What-is-Web-Animations"><a href="#What-is-Web-Animations" class="headerlink" title="What is Web Animations?"></a>What is Web Animations?</h2><p>A new JavaScript API for driving animated content on the web. By unifying<br>the animation features of SVG and CSS, Web Animations unlocks features<br>previously only usable declaratively, and exposes powerful, high-performance<br>animation capabilities to developers.</p>
+<h2 id="What-is-in-this-repository"><a href="#What-is-in-this-repository" class="headerlink" title="What is in this repository?"></a>What is in this repository?</h2><p>A JavaScript implementation of the Web Animations API that provides Web<br>Animation features in browsers that do not support it natively. The polyfill<br>falls back to the native implementation when one is available.</p>
+<h2 id="Quick-start"><a href="#Quick-start" class="headerlink" title="Quick start"></a>Quick start</h2><p>Here’s a simple example of an animation that fades and scales a <code>&lt;div&gt;</code>.<br><a href="http://jsbin.com/yageyezabo/edit?html,js,output">Try it as a live demo.</a></p>
+<pre><code class="html"><span class="comment">&lt;!-- Include the polyfill --&gt;</span>
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"web-animations.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="comment">&lt;!-- Set up a target to animate --&gt;</span>
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"pulse"</span> <span class="attr">style</span>=<span class="string">"width: 150px;"</span>&gt;</span>Hello world!<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+
+<span class="comment">&lt;!-- Animate! --&gt;</span>
 <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript">
     <span class="keyword">var</span> elem = <span class="built_in">document</span>.querySelector(<span class="string">'.pulse'</span>);
-    <span class="keyword">var</span> animation = elem.animate([
-        {<span class="attr">opacity</span>: <span class="number">0.5</span>, <span class="attr">transform</span>: <span class="string">"scale(0.5)"</span>},
-        {<span class="attr">opacity</span>: <span class="number">1.0</span>, <span class="attr">transform</span>: <span class="string">"scale(1)"</span>}
-    ], {
+    <span class="keyword">var</span> animation = elem.animate({
+        <span class="attr">opacity</span>: [<span class="number">0.5</span>, <span class="number">1</span>],
+        <span class="attr">transform</span>: [<span class="string">'scale(0.5)'</span>, <span class="string">'scale(1)'</span>],
+    }, {
         <span class="attr">direction</span>: <span class="string">'alternate'</span>,
         <span class="attr">duration</span>: <span class="number">500</span>,
-        <span class="attr">iterations</span>: <span class="literal">Infinity</span>
+        <span class="attr">iterations</span>: <span class="literal">Infinity</span>,
     });
 </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
 </code></pre>
-<p>Web Animations supports off-main-thread animations, and also allows procedural<br>generation of animations and fine-grained control of animation playback. See<br><a href="http://web-animations.github.io">http://web-animations.github.io</a> for ideas and inspiration - or <a href="https://github.com/web-animations/web-animations-codelabs">web-animations-codelabs</a>.</p>
-<h2 id="Native-Fallback"><a href="#Native-Fallback" class="headerlink" title="Native Fallback"></a>Native Fallback</h2><p>When the polyfill runs on a browser that implements <code>Element.animate</code> and<br><code>Animation</code> Playback Control it will detect and use the underlying native<br>features.</p>
-<h2 id="Different-Build-Targets"><a href="#Different-Build-Targets" class="headerlink" title="Different Build Targets"></a>Different Build Targets</h2><h3 id="web-animations-min-js"><a href="#web-animations-min-js" class="headerlink" title="web-animations.min.js"></a>web-animations.min.js</h3><p>Tracks the Web Animations features that are supported natively in browsers.<br>Today that means Element.animate and Playback Control in Chrome. If you’re not<br>sure what features you will need, start with this.</p>
-<h3 id="web-animations-next-min-js"><a href="#web-animations-next-min-js" class="headerlink" title="web-animations-next.min.js"></a>web-animations-next.min.js</h3><p>Contains all of web-animations.min.js plus features that are still undergoing<br>discussion or have yet to be implemented natively.</p>
-<h3 id="web-animations-next-lite-min-js"><a href="#web-animations-next-lite-min-js" class="headerlink" title="web-animations-next-lite.min.js"></a>web-animations-next-lite.min.js</h3><p>A cut down version of web-animations-next, it removes several lesser used<br>property handlers and some of the larger and less used features such as matrix<br>interpolation/decomposition.</p>
-<h3 id="Build-Target-Comparison"><a href="#Build-Target-Comparison" class="headerlink" title="Build Target Comparison"></a>Build Target Comparison</h3><table>
-<thead>
-<tr>
-<th></th>
-<th style="text-align:center">web-animations</th>
-<th style="text-align:center">web-animations-next</th>
-<th style="text-align:center">web-animations-next-lite</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Size (gzipped)</td>
-<td style="text-align:center">15KB</td>
-<td style="text-align:center">18KB</td>
-<td style="text-align:center">15KB</td>
-</tr>
-<tr>
-<td>Element.animate</td>
-<td style="text-align:center">✔</td>
-<td style="text-align:center">✔</td>
-<td style="text-align:center">✔</td>
-</tr>
-<tr>
-<td>Timing input (easings, duration, fillMode, etc.) for animation effects</td>
-<td style="text-align:center">✔</td>
-<td style="text-align:center">✔</td>
-<td style="text-align:center">✔</td>
-</tr>
-<tr>
-<td>Playback control</td>
-<td style="text-align:center">✔</td>
-<td style="text-align:center">✔</td>
-<td style="text-align:center">✔</td>
-</tr>
-<tr>
-<td>Support for animating lengths, transforms and opacity</td>
-<td style="text-align:center">✔</td>
-<td style="text-align:center">✔</td>
-<td style="text-align:center">✔</td>
-</tr>
-<tr>
-<td>Support for animating other CSS properties</td>
-<td style="text-align:center">✔</td>
-<td style="text-align:center">✔</td>
-<td style="text-align:center">🚫</td>
-</tr>
-<tr>
-<td>Matrix fallback for transform animations</td>
-<td style="text-align:center">✔</td>
-<td style="text-align:center">✔</td>
-<td style="text-align:center">🚫</td>
-</tr>
-<tr>
-<td>KeyframeEffect constructor</td>
-<td style="text-align:center">🚫</td>
-<td style="text-align:center">✔</td>
-<td style="text-align:center">✔</td>
-</tr>
-<tr>
-<td>Simple GroupEffects &amp; SequenceEffects</td>
-<td style="text-align:center">🚫</td>
-<td style="text-align:center">✔</td>
-<td style="text-align:center">✔</td>
-</tr>
-<tr>
-<td>Custom Effects</td>
-<td style="text-align:center">🚫</td>
-<td style="text-align:center">✔</td>
-<td style="text-align:center">✔</td>
-</tr>
-<tr>
-<td>Timing input (easings, duration, fillMode, etc.) for groups</div></td>
-<td style="text-align:center">🚫</td>
-<td style="text-align:center">🚫*</td>
-<td style="text-align:center">🚫</td>
-</tr>
-<tr>
-<td>Additive animation</td>
-<td style="text-align:center">🚫*</td>
-<td style="text-align:center">🚫*</td>
-<td style="text-align:center">🚫</td>
-</tr>
-<tr>
-<td>Motion path</td>
-<td style="text-align:center">🚫*</td>
-<td style="text-align:center">🚫*</td>
-<td style="text-align:center">🚫</td>
-</tr>
-<tr>
-<td>Modifiable keyframe effect timing</td>
-<td style="text-align:center">🚫</td>
-<td style="text-align:center">🚫*</td>
-<td style="text-align:center">🚫*</td>
-</tr>
-<tr>
-<td>Modifiable group timing</td>
-<td style="text-align:center">🚫</td>
-<td style="text-align:center">🚫*</td>
-<td style="text-align:center">🚫*</td>
-</tr>
-<tr>
-<td>Usable inline style**</td>
-<td style="text-align:center">✔</td>
-<td style="text-align:center">✔</td>
-<td style="text-align:center">🚫</td>
-</tr>
-</tbody>
-</table>
-<p>* support is planned for these features.<br>** see inline style caveat below.</p>
-<h2 id="Caveats"><a href="#Caveats" class="headerlink" title="Caveats"></a>Caveats</h2><p>Some things won’t ever be faithful to the native implementation due to browser<br>and CSS API limitations. These include:</p>
-<h3 id="Inline-Style"><a href="#Inline-Style" class="headerlink" title="Inline Style"></a>Inline Style</h3><p>Inline style modification is the mechanism used by the polyfill to animate<br>properties. Both web-animations and web-animations-next incorporate a module<br>that emulates a vanilla inline style object, so that style modification from<br>JavaScript can still work in the presence of animations. However, to keep the<br>size of web-animations-next-lite as small as possible, the style emulation<br>module is not included. When using this version of the polyfill, JavaScript<br>inline style modification will be overwritten by animations.<br>Due to browser constraints inline style modification is not supported on iOS 7<br>or Safari 6 (or earlier versions).</p>
-<h3 id="Prefix-handling"><a href="#Prefix-handling" class="headerlink" title="Prefix handling"></a>Prefix handling</h3><p>The polyfill will automatically detect the correctly prefixed name to use when<br>writing animated properties back to the platform. Where possible, the polyfill<br>will only accept unprefixed versions of experimental features. For example:</p>
-<pre><code class="js"><span class="keyword">var</span> effect = <span class="keyword">new</span> KeyframeEffect(elem, {<span class="string">"transform"</span>: <span class="string">"translate(100px, 100px)"</span>}, <span class="number">2000</span>);
-</code></pre>
-<p>will work in all browsers that implement a conforming version of transform, but</p>
-<pre><code class="js"><span class="keyword">var</span> effect = <span class="keyword">new</span> KeyframeEffect(elem, {<span class="string">"-webkit-transform"</span>: <span class="string">"translate(100px, 100px)"</span>}, <span class="number">2000</span>);
-</code></pre>
-<p>will not work anywhere.</p>
-<h2 id="API-and-Specification-Feedback"><a href="#API-and-Specification-Feedback" class="headerlink" title="API and Specification Feedback"></a>API and Specification Feedback</h2><p>File an issue on GitHub: <a href="https://github.com/w3c/web-animations/issues/new">https://github.com/w3c/web-animations/issues/new</a>.<br>Alternatively, send an email to <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#112;&#x75;&#x62;&#108;&#x69;&#x63;&#x2d;&#102;&#120;&#64;&#119;&#x33;&#x2e;&#111;&#114;&#x67;">&#112;&#x75;&#x62;&#108;&#x69;&#x63;&#x2d;&#102;&#120;&#64;&#119;&#x33;&#x2e;&#111;&#114;&#x67;</a> with subject line<br>“[web-animations] … message topic …”<br>(<a href="http://lists.w3.org/Archives/Public/public-fx/">archives</a>).</p>
-<h2 id="Polyfill-Issues"><a href="#Polyfill-Issues" class="headerlink" title="Polyfill Issues"></a>Polyfill Issues</h2><p>Report any issues with this implementation on GitHub:<br><a href="https://github.com/web-animations/web-animations-next/issues/new">https://github.com/web-animations/web-animations-next/issues/new</a>.</p>
-<h2 id="Breaking-changes"><a href="#Breaking-changes" class="headerlink" title="Breaking changes"></a>Breaking changes</h2><p>When we make a potentially breaking change to the polyfill’s API<br>surface (like a rename) we will, where possible, continue supporting the<br>old version, deprecated, for three months, and ensure that there are<br>console warnings to indicate that a change is pending. After three<br>months, the old version of the API surface (e.g. the old version of a<br>function name) will be removed. <em>If you see deprecation warnings you<br>can’t avoid it by not updating</em>.</p>
-<p>We also announce anything that isn’t a bug fix on<br><a href="https://groups.google.com/forum/#!forum/web-animations-changes">web-animations-changes@googlegroups.com</a>.</p>
+<h2 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h2><ul>
+<li><a href="https://github.com/web-animations/web-animations-codelabs">Codelab tutorial</a></li>
+<li><a href="/docs/examples.md">Examples of usage</a></li>
+<li><a href="https://web-animations.github.io/web-animations-demos">Live demos</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/animate">MDN reference</a></li>
+<li><a href="http://w3c.github.io/web-animations/">W3C specification</a></li>
+</ul>
+<h2 id="We-love-feedback"><a href="#We-love-feedback" class="headerlink" title="We love feedback!"></a>We love feedback!</h2><ul>
+<li><p>For feedback on the API and the specification:</p>
+<ul>
+<li>File an issue on GitHub: <a href="https://github.com/w3c/web-animations/issues/new">https://github.com/w3c/web-animations/issues/new</a></li>
+<li>Alternatively, send an email to <a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x70;&#x75;&#x62;&#x6c;&#105;&#x63;&#x2d;&#102;&#x78;&#64;&#119;&#51;&#x2e;&#x6f;&#x72;&#103;">&#x70;&#x75;&#x62;&#x6c;&#105;&#x63;&#x2d;&#102;&#x78;&#64;&#119;&#51;&#x2e;&#x6f;&#x72;&#103;</a> with subject line<br>“[web-animations] … message topic …”<br>(<a href="http://lists.w3.org/Archives/Public/public-fx/">archives</a>).</li>
+</ul>
+</li>
+<li><p>For issues with the polyfill, report them on GitHub:<br><a href="https://github.com/web-animations/web-animations-js/issues/new">https://github.com/web-animations/web-animations-js/issues/new</a>.</p>
+</li>
+</ul>
+<h2 id="Keep-up-to-date"><a href="#Keep-up-to-date" class="headerlink" title="Keep up-to-date"></a>Keep up-to-date</h2><p>Breaking polyfill changes will be announced on this low-volume mailing list:<br><a href="https://groups.google.com/forum/#!forum/web-animations-changes">web-animations-changes@googlegroups.com</a>.</p>
+<h2 id="More-info"><a href="#More-info" class="headerlink" title="More info"></a>More info</h2><ul>
+<li><a href="/docs/support.md">Technical details about the polyfill</a><ul>
+<li><a href="/docs/support.md#browser-support">Browser support</a></li>
+<li><a href="/docs/support.md#native-fallback">Fallback to native</a></li>
+<li><a href="/docs/support.md#features">Feature list</a></li>
+<li><a href="/docs/support.md#process-for-breaking-changes">Feature deprecation and removal processes</a></li>
+</ul>
+</li>
+<li>To test experimental API features, try one of the<br><a href="/docs/experimental.md">experimental targets</a></li>
+</ul>

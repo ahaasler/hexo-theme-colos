@@ -1,11 +1,18 @@
-<h2 id="Developer-setup-instructions"><a href="#Developer-setup-instructions" class="headerlink" title="Developer setup instructions"></a>Developer setup instructions</h2><ol>
-<li><code>git clone git@github.com:web-animations/web-animations-next.git</code></li>
+<h2 id="Developer-instructions"><a href="#Developer-instructions" class="headerlink" title="Developer instructions"></a>Developer instructions</h2><h3 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h3><ol>
+<li>Fork web-animations/web-animations-js.</li>
+<li><code>git clone git@github.com:$GITHUB_USER/web-animations-js.git</code></li>
 <li><code>git submodule update --init --recursive</code> (Necessary for running tests.)</li>
 <li>Install <a href="https://nodejs.org/en/">node</a> and make sure <code>npm</code> is in your $PATH</li>
 <li>Run <code>npm install</code> in the respository to pull in development dependencies.</li>
-<li>Run <code>npm install -g grunt grunt-cli</code> to get the build tools for the command line.</li>
+<li>Run <code>npm install -g grunt-cli</code> to get the build tools for the command line.</li>
+</ol>
+<h3 id="Contributing"><a href="#Contributing" class="headerlink" title="Contributing"></a>Contributing</h3><p>Note that development should occur against the <code>dev</code> branch, not <code>master</code>. This<br>is the default target for pull requests.</p>
+<ol>
+<li>In your fork of web-animations-js, <code>git checkout dev</code> or create a new branch whose parent is dev.</li>
 <li>Run <code>grunt</code> to build the polyfill.</li>
 <li>Run <code>grunt test</code> to run polyfill and web-platform-tests tests.</li>
+<li>Commit changes to your fork.</li>
+<li>Create a pull request from your fork of web-animations-js to<br><a href="https://github.com/web-animations/web-animations-js/tree/dev">web-animations/web-animations-js/dev</a>.</li>
 </ol>
 <h2 id="Debugging-tests"><a href="#Debugging-tests" class="headerlink" title="Debugging tests"></a>Debugging tests</h2><p>You can run the tests in an interactive mode with <code>grunt debug</code>. This starts the<br>Karma server once for each polyfill target for each test framework.<br>Navigate to <code>http://localhost:9876/debug.html</code> to open the test runner in your<br>browser of choice, all test results appear in the Javascript console.<br>Test failures can be accessed via <code>window.failures</code> and <code>window.formattedFailures</code><br>once the tests have completed.</p>
 <p>The polyfill target and tests can be specified as arguments to the <code>debug</code> task.<br>Example: <code>grunt debug:web-animations-next:test/web-platform-tests/web-animations/animation/pause.html</code><br>Multiple test files may be listed with comma separation. Specifying files will output their URL in the command line.<br>Example: <code>http://localhost:9876/base/test/web-platform-tests/web-animations/animation/pause.html</code></p>
@@ -23,15 +30,28 @@
 
   * Fixed a bug where nothing worked
 </code></pre><p>Use the following to generate a summary of commits, but edit the list to contain only<br>relevant information.</p>
-<pre><code>git log --first-parent `git describe --tags --abbrev=0 web-animations-js/master`..web-animations-next/master --pretty=format:&quot;  * %s&quot;
+<pre><code>git log --first-parent `git describe --tags --abbrev=0 master`..dev --pretty=format:&quot;  * %s&quot;
 </code></pre></li>
 <li><p>Specify the new version inside <code>package.json</code> (for NPM), for example:</p>
 <pre><code class="js"><span class="string">"version"</span>: <span class="string">"3.13.37"</span>,
 </code></pre>
 </li>
-<li><p>Build the polyfill with <code>npm install &amp;&amp; grunt</code> then update <code>README.md</code>‘s Build Target Comparison with the current gzipped sizes.</p>
+<li><p>Build the polyfill with <code>npm install &amp;&amp; grunt</code> then update <code>docs/experimental.md</code>‘s Build Target Comparison with the current gzipped sizes.</p>
 </li>
-<li><p>Submit both changes to web-animations-next then follow the procedure to push from web-animations-next to web-animations-js.</p>
+<li><p>Commit the above changes to web-animations-js/dev and merge to<br>web-animations-js/master.</p>
+<pre><code class="sh">git checkout master
+git merge dev --no-edit --quiet
+</code></pre>
+</li>
+<li><p>Build and commit minified JavaScript files.</p>
+<pre><code class="sh">npm install
+grunt
+<span class="comment"># Optional "grunt test" to make sure everything still passes.</span>
+git add <span class="_">-f</span> *.min.js*
+git rm .gitignore
+git commit -m <span class="string">'Add build artifacts from '</span>`cat .git/refs/heads/dev`
+git push HEAD:refs/heads/master
+</code></pre>
 </li>
 <li><p>Draft a <a href="https://github.com/web-animations/web-animations-js/releases">new release</a> at the<br>commit pushed to web-animations-js in step #4. Copy the release notes from <code>History.md</code><br>added in step #2.</p>
 </li>
@@ -42,18 +62,7 @@
 <p>Only owners of the group may post to it so you may need to request ownership or ask someone to post it for you.</p>
 </li>
 </ol>
-<h2 id="Pushing-from-web-animations-next-to-web-animations-js"><a href="#Pushing-from-web-animations-next-to-web-animations-js" class="headerlink" title="Pushing from web-animations-next to web-animations-js"></a>Pushing from web-animations-next to web-animations-js</h2><pre><code>git fetch web-animations-next
-git fetch web-animations-js
-git checkout web-animations-js/master
-git merge web-animations-next/master --no-edit --quiet
-npm install
-grunt
-# Optional &quot;grunt test&quot; to make sure everything still passes.
-git add -f *.min.js*
-git rm .gitignore
-git commit -m &apos;Add build artifacts from &apos;`cat .git/refs/remotes/web-animations-next/master`
-git push web-animations-js HEAD:refs/heads/master
-</code></pre><h2 id="Testing-architecture"><a href="#Testing-architecture" class="headerlink" title="Testing architecture"></a>Testing architecture</h2><p>This is an overview of what happens when <code>grunt test</code> is run.</p>
+<h2 id="Testing-architecture"><a href="#Testing-architecture" class="headerlink" title="Testing architecture"></a>Testing architecture</h2><p>This is an overview of what happens when <code>grunt test</code> is run.</p>
 <ol>
 <li>Polyfill tests written in mocha and chai are run.<ol>
 <li>grunt creates a karma config with mocha and chai adapters.</li>
