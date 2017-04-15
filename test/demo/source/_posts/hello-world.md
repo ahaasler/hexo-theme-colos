@@ -1,7 +1,7 @@
 title: Hello World
 date: 2015-12-12 11:13:41
 category: code
-sticky: true
+featured: true
 ---
 
 This post contains Hello World examples to showcase the syntax highlighting.
