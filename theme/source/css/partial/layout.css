@@ -113,6 +113,7 @@ paper-card {
   width: 100%;
   @nest & h1 {
     text-align: left!important;
+    margin-bottom: 0.8em;
   }
   @nest & .post-date {
     margin-left: .6em;
