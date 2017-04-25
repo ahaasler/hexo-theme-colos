@@ -72,8 +72,10 @@ a {
 }
 
 paper-card {
+  font-weight: 300;
   @nest & h1 {
     font-size: 1.6em;
+    font-weight: 400;
     padding-top: .2em;
     @nest & a {
       color: var(--primary-text);
