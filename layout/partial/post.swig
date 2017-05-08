@@ -13,7 +13,7 @@
 				alt="{{ post.title }}">
 			<div class="card-content">
 				<div class="meta">
-					<span class="post-category">{{ list_categories(post.categories, {show_count: 0, style: 'none'}) }}</span>
+					{% if post.categories.size() > 0 %}<span class="post-category">{{ list_categories(post.categories, {show_count: 0, style: 'none'}) }}</span>{% endif %}
 					<span class="post-date">{{ time_tag(post.date, config.post_date_format) }}</span>
 				</div>
 				<h1><a href="{{ url_for(post.path) }}">{{ post.title }}</a></h1>
