@@ -477,7 +477,6 @@ Mixin | Description | Default
           this._showSlide(0);
         }
         if (this._slides.length > 1) {
-          this._preloadBackgrounds();
           this._initTimer();
         }
       },
@@ -744,15 +743,6 @@ Mixin | Description | Default
         this.carouselTimer = setInterval(function() {
           self._nextSlide();
         }, this.interval * 1000);
-      },
-
-      _preloadBackgrounds: function() {
-        var imageObj = new Image();
-        for (var i = 0; i < this._slides.length; i++) {
-          if (this._slides[i].getAttribute('bg') !== undefined) {
-            imageObj.src=this._slides[i].getAttribute('bg');
-          }
-        }
       },
 
       /**
