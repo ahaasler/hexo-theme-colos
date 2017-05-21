@@ -26,7 +26,8 @@
     "paper-elements": "PolymerElements/paper-elements#^1.0.7",
     "paper-drawer": "collaborne/paper-drawer#~1.0.7",
     "app-layout": "PolymerElements/app-layout#^0.10.7",
-    "font-roboto-brick": "^1.0.0"
+    "font-roboto-brick": "^1.0.0",
+    "simple-carousel": "polymer-simple-carousel#^1.1.0"
   },
   "resolutions": {
     "polymer": "^1.2.0",
