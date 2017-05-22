@@ -10154,6 +10154,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         transition: none !important;
       }
     </style>
+    <div id="background">
+      <div id="backgroundRearLayer"></div>
+      <div id="backgroundFrontLayer"></div>
+    </div>
     <div id="contentContainer">
       <content id="content"></content>
     </div>
@@ -10534,23 +10538,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return Math.min(max, Math.max(min, v));
       },
 
-      _ensureBgContainers: function() {
-        if (!this._bgContainer) {
-          this._bgContainer = document.createElement('div');
-          this._bgContainer.id = 'background';
-
-          this._bgRear = document.createElement('div');
-          this._bgRear.id = 'backgroundRearLayer';
-          this._bgContainer.appendChild(this._bgRear);
-
-          this._bgFront = document.createElement('div');
-          this._bgFront.id = 'backgroundFrontLayer';
-          this._bgContainer.appendChild(this._bgFront);
-
-          Polymer.dom(this.root).insertBefore(this._bgContainer, this.$.contentContainer);
-        }
-      },
-
       _changeBgImage: function(url) {
         this._getDOMRef('backgroundFrontLayer').style.backgroundImage = url === undefined ? 'none' : 'url(' + url + ')';
       },
@@ -10558,14 +10545,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _getDOMRef: function(id) {
         switch (id) {
           case 'backgroundFrontLayer':
-            this._ensureBgContainers();
-            return this._bgFront;
+            return this.$.backgroundFrontLayer;
           case 'backgroundRearLayer':
-            this._ensureBgContainers();
-            return this._bgRear;
+            return this.$.backgroundRearLayer;
           case 'background':
-            this._ensureBgContainers();
-            return this._bgContainer;
+            return this.$.background;
           case 'mainTitle':
             return Polymer.dom(this).querySelector('[main-title]');
           case 'condensedTitle':
