@@ -19,6 +19,7 @@ Modifications: Adrian Haasler <dev@adrianhaasler.com>
 <link rel="import" href="iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="iron-resizable-behavior/iron-resizable-behavior.html">
 <link rel="import" href="app-layout/app-scroll-effects/app-scroll-effects-behavior.html">
+<link rel="import" href="simple-carousel/simple-carousel.html">
 
 <!--
 app-header is container element for app-toolbars at the top of the screen that can have scroll
@@ -279,7 +280,9 @@ Mixin | Description | Default
       }
 
       #backgroundFrontLayer,
-      #backgroundRearLayer {
+      #backgroundRearLayer,
+      #backgroundFrontLayer simple-carousel,
+      #backgroundFrontLayer simple-carousel carousel-slide {
         @apply(--layout-fit);
         height: 100%;
         pointer-events: none;
@@ -320,7 +323,13 @@ Mixin | Description | Default
     </style>
     <div id="background">
       <div id="backgroundRearLayer"></div>
-      <div id="backgroundFrontLayer"></div>
+      <div id="backgroundFrontLayer">
+        <simple-carousel infinite-loop="true" auto="true">
+          <template is="dom-repeat" items="{{_slides}}">
+            <carousel-slide style="background-image: {{_bgImageStyle(item)}};"></carousel-slide>
+          </template>
+        </simple-carousel>
+      </div>
     </div>
     <div id="contentContainer">
       <content id="content"></content>
@@ -700,6 +709,11 @@ Mixin | Description | Default
 
       _clamp: function(v, min, max) {
         return Math.min(max, Math.max(min, v));
+      },
+
+      _bgImageStyle: function(slide) {
+        var url = slide.getAttribute('bg');
+        return url == undefined ? 'none' : 'url(' + url + ')';
       },
 
       _getDOMRef: function(id) {
