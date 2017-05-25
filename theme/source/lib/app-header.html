@@ -324,7 +324,7 @@ Mixin | Description | Default
     <div id="background">
       <div id="backgroundRearLayer"></div>
       <div id="backgroundFrontLayer">
-        <simple-carousel infinite-loop="true" auto="true">
+        <simple-carousel infinite-loop="true" auto="true" transition-time="{{interval}}">
           <template is="dom-repeat" items="{{_slides}}">
             <carousel-slide style="background-image: {{_bgImageStyle(item)}};"></carousel-slide>
           </template>
@@ -406,11 +406,11 @@ Mixin | Description | Default
         },
 
         /**
-         * Time in seconds to change slide.
+         * Time in milliseconds to change slide.
          */
         interval: {
           type: Number,
-          value: 5
+          value: 5000
         }
       },
 
@@ -736,7 +736,7 @@ Mixin | Description | Default
         var self = this;
         this.carouselTimer = setInterval(function() {
           self._nextSlide();
-        }, this.interval * 1000);
+        }, this.interval);
       },
 
       /**
