@@ -10421,7 +10421,7 @@ Simple carousel component for Polymer 1.0
     <div id="background">
       <div id="backgroundRearLayer"></div>
       <div id="backgroundFrontLayer">
-        <simple-carousel infinite-loop="true" auto="true">
+        <simple-carousel infinite-loop="true" auto="true" transition-time="{{interval}}">
           <template is="dom-repeat" items="{{_slides}}">
             <carousel-slide style="background-image: {{_bgImageStyle(item)}};"></carousel-slide>
           </template>
@@ -10503,11 +10503,11 @@ Simple carousel component for Polymer 1.0
         },
 
         /**
-         * Time in seconds to change slide.
+         * Time in milliseconds to change slide.
          */
         interval: {
           type: Number,
-          value: 5
+          value: 5000
         }
       },
 
@@ -10833,7 +10833,7 @@ Simple carousel component for Polymer 1.0
         var self = this;
         this.carouselTimer = setInterval(function() {
           self._nextSlide();
-        }, this.interval * 1000);
+        }, this.interval);
       },
 
       /**
