@@ -10421,7 +10421,7 @@ Simple carousel component for Polymer 1.0
     <div id="background">
       <div id="backgroundRearLayer"></div>
       <div id="backgroundFrontLayer">
-        <simple-carousel infinite-loop="true" auto="true" transition-time="{{interval}}">
+        <simple-carousel infinite-loop="true" auto="true" transition-time="{{interval}}" show-controls="false">
           <template is="dom-repeat" items="{{_slides}}">
             <carousel-slide style="background-image: {{_bgImageStyle(item)}};"></carousel-slide>
           </template>
@@ -34323,7 +34323,7 @@ Holder for the drawer
 			}
 		</style>
 
-		<content></content>
+		<slot></slot>
 	</template>
 </dom-module>
 
@@ -34448,7 +34448,7 @@ Adds a subheader to the drawer
 			}
 		</style>
 
-		<content></content>
+		<slot></slot>
 	</template>
 </dom-module>
 
@@ -34485,7 +34485,7 @@ Item in the drawer without an icon
 			}
 		</style>
 
-		<paper-item class="item" role="menuitem"><paper-ripple fit=""></paper-ripple><content></content></paper-item>
+		<paper-item class="item" role="menuitem"><paper-ripple fit=""></paper-ripple><slot></slot></paper-item>
 	</template>
 </dom-module>
 
@@ -34607,7 +34607,7 @@ Custom property               | Description                                    |
 		<paper-icon-item class="item" role="menuitem">
 			<paper-ripple fit=""></paper-ripple>
 			<iron-icon class="icon" icon="[[icon]]" item-icon=""></iron-icon>
-			<content></content>
+			<slot></slot>
 		</paper-icon-item>
 	</template>
 </dom-module>
