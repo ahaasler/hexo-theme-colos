@@ -324,7 +324,7 @@ Mixin | Description | Default
     <div id="background">
       <div id="backgroundRearLayer"></div>
       <div id="backgroundFrontLayer">
-        <simple-carousel infinite-loop="true" auto="true" transition-time="{{interval}}">
+        <simple-carousel infinite-loop="true" auto="true" transition-time="{{interval}}" show-controls="false">
           <template is="dom-repeat" items="{{_slides}}">
             <carousel-slide style="background-image: {{_bgImageStyle(item)}};"></carousel-slide>
           </template>
