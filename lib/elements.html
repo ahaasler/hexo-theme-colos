@@ -10424,7 +10424,7 @@ Simple carousel component for Polymer 1.0
         <template is="dom-if" if="{{_slides.length}}">
           <simple-carousel infinite-loop="true" auto="true" transition-time="{{interval}}" show-controls="false">
             <template is="dom-repeat" items="{{_slides}}">
-              <carousel-slide style="background-image: {{_bgImageStyle(item)}};"></carousel-slide>
+              <carousel-slide class$="{{_slideClasses(item)}}" style="background-image: {{_bgImageStyle(item)}};"></carousel-slide>
             </template>
           </simple-carousel>
         </template>
@@ -10813,6 +10813,11 @@ Simple carousel component for Polymer 1.0
       _bgImageStyle: function(slide) {
         var url = slide.getAttribute('bg');
         return url == undefined ? 'none' : 'url(' + url + ')';
+      },
+
+      _slideClasses: function(slide) {
+        var url = slide.getAttribute('bg');
+        return url == undefined ? 'no-bg' : 'cover-bg';
       },
 
       _getDOMRef: function(id) {
