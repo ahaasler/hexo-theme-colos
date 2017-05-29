@@ -29,7 +29,7 @@ app-header {
   background-color: var(--deep-purple);
   @nest & #backgroundFrontLayer {
     background-position: center center;
-    @nest & carousel-slide:before {
+    @nest & carousel-slide.cover-bg:before {
       @apply --darken-image;
     }
     @nest &:before {
