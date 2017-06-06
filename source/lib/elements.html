@@ -10071,67 +10071,70 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 `simple-carousel`
 Simple carousel component for Polymer 1.0
 
-[View in Github](https://github.com/franjsc/simple-carousel)
+Modifications: Adrian Haasler <dev@adrianhaasler.com>
+- Notify changes in selected property.
+
+[View in Github](https://github.com/ahaasler/simple-carousel)
 @demo demo/index.html
 -->
 
-<dom-module id="carousel-slide" assetpath="simple-carousel/">	
+<dom-module id="carousel-slide" assetpath="simple-carousel/">
 	<template>
 		<style>
 			:host{
 				display:block;
 			}
 		</style>
-		<content>
-
-		</content>
+		<content></content>
 	</template>
 	<script>
 		Polymer({
 			is:'carousel-slide'
 		})
 	</script>
-</dom-module><script>
-    AnimationBehavior = {
-
-
-      properties:{
-         /**
-         * Set the selected item.
-         */
-        _transitionStyle: {
-          type: String,
-          computed: '_computeTransitionStyle(transitionStyle)'
-        }
-      },
-      _computeTransitionStyle: function(transitionStyle){
-        switch(transitionStyle){
-          case 'cubic':
-            return 'cubic-bezier(.1,.6,.1,1)'
-          case 'cubic-inverse':
-            return 'cubic-bezier(0, 0.2, 0.9, 0.4)'
-          default:
-            return transitionStyle;
-        }
-      },
-      _translateAnimation: function(elem, inverse){
-         // Setup transition start state
-          var oldSelected = this.selected;
-          this._translateX(oldSelected, 0);
-          this._translateX(elem, this.offsetWidth*inverse);
-
-          // Start the transition
-          this.selected = elem;
-          this._translateX(oldSelected, -this.offsetWidth*inverse, true /* transition */);
-          this._translateX(elem, 0, true /* transition */);
-      },
-      _translateX: function(elem, x, transition) {
-        var transitionDuration = this.transitionDuration / 1000;
-        elem.style.display = 'inline-block';
-        elem.style.transition = transition ? 'transform ' + transitionDuration +'s ' + this._transitionStyle : '';
-        elem.style.transform = 'translate3d(' + x + 'px, 0, 0)';
+</dom-module>
+<script>
+  /*
+   * @polymerBehavior Polymer.AnimationBehavior
+   */
+  Polymer.AnimationBehavior = {
+    properties: {
+       /**
+       * Set the selected item.
+       */
+      _transitionStyle: {
+        type: String,
+        computed: '_computeTransitionStyle(transitionStyle)'
       }
-    };
+    },
+    _computeTransitionStyle: function(transitionStyle) {
+      switch(transitionStyle) {
+        case 'cubic':
+          return 'cubic-bezier(.1,.6,.1,1)'
+        case 'cubic-inverse':
+          return 'cubic-bezier(0, 0.2, 0.9, 0.4)'
+        default:
+          return transitionStyle;
+      }
+    },
+    _translateAnimation: function(elem, inverse) {
+      // Setup transition start state
+      var oldSelected = this.selected;
+      this._translateX(oldSelected, 0);
+      this._translateX(elem, this.offsetWidth * inverse);
+
+      // Start the transition
+      this.selected = elem;
+      this._translateX(oldSelected, -this.offsetWidth * inverse, true /* transition */);
+      this._translateX(elem, 0, true /* transition */);
+    },
+    _translateX: function(elem, x, transition) {
+      var transitionDuration = this.transitionDuration / 1000;
+      elem.style.display = 'inline-block';
+      elem.style.transition = transition ? 'transform ' + transitionDuration + 's ' + this._transitionStyle : '';
+      elem.style.transform = 'translate3d(' + x + 'px, 0, 0)';
+    }
+  };
 </script><dom-module id="simple-carousel" assetpath="simple-carousel/">
   <template>
     <style>
@@ -10142,18 +10145,24 @@ Simple carousel component for Polymer 1.0
         overflow:hidden;
       }
 
-      :host ::content carousel-slide{
+      :host ::content carousel-slide,
+      :host ::content [carousel-slide],
+      :host ::content [data-carousel-slide] {
         position:absolute;
         width:100%;
         left:0;
         top:0;
       }
 
-      :host ::content carousel-slide:first-child{
+      :host ::content carousel-slide:first-child,
+      :host ::content [carousel-slide]:first-child,
+      :host ::content [data-carousel-slide]:first-child {
           position:relative;
       }
 
-      :host ::content carousel-slide:not([selected]) {
+      :host ::content carousel-slide:not([selected]),
+      :host ::content [carousel-slide]:not([selected]),
+      :host ::content [data-carousel-slide]:not([selected]) {
         display:none;
       }
 
@@ -10169,6 +10178,10 @@ Simple carousel component for Polymer 1.0
         font-weight: bold;
         cursor: pointer;
         opacity: 0.7;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
       }
 
       button:hover,
@@ -10189,15 +10202,17 @@ Simple carousel component for Polymer 1.0
         cursor: default;
       }
 
-
+      :host(.non-keyboard) :focus {
+        outline: none !important;
+      }
     </style>
 
     <div>
-      <content select="carousel-slide"></content>
+      <content select="carousel-slide, [carousel-slide], [data-carousel-slide]"></content>
     </div>
 
-    <button id="prevBtn" on-click="previous">❮</button>
-    <button id="nextBtn" on-click="next">❯</button>
+    <button id="prevBtn" on-click="previous" on-keyup="keyboardAdvancePrevious" tabindex="0">❮</button>
+    <button id="nextBtn" on-click="next" on-keyup="keyboardAdvanceNext" tabindex="0">❯</button>
 
 
   </template>
@@ -10206,13 +10221,16 @@ Simple carousel component for Polymer 1.0
     Polymer({
 
       is: 'simple-carousel',
-      behaviors: [AnimationBehavior],
+      behaviors: [
+        Polymer.AnimationBehavior
+      ],
       properties: {
          /**
          * Set the selected item.
          */
         selected: {
           type: Object,
+          notify: true,
           observer: '_selectedChanged'
         },
         /**
@@ -10259,70 +10277,114 @@ Simple carousel component for Polymer 1.0
           value: "ease"
         }
       },
-      ready: function(){
+      ready: function() {
         this._autoStart();
         if(this.showControls == 'false'){
           this.$.prevBtn.style.display = 'none';
           this.$.nextBtn.style.display = 'none';
         }
       },
-      _autoStart: function(){
+      _autoStart: function() {
         if(this.auto){
           var that =  this;
           this.intervalHander && clearInterval(this.intervalHander);
           this.intervalHander = setInterval(function(){that.next()}, this.transitionTime);
         }
       },
+      _getNextVisibleSlide: function() {
+        var elems = this.queryAllEffectiveChildren('carousel-slide, [carousel-slide], [data-carousel-slide]');
+        var selected;
+        elems.forEach(function(elem) {
+          if (!elem.hidden && !selected) {
+            selected = elem;
+          }
+        });
+        return selected;
+      },
+      _getPreviousVisibleSlide: function() {
+        var elems = this.queryAllEffectiveChildren('carousel-slide, [carousel-slide], [data-carousel-slide]');
+        var n = 1;
+        elem = elems[elems.length - n];
+        while (elem.hidden) {
+          n++;
+          elem = elems[elems.length - n];
+        }
+        return elem;
+      },
       attached: function() {
-        this.selected = this.queryEffectiveChildren('carousel-slide');
-        //this.queryEffectiveChildren('carousel-slide').setAttribute('selected', '');
+        this.selected = this._getNextVisibleSlide();
       },
       _selectedChanged: function(selected, oldSelected) {
-          if (oldSelected) oldSelected.removeAttribute('selected');
-          if (selected) selected.setAttribute('selected', '');
+        if (oldSelected) oldSelected.removeAttribute('selected');
+        if (selected) selected.setAttribute('selected', '');
 
-          if(!this.infiniteLoop) {
-             this.$.prevBtn.disabled = !selected.previousElementSibling;
-             this.$.nextBtn.disabled = !selected.nextElementSibling;
-          }
-
+        if (!this.infiniteLoop) {
+           this.$.prevBtn.disabled = !selected.previousElementSibling;
+           this.$.nextBtn.disabled = !selected.nextElementSibling;
+        }
+      },
+      /**
+       * Sets keyboard class based on event type
+       */
+      _setKeyboardClass: function(event) {
+        var host = Polymer.dom(this);
+        if (event && (event.type === 'keyup' || event.type === 'keydown' || event.type === 'keypress')) {
+          host.classList.remove('non-keyboard');
+        } else {
+          host.classList.add('non-keyboard');
+        }
+      },
+      keyboardAdvancePrevious: function(event) {
+        if (event.which === 32 || event.which === 13) {
+          this.previous(event);
+        }
+      },
+      keyboardAdvanceNext: function(event) {
+        if (event.which === 32 || event.which === 13) {
+          this.next(event);
+        }
       },
       /**
        * Shows the previous carousel element.
        */
-      previous: function(){
-        var elem = this.selected.previousElementSibling;
+      previous: function(event) {
+        this._setKeyboardClass(event);
+        var prevElem = this.selected.previousElementSibling;
+        var isSlideElem = prevElem && prevElem.tagName === 'CAROUSEL-SLIDE' && !prevElem.hidden;
+        var elem = isSlideElem ? this.selected.previousElementSibling : null;
         this._autoStart();
-        if(this.infiniteLoop && !elem){
-          var elems = this.queryAllEffectiveChildren('carousel-slide');
-          elem = elems[elems.length - 1];
+        if (this.infiniteLoop && !elem) {
+          elem = this._getPreviousVisibleSlide();
         }
-
-        elem && this._translateAnimation(elem,-1);
-
+        elem && this._translateAnimation(elem, -1);
       },
       /**
        * Shows the next carousel element.
        */
-      next:function(){
-        var elem = this.selected.nextElementSibling;
-        this._autoStart();
-        if(this.infiniteLoop && !elem){
-          elem = this.queryEffectiveChildren('carousel-slide');
+      next: function(event) {
+        this._setKeyboardClass(event);
+        if(!this.selected){
+          this.selected = this._getNextVisibleSlide(); 
         }
-
-        elem && this._translateAnimation(elem,1);
+        var nextElem = this.selected ? this.selected.nextElementSibling : null;
+        var isSlideElem = nextElem && nextElem.tagName === 'CAROUSEL-SLIDE' && !nextElem.hidden;
+        var elem = isSlideElem ? this.selected.nextElementSibling : null;
+        this._autoStart();
+        if (this.infiniteLoop && !elem) {
+          elem = this._getNextVisibleSlide();
+        }
+        elem && this.selected && this._translateAnimation(elem,1);
       },
       /**
        * Stop carousel loop
        */
-      stop: function(){
+      stop: function() {
         clearInterval(this.intervalHander);
       },
       /**
        * Start carousel loop
        */
-      start: function(){
+      start: function() {
         this.infiniteLoop = true;
         this._autoStart();
       }
