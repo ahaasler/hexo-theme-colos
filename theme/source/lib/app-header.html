@@ -325,7 +325,7 @@ Mixin | Description | Default
       <div id="backgroundRearLayer"></div>
       <div id="backgroundFrontLayer">
         <template is="dom-if" if="{{_slides.length}}">
-          <simple-carousel infinite-loop="true" auto="true" transition-time="{{interval}}" show-controls="false">
+          <simple-carousel id="backgroundCarousel" infinite-loop="true" auto="true" transition-time="{{interval}}" show-controls="false">
             <template is="dom-repeat" items="{{_slides}}">
               <carousel-slide class$="{{_slideClasses(item)}}" style="background-image: {{_bgImageStyle(item)}};"></carousel-slide>
             </template>
@@ -487,13 +487,19 @@ Mixin | Description | Default
       _currentSlide: 0,
 
       ready: function() {
+        var self = this;
         this._slides = Polymer.dom(this).querySelectorAll('[slide]');
         if (this._slides.length > 0) {
           this._showSlide(0);
         }
         if (this._slides.length > 1) {
-          this._initTimer();
+          // this._initTimer();
         }
+        this.async(function() {
+          self.$$('#backgroundCarousel').addEventListener("selected-changed", function(e) {
+            self._nextSlide();
+          });
+        });
       },
 
       /**
