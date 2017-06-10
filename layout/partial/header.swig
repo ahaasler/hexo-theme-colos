@@ -19,7 +19,7 @@
 		<app-toolbar class="bottom">
 			<div main-title>
 				{% for post in featured_posts() %}
-					<span slide{% if post.cover %} bg="{{ post.cover }}"{% endif %}>{{ post.title }}</span>
+					<a slide href="{{ url_for(post.path) }}"{% if post.cover %} bg="{{ post.cover }}"{% endif %}>{{ post.title }}</a>
 				{% endfor %}
 			</div>
 		</app-toolbar>
