@@ -54,6 +54,9 @@ app-toolbar {
     margin-left: 2em;
     font-size: 1.6em;
     font-weight: 300;
+    @nest & a {
+      pointer-events: auto;
+    }
   }
   @nest & [condensed-title] {
     max-width: 0px;
