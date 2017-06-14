@@ -134,3 +134,8 @@ paper-card {
     float: right;
   }
 }
+
+footer {
+  color: #fff;
+  background-color: var(--primary-text);
+}
