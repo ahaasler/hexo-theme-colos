@@ -138,4 +138,5 @@ paper-card {
 footer {
   color: #fff;
   background-color: var(--primary-text);
+  padding: 1.3em;
 }
