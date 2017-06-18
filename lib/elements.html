@@ -1042,7 +1042,7 @@ default:
 return value != null ? value : undefined;
 }
 }
-});Polymer.version = "1.9.1";Polymer.Base._addFeature({
+});Polymer.version = "1.9.2";Polymer.Base._addFeature({
 _registerFeatures: function () {
 this._prepIs();
 this._prepBehaviors();
@@ -1166,6 +1166,7 @@ return dom;
 }
 });(function () {
 var baseAttachedCallback = Polymer.Base.attachedCallback;
+var baseDetachedCallback = Polymer.Base.detachedCallback;
 Polymer.Base._addFeature({
 _hostStack: [],
 ready: function () {
@@ -1245,6 +1246,13 @@ this._beforeAttached();
 baseAttachedCallback.call(this);
 } else {
 this._attachedPending = true;
+}
+},
+detachedCallback: function () {
+if (this._readied) {
+baseDetachedCallback.call(this);
+} else {
+this._attachedPending = false;
 }
 }
 });
