@@ -6,5 +6,8 @@
 		<div id="footer-description">
 			<p>{{ config.description }}</p>
 		</div>
+		<div id="footer-social">
+			<a href="https://twitter.com/{{ theme.social.twitter }}" alt="Twitter"><iron-icon icon="social-iconset:twitter"></iron-icon></a>
+		</div>
 	</div>
 </footer>
