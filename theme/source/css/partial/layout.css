@@ -141,7 +141,7 @@ footer {
   padding: 1.3em;
   @nest & iron-icon {
     @nest & path {
-      fill: white;
+      fill: var(--white);
     }
     @nest &:hover path {
       fill: var(--deep-purple);
