@@ -12,3 +12,7 @@ menu:
   path: archives/
 -
   type: categories
+
+# Social accounts
+social:
+  twitter: ahaasler
