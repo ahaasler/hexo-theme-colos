@@ -8,6 +8,7 @@
 		</div>
 		<div id="footer-social">
 			<a href="https://twitter.com/{{ theme.social.twitter }}" alt="Twitter"><iron-icon icon="social-iconset:twitter"></iron-icon></a>
+			<a href="https://github.com/{{ theme.social.github }}" alt="GitHub"><iron-icon icon="social-iconset:github"></iron-icon></a>
 		</div>
 	</div>
 </footer>
