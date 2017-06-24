@@ -6,10 +6,6 @@
 		<div id="footer-description">
 			<p>{{ config.description }}</p>
 		</div>
-		<div id="footer-social">
-			<a href="https://twitter.com/{{ theme.social.twitter }}" alt="Twitter"><iron-icon icon="social-iconset:twitter"></iron-icon></a>
-			<a href="https://github.com/{{ theme.social.github }}" alt="GitHub"><iron-icon icon="social-iconset:github"></iron-icon></a>
-			<a href="https://plus.google.com/{{ theme.social.googleplus }}" alt="Google+"><iron-icon icon="social-iconset:googleplus"></iron-icon></a>
-		</div>
+		<div id="footer-social">{{ list_social() }}</div>
 	</div>
 </footer>
