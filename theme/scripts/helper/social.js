@@ -11,8 +11,8 @@ hexo.extend.helper.register('list_social', function listSocial() {
   return result;
 });
 
-hexo.extend.helper.register('url_for_social', function urlForSocial(type) {
-  var value = this.theme.social[type];
+hexo.extend.helper.register('url_for_social', function urlForSocial(type, value) {
+  value = value || this.theme.social[type];
   switch (type) {
     case 'github':
       return 'https://github.com/' + value;
