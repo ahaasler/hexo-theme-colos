@@ -18,6 +18,8 @@ hexo.extend.helper.register('url_for_social', function urlForSocial(type, value)
       return 'https://github.com/' + value;
     case 'googleplus':
       return 'https://plus.google.com/' + value;
+    case 'instagram':
+      return 'https://www.instagram.com/' + value;
     case 'twitter':
       return 'https://twitter.com/' + value;
     default:
