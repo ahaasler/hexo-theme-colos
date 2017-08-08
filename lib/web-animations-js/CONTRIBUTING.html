@@ -13,6 +13,7 @@
 <li>Run <code>grunt test</code> to run polyfill and web-platform-tests tests.</li>
 <li>Commit changes to your fork.</li>
 <li>Create a pull request from your fork of web-animations-js to<br><a href="https://github.com/web-animations/web-animations-js/tree/dev">web-animations/web-animations-js/dev</a>.</li>
+<li>Ensure that you’ve signed the <a href="https://cla.developers.google.com/clas">Google Contributor License Agreement</a>.</li>
 </ol>
 <h2 id="Debugging-tests"><a href="#Debugging-tests" class="headerlink" title="Debugging tests"></a>Debugging tests</h2><p>You can run the tests in an interactive mode with <code>grunt debug</code>. This starts the<br>Karma server once for each polyfill target for each test framework.<br>Navigate to <code>http://localhost:9876/debug.html</code> to open the test runner in your<br>browser of choice, all test results appear in the Javascript console.<br>Test failures can be accessed via <code>window.failures</code> and <code>window.formattedFailures</code><br>once the tests have completed.</p>
 <p>The polyfill target and tests can be specified as arguments to the <code>debug</code> task.<br>Example: <code>grunt debug:web-animations-next:test/web-platform-tests/web-animations/animation/pause.html</code><br>Multiple test files may be listed with comma separation. Specifying files will output their URL in the command line.<br>Example: <code>http://localhost:9876/base/test/web-platform-tests/web-animations/animation/pause.html</code></p>
@@ -47,7 +48,7 @@ git merge dev --no-edit --quiet
 <pre><code class="sh">npm install
 grunt
 <span class="comment"># Optional "grunt test" to make sure everything still passes.</span>
-git add <span class="_">-f</span> *.min.js*
+git add <span class="_">-f</span> *.min.js{,.map}
 git rm .gitignore
 git commit -m <span class="string">'Add build artifacts from '</span>`cat .git/refs/heads/dev`
 git push HEAD:refs/heads/master
