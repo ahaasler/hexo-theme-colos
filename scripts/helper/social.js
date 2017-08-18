@@ -5,7 +5,7 @@ hexo.extend.helper.register('list_social', function listSocial() {
   var social = this.theme.social || {};
   for (var type in social) {
     if (social.hasOwnProperty(type)) {
-      result += '<a href="' + this.url_for_social(type) + '" alt="' + type + '"><iron-icon icon="social-iconset:' + type + '"></iron-icon></a>'
+      result += '<a href="' + this.url_for_social(type) + '" alt="' + type + '"><iron-icon icon="' + iconForSocial(type) + '"></iron-icon></a>'
     }
   }
   return result;
@@ -31,3 +31,14 @@ hexo.extend.helper.register('url_for_social', function urlForSocial(type, value)
       return '#';
   }
 });
+
+function iconForSocial(type) {
+  var socialIconSet = ['github', 'googleplus', 'instagram', 'twitter'];
+  if (socialIconSet.indexOf(type) > -1) {
+    return 'social-iconset:' + type;
+  } else if (type == 'email') {
+    return 'communication:email'
+  } else {
+    return type;
+  }
+}
