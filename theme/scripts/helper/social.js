@@ -13,6 +13,9 @@ hexo.extend.helper.register('list_social', function listSocial() {
 
 hexo.extend.helper.register('url_for_social', function urlForSocial(type, value) {
   value = value || this.theme.social[type];
+  if (type == 'email') {
+    return value.startsWith('mailto:') ? value : 'mailto:' + value;
+  }
   // Regex by Daveo on https://stackoverflow.com/a/3809435
   var urlRegExp = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
   if (new RegExp(urlRegExp).test(value)) {
