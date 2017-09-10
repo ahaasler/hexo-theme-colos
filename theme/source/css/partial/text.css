@@ -43,6 +43,20 @@ h6 {
   font-size: 1.2em;
 }
 
+blockquote {
+  font-size: 1.4em;
+  color: var(--deep-purple);
+  @nest & p {
+    margin-top: 1em;
+    @nest &:before {
+      content:"\201C";
+    }
+    @nest &:after {
+      content:"\201D";
+    }
+  }
+}
+
 app-toolbar a:--selected {
   color: var(--deep-purple-100);
 }
