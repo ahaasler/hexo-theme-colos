@@ -48,6 +48,9 @@ blockquote {
   color: var(--deep-purple);
   @nest & p {
     margin-top: 1em;
+    @nest & a {
+      text-decoration: underline;
+    }
     @nest &:before {
       content:"\201C";
     }
