@@ -135,6 +135,16 @@ paper-card {
   }
 }
 
+table {
+  @nest & thead {
+    background-color: var(--deep-purple);
+    color: var(--white);
+  }
+  @nest & tbody tr:nth-child(even) {
+    background-color: var(--deep-purple-50);
+  }
+}
+
 footer {
   color: #fff;
   background-color: var(--primary-text);
