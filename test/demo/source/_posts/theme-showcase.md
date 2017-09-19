@@ -23,7 +23,7 @@ Ut tempor et quam vitae ultricies. Praesent purus nisl, tempor in purus viverra,
 Vivamus ultrices mattis elit molestie maximus. Pellentesque tempus feugiat varius. Curabitur vel lorem arcu. Nulla vestibulum eros sed risus auctor, vel lobortis tortor elementum. Suspendisse sed arcu arcu. Aliquam nec nisi eget ligula pharetra euismod. Phasellus consequat enim sed porta viverra. Sed sit amet lacus tincidunt eros convallis venenatis. Integer ultrices sapien mollis aliquet laoreet. Nullam tempus elit non mauris mattis, ut imperdiet ipsum mollis. Quisque vestibulum diam et velit lacinia bibendum.
 
 | Column 1 | Column 2 | Column 3 |
-|---|---|---|
+|:-:|:-:|:-:|
 | a | b | c |
 | d | e | f |
 | g | h | i |
