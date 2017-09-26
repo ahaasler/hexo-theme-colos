@@ -4,6 +4,7 @@
 }
 
 @custom-selector :--selected :hover, :focus, :active;
+@custom-selector :--list ol, ul;
 
 body {
   font-family: 'Roboto', sans-serif;
@@ -16,6 +17,14 @@ body {
   font-weight: 300;
   @nest & p {
     margin-bottom: 1em;
+  }
+  @nest & :--list :--list {
+    list-style-position: inside;
+  }
+  @nest & ul li:before {
+    content: "\f105";
+    font-family: FontAwesome;
+    margin-right: .5em;
   }
 }
 
