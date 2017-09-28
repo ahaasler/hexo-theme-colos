@@ -18,8 +18,15 @@ body {
   @nest & p {
     margin-bottom: 1em;
   }
-  @nest & :--list :--list {
-    list-style-position: inside;
+  @nest & :--list {
+    @nest & :--list {
+      list-style-position: inside;
+      margin-left: 1em;
+      font-size: 0.96em;
+    }
+    @nest & li:before {
+      color: var(--deep-purple);
+    }
   }
   @nest & ul li:before {
     content: "\f105";
