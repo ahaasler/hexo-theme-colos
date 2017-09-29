@@ -33,6 +33,14 @@ body {
     font-family: FontAwesome;
     margin-right: .5em;
   }
+  @nest & ol {
+    counter-reset: item;
+    @nest & li:before {
+      content: counter(item) ".";
+      counter-increment: item;
+      margin-right: .35em;
+    }
+  }
 }
 
 h1 {
