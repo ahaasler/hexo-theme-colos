@@ -35,6 +35,8 @@ Praesent malesuada ornare nisi sit amet dictum. Mauris ut tellus feugiat massa p
 ## Ordered list
 
 1. First item
+  1. First subitem
+  2. Second subitem
 2. Second item
 3. Third item
 
@@ -42,4 +44,12 @@ Praesent malesuada ornare nisi sit amet dictum. Mauris ut tellus feugiat massa p
 
 - Item
 - Another item
+  - Subitems
+    - Are
+      - Tinier
+        - The
+          - Deeper
+            - They
+              - Go
+  - Subitem
 - And again
