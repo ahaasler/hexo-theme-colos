@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang }}">
 {{ partial('partial/head') }}
-<body class="fullbleed">
+<body class="fullbleed" unresolved>
 	<app-drawer-layout>
 		{{ partial('partial/drawer') }}
 		<app-header-layout>
