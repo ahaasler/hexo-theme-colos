@@ -126,6 +126,13 @@ paper-card {
   }
 }
 
+article {
+  @nest & header {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+}
+
 .pagination a {
   @nest &:first-child {
     float: left;
