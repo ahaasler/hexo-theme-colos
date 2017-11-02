@@ -133,12 +133,15 @@ article {
   }
 }
 
-.pagination a {
-  @nest &:first-child {
-    float: left;
-  }
-  @nest &:last-child {
-    float: right;
+.pagination {
+  display: inline-block;
+  @nest & a {
+    @nest &:first-child {
+      float: left;
+    }
+    @nest &:last-child {
+      float: right;
+    }
   }
 }
 
