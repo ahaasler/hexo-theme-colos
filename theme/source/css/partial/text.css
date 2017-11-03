@@ -43,6 +43,19 @@ body {
   }
 }
 
+.pagination a {
+  @nest &:first-child:before {
+    content: "\f104";
+    font-family: FontAwesome;
+    margin-right: .5em;
+  }
+  @nest &:last-child:after {
+    content: "\f105";
+    font-family: FontAwesome;
+    margin-left: .5em;
+  }
+}
+
 h1 {
   font-size: 2.2em;
 }
