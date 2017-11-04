@@ -134,7 +134,7 @@ article {
 }
 
 .pagination {
-  display: inline-block;
+  margin-bottom: 4em;
   @nest & a {
     @nest &:first-child {
       float: left;
