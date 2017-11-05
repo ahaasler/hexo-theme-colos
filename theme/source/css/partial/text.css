@@ -44,12 +44,12 @@ body {
 }
 
 .pagination a {
-  @nest &:first-child:before {
+  @nest &.previous:before {
     content: "\f104";
     font-family: FontAwesome;
     margin-right: .5em;
   }
-  @nest &:last-child:after {
+  @nest &.next:after {
     content: "\f105";
     font-family: FontAwesome;
     margin-left: .5em;

@@ -136,10 +136,10 @@ article {
 .pagination {
   margin-bottom: 4em;
   @nest & a {
-    @nest &:first-child {
+    @nest &.previous {
       float: left;
     }
-    @nest &:last-child {
+    @nest &.next {
       float: right;
     }
   }
