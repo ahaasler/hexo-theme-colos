@@ -15,7 +15,7 @@ body {
   line-height: 1.6;
   font-size: 1.25em;
   font-weight: 300;
-  @nest & p {
+  @nest & p:not(:last-child) {
     margin-bottom: 1em;
   }
   @nest & :--list {
