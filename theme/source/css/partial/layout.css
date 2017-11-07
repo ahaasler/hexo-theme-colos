@@ -134,7 +134,8 @@ article {
 }
 
 .pagination {
-  margin-bottom: 4em;
+  padding-top: 1.5em;
+  padding-bottom: 2.5em;
   @nest & a {
     @nest &.previous {
       float: left;
