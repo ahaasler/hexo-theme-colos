@@ -139,9 +139,11 @@ article {
   @nest & a {
     @nest &.previous {
       float: left;
+      margin-left: 1em;
     }
     @nest &.next {
       float: right;
+      margin-right: 1em;
     }
   }
 }
