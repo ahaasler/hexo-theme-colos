@@ -119,6 +119,9 @@ a {
 
 .post-category {
   text-transform: capitalize;
+  @nest & .separator {
+    margin: 0 .4em;
+  }
 }
 
 .post-date {
