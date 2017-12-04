@@ -53,3 +53,7 @@ Praesent malesuada ornare nisi sit amet dictum. Mauris ut tellus feugiat massa p
               - Go
   - Subitem
 - And again
+
+# Text style
+
+You can use **bold text**, _italic_ and even **_bold and italic_**. If you want to get fancy you can also ~~strike~~ text.
