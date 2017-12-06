@@ -18,6 +18,9 @@ body {
   @nest & strong {
     font-weight: 500;
   }
+  @nest & em {
+    font-style: italic;
+  }
   @nest & p:not(:last-child) {
     margin-bottom: 1em;
   }
