@@ -148,7 +148,8 @@ paper-card {
 }
 
 pre,
-.highlight {
+.highlight,
+code {
   font-family: 'Roboto Mono', monospace;
   font-size: var(--highlight-font-size);
   line-height: var(--highlight-line-height);
