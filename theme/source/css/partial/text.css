@@ -1,6 +1,11 @@
 :root {
   --highlight-font-size: 0.83em;
   --highlight-line-height: 1.2em;
+  --highlight-text: {
+    font-family: 'Roboto Mono', monospace;
+    font-size: var(--highlight-font-size);
+    line-height: var(--highlight-line-height);
+  };
 }
 
 @custom-selector :--selected :hover, :focus, :active;
@@ -148,12 +153,14 @@ paper-card {
 }
 
 pre,
-.highlight,
-code {
-  font-family: 'Roboto Mono', monospace;
-  font-size: var(--highlight-font-size);
-  line-height: var(--highlight-line-height);
+.highlight {
+  @apply --highlight-text;
   @nest & .line {
     height: var(--highlight-line-height);
   }
+}
+
+code {
+  @apply --highlight-text;
+  font-size: calc(var(--highlight-font-size) * 1.1);
 }
