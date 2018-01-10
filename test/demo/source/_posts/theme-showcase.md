@@ -59,3 +59,10 @@ Praesent malesuada ornare nisi sit amet dictum. Mauris ut tellus feugiat massa p
 You can use **bold text**, _italic_ and even **_bold and italic_**. If you want to get fancy you can also ~~strike~~ text.
 
 Inline code blocks `look like this`.
+
+And normal code blocks look like this:
+
+```bash
+#!/bin/bash
+echo "Hello, World!"
+```
