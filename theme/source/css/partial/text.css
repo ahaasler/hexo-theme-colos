@@ -162,5 +162,5 @@ pre,
 
 code {
   @apply --highlight-text;
-  font-size: calc(var(--highlight-font-size) * 1.1);
+  font-size: calc(var(--highlight-font-size) * 1.05);
 }
