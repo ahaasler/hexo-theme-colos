@@ -163,4 +163,6 @@ pre,
 code {
   @apply --highlight-text;
   font-size: calc(var(--highlight-font-size) * 1.05);
+  line-height: calc(var(--highlight-line-height) * 1.05);
+  vertical-align: middle;
 }
